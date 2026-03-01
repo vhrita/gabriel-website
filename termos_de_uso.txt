@@ -1,0 +1,380 @@
+TERMOS DE USO
+Gabriel: Biblia e Devocional
+
+Ultima atualizacao: 28 de fevereiro de 2026
+Versao: 1.0
+
+========================================================================
+1. ACEITACAO DOS TERMOS
+========================================================================
+
+Ao baixar, instalar, acessar ou utilizar o aplicativo Gabriel: Biblia
+e Devocional ("Gabriel", "App" ou "Aplicativo"), desenvolvido pela
+VHXCO ("nos", "nosso" ou "Empresa"), voce ("usuario" ou "voce")
+concorda em ficar vinculado a estes Termos de Uso ("Termos").
+
+Se voce nao concordar com estes Termos, nao utilize o aplicativo.
+
+Estes Termos devem ser lidos em conjunto com nossa Politica de
+Privacidade, que rege o tratamento de seus dados pessoais.
+
+========================================================================
+2. DESCRICAO DO SERVICO
+========================================================================
+
+O Gabriel e um aplicativo de estudo biblico e devocional que oferece:
+
+2.1 FUNCIONALIDADES GRATUITAS
+- Criacao de conta (anonima, Google ou Apple)
+- Processo de onboarding com personalizacao do perfil espiritual
+- Acesso basico ao leitor biblico
+
+2.2 FUNCIONALIDADES PREMIUM (Assinatura)
+- Chat com inteligencia artificial "Gabriel" (powered by Google
+  Gemini 2.0) para perguntas e orientacao biblica
+- Devocionais personalizados gerados por IA com base em seu perfil
+  espiritual e capitulos biblicos selecionados
+- Algoritmo de matching para selecao personalizada de capitulos
+  biblicos
+- Sistema de streak e acompanhamento de progresso
+- Favoritar versiculos
+
+2.3 PERIODO DE TESTE
+- Novos usuarios podem ter acesso a um periodo de teste gratuito
+  das funcionalidades premium
+- A duracao do periodo de teste sera informada antes da ativacao
+- Apos o termino do periodo de teste, sera necessario assinar um
+  plano para continuar acessando funcionalidades premium
+
+========================================================================
+3. ELEGIBILIDADE
+========================================================================
+
+3.1 IDADE MINIMA
+Para utilizar o Gabriel, voce deve ter no minimo 13 anos de idade.
+Usuarios entre 13 e 18 anos devem ter o consentimento de um pai ou
+responsavel legal.
+
+3.2 CAPACIDADE LEGAL
+Ao aceitar estes Termos, voce declara que possui capacidade legal
+para celebrar este acordo ou que possui o consentimento de um
+responsavel legal.
+
+========================================================================
+4. CONTA DO USUARIO
+========================================================================
+
+4.1 CRIACAO DE CONTA
+- Voce pode criar uma conta de forma anonima ou vincular uma conta
+  Google ou Apple
+- Voce e responsavel por manter a seguranca de suas credenciais
+  de acesso
+- Voce deve fornecer informacoes verdadeiras e atualizadas
+
+4.2 CONTAS ANONIMAS
+- Contas anonimas possuem acesso limitado
+- Dados de contas anonimas podem ser perdidos se o aplicativo for
+  desinstalado ou o cache for limpo
+- Recomendamos vincular sua conta a um provedor (Google ou Apple)
+  para seguranca e sincronizacao
+
+4.3 UMA CONTA POR PESSOA
+- Cada pessoa deve utilizar apenas uma conta
+- E proibido criar multiplas contas para burlar limites de uso ou
+  periodos de teste
+
+4.4 ENCERRAMENTO DE CONTA
+- Voce pode solicitar o encerramento de sua conta a qualquer
+  momento entrando em contato conosco via e-mail
+- Reservamo-nos o direito de suspender ou encerrar contas que
+  violem estes Termos
+
+========================================================================
+5. ASSINATURAS E PAGAMENTOS
+========================================================================
+
+5.1 PLANOS DISPONIVEIS
+O Gabriel oferece os seguintes planos de assinatura:
+- Plano Mensal: Cobranca mensal recorrente
+- Plano Anual: Cobranca anual recorrente com desconto
+
+5.2 PROCESSAMENTO DE PAGAMENTO
+- Todos os pagamentos sao processados pelas lojas de aplicativos
+  (Google Play Store ou Apple App Store)
+- NAO temos acesso a seus dados de cartao de credito ou informacoes
+  financeiras diretas
+- Os precos podem variar conforme regiao e moeda local
+
+5.3 RENOVACAO AUTOMATICA
+- As assinaturas sao renovadas automaticamente ao final de cada
+  periodo (mensal ou anual), a menos que voce cancele antes do
+  termino do periodo em curso
+- A renovacao sera cobrada nas 24 horas anteriores ao fim do
+  periodo atual
+
+5.4 CANCELAMENTO
+- Voce pode cancelar sua assinatura a qualquer momento atraves
+  das configuracoes de assinatura da Google Play Store ou Apple
+  App Store
+- O cancelamento entra em vigor ao final do periodo de cobranca
+  ja pago
+- Voce continuara tendo acesso aos recursos premium ate o final
+  do periodo pago
+- NAO processamos cancelamentos diretamente; todo gerenciamento
+  de assinatura deve ser feito pela loja de aplicativos
+
+5.5 REEMBOLSOS
+- Reembolsos sao regidos pelas politicas de reembolso da Google
+  Play Store ou Apple App Store
+- Solicitacoes de reembolso devem ser direcionadas a loja de
+  aplicativos onde a compra foi realizada
+- Nos nao processamos reembolsos diretamente
+
+5.6 ALTERACAO DE PRECOS
+- Reservamo-nos o direito de alterar os precos das assinaturas
+- Alteracoes de preco serao comunicadas com antecedencia
+- Precos atualizados se aplicam apenas a novas assinaturas ou
+  renovacoes apos a alteracao
+
+========================================================================
+6. CONTEUDO GERADO POR INTELIGENCIA ARTIFICIAL
+========================================================================
+
+6.1 NATUREZA DO CONTEUDO
+O Gabriel utiliza inteligencia artificial (Google Gemini 2.0) para
+gerar conteudo, incluindo respostas no chat, devocionais e analises
+de perfil. E essencial que voce compreenda:
+
+- O conteudo gerado por IA e de carater INFORMATIVO e REFLEXIVO
+- NAO constitui aconselhamento teologico profissional
+- NAO constitui aconselhamento pastoral
+- NAO constitui aconselhamento psicologico, medico ou juridico
+- NAO substitui a orientacao de lideres religiosos, pastores,
+  padres ou conselheiros espirituais qualificados
+- NAO substitui tratamento de saude mental ou aconselhamento
+  profissional
+
+6.2 LIMITACOES DA IA
+- A IA pode gerar respostas imprecisas, incompletas ou que nao
+  reflitam com precisao a doutrina de sua denominacao especifica
+- A IA nao possui consciencia, fe ou experiencia espiritual real
+- Interpretacoes biblicas geradas pela IA podem diferir de
+  posicoes denominacionais especificas
+- Em caso de duvida sobre questoes teologicas ou espirituais,
+  busque orientacao de lideranca religiosa qualificada
+
+6.3 ISENÇÃO DE RESPONSABILIDADE POR CONTEUDO DE IA
+- Nao nos responsabilizamos por decisoes tomadas com base no
+  conteudo gerado pela IA
+- O uso de informacoes obtidas atraves do chat com Gabriel e de
+  inteira responsabilidade do usuario
+- Para questoes urgentes de saude mental, crises emocionais ou
+  situacoes de risco, procure ajuda profissional imediatamente
+  (CVV: 188 | SAMU: 192)
+
+========================================================================
+7. USO PERMITIDO
+========================================================================
+
+Voce concorda em utilizar o Gabriel apenas para:
+- Estudo biblico pessoal e devocional
+- Reflexao espiritual e crescimento pessoal
+- Leitura e acompanhamento da Biblia
+- Conversas com a IA sobre temas biblicos e espirituais
+- Uso pessoal e nao comercial
+
+========================================================================
+8. USO PROIBIDO
+========================================================================
+
+Voce concorda em NAO:
+
+8.1 ABUSO DO SERVICO
+- Utilizar o aplicativo para fins ilegais ou nao autorizados
+- Tentar acessar dados de outros usuarios
+- Burlar limites de uso ou sistemas de seguranca
+- Criar multiplas contas para obter periodos de teste adicionais
+- Utilizar bots, scrapers ou automacao para interagir com o servico
+- Realizar engenharia reversa, descompilacao ou desmontagem do
+  aplicativo
+
+8.2 CONTEUDO INADEQUADO
+- Enviar mensagens ofensivas, discriminatorias, de odio ou
+  ameacadoras ao chat
+- Utilizar o chat para fins que nao sejam relacionados a temas
+  biblicos, espirituais ou de crescimento pessoal
+- Tentar manipular a IA para gerar conteudo impróprio, ofensivo
+  ou prejudicial
+
+8.3 ABUSO TECNICO
+- Sobrecarregar intencionalmente os servidores ou infraestrutura
+- Tentar explorar vulnerabilidades de seguranca
+- Interferir no funcionamento do aplicativo para outros usuarios
+- Utilizar o aplicativo para distribuir malware ou software nocivo
+
+========================================================================
+9. PROPRIEDADE INTELECTUAL
+========================================================================
+
+9.1 CONTEUDO DO APLICATIVO
+- O design, interface, codigo-fonte, elementos visuais e texto
+  original do aplicativo sao propriedade da VHXCO
+- O conteudo biblico utilizado pertence ao dominio publico ou e
+  utilizado sob licencas apropriadas
+- Devocionais gerados por IA sao de propriedade da VHXCO, com
+  direito de uso pessoal concedido ao usuario
+
+9.2 CONTEUDO DO USUARIO
+- Voce mantem os direitos sobre o conteudo que fornece (carta a
+  Deus, mensagens no chat, etc.)
+- Ao fornecer conteudo, voce nos concede uma licenca limitada
+  para processamento (analise por IA, armazenamento, exibicao
+  no aplicativo)
+- Esta licenca e nao exclusiva, gratuita e limitada a operacao
+  do servico
+
+9.3 FEEDBACK
+- Caso voce forneca sugestoes, comentarios ou ideias sobre o
+  aplicativo, nos reservamos o direito de utiliza-los para
+  melhorias sem obrigacao de compensacao
+
+========================================================================
+10. DISPONIBILIDADE DO SERVICO
+========================================================================
+
+10.1 DISPONIBILIDADE
+- Nos esforçamos para manter o Gabriel disponivel 24/7, mas nao
+  garantimos disponibilidade ininterrupta
+- O servico pode ficar temporariamente indisponivel para
+  manutencao, atualizacoes ou por razoes tecnicas
+
+10.2 ALTERACOES NO SERVICO
+- Reservamo-nos o direito de modificar, atualizar ou descontinuar
+  funcionalidades do aplicativo
+- Alteracoes significativas serao comunicadas com antecedencia
+  razoavel
+
+10.3 DEPENDENCIA DE TERCEIROS
+- O funcionamento do Gabriel depende de servicos de terceiros
+  (Supabase, Google Cloud, RevenueCat)
+- Nao nos responsabilizamos por indisponibilidade causada por
+  falhas em servicos de terceiros
+
+========================================================================
+11. LIMITACAO DE RESPONSABILIDADE
+========================================================================
+
+11.1 ISENÇÃO GERAL
+Na extensao maxima permitida pela lei aplicavel:
+
+- O Gabriel e fornecido "como esta" (as is) e "conforme
+  disponivel" (as available)
+- Nao oferecemos garantias expressas ou implicitas sobre a
+  precisao, confiabilidade ou adequacao do conteudo para
+  qualquer finalidade especifica
+
+11.2 LIMITACAO DE DANOS
+- Em nenhuma circunstancia a VHXCO sera responsavel por danos
+  indiretos, incidentais, especiais, consequenciais ou punitivos
+  decorrentes do uso do aplicativo
+- Nossa responsabilidade total nao excede o valor pago pelo
+  usuario nos ultimos 12 meses de assinatura
+
+11.3 ACONSELHAMENTO PROFISSIONAL
+- O Gabriel NAO e substituto para aconselhamento profissional de
+  qualquer natureza
+- Para questoes de saude mental ou crises emocionais, busque
+  ajuda profissional
+- Em emergencias, ligue para os servicos de emergencia locais
+
+========================================================================
+12. INDENIZACAO
+========================================================================
+
+Voce concorda em indenizar e isentar a VHXCO, seus diretores,
+funcionarios e parceiros de qualquer reclamacao, demanda, perda ou
+dano, incluindo honorarios advocaticios, decorrentes de:
+
+- Sua violacao destes Termos
+- Sua violacao de direitos de terceiros
+- Uso indevido do aplicativo
+
+========================================================================
+13. RESCISAO
+========================================================================
+
+13.1 POR PARTE DO USUARIO
+- Voce pode parar de usar o aplicativo a qualquer momento
+- Para encerrar completamente sua conta, envie uma solicitacao
+  para vhrita.dev@gmail.com
+
+13.2 POR PARTE DA EMPRESA
+- Podemos suspender ou encerrar seu acesso ao aplicativo, com
+  ou sem aviso previo, se:
+  - Voce violar estes Termos
+  - Voce abusar do servico
+  - For necessario por razoes de seguranca
+  - For exigido por lei
+
+13.3 EFEITOS DA RESCISAO
+- Seu acesso as funcionalidades sera revogado
+- Dados podem ser retidos conforme descrito na Politica de
+  Privacidade
+- Disposicoes que por sua natureza devam sobreviver a rescisao
+  continuarao em vigor (propriedade intelectual, limitacao de
+  responsabilidade, indenizacao)
+
+========================================================================
+14. DISPOSICOES GERAIS
+========================================================================
+
+14.1 LEGISLACAO APLICAVEL
+Estes Termos sao regidos pelas leis da Republica Federativa do
+Brasil.
+
+14.2 FORO
+Fica eleito o foro da comarca de residencia do responsavel pela
+empresa para dirimir quaisquer controversias.
+
+14.3 INTEGRALIDADE
+Estes Termos, juntamente com a Politica de Privacidade, constituem
+o acordo integral entre voce e a VHXCO com relacao ao uso do Gabriel.
+
+14.4 SEPARABILIDADE
+Se qualquer disposicao destes Termos for considerada invalida ou
+inexequivel, as demais disposicoes permanecerao em pleno vigor e
+efeito.
+
+14.5 CESSAO
+Voce nao pode ceder ou transferir seus direitos sob estes Termos
+sem nosso consentimento previo por escrito.
+
+14.6 RENUNCIA
+A falha em exercer qualquer direito previsto nestes Termos nao
+constitui renuncia a tal direito.
+
+14.7 ALTERACOES NOS TERMOS
+- Reservamo-nos o direito de alterar estes Termos a qualquer
+  momento
+- Alteracoes significativas serao comunicadas atraves do
+  aplicativo
+- O uso continuado do aplicativo apos alteracoes constitui
+  aceitacao dos novos Termos
+- A data de "Ultima atualizacao" sera alterada a cada revisao
+
+========================================================================
+15. CONTATO
+========================================================================
+
+Para duvidas, sugestoes ou reclamacoes sobre estes Termos de Uso,
+entre em contato:
+
+E-mail: vhrita.dev@gmail.com
+Assunto: [Termos de Uso Gabriel] Sua mensagem
+
+========================================================================
+FIM DOS TERMOS DE USO
+Gabriel: Biblia e Devocional
+Versao 1.0 - 28 de fevereiro de 2026
+VHXCO - Todos os direitos reservados
+========================================================================

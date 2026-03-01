@@ -1,0 +1,145 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Gabriel — Seu guia espiritual diário.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo">Gabriel</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/privacy">Privacidade</a></li>
+            <li><a href="/terms">Termos de Uso</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; {new Date().getFullYear()} <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer" class="footer-company">VHXCO</a>. Todos os direitos reservados.</p>
+        <nav class="footer-links">
+          <a href="/privacy">Privacidade</a>
+          <a href="/terms">Termos de Uso</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(15, 15, 19, 0.8);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .logo:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .site-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-xl) 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .footer-inner p {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .footer-inner a {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .footer-inner a:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-company {
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .footer-company:hover {
+    color: var(--color-accent);
+  }
+</style>
