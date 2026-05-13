@@ -33,9 +33,9 @@ const {
 
 const variantClass =
   variant === 'primary'
-    ? 'bg-divine-500 hover:bg-divine-600 text-white shadow-soft hover:shadow-glow transition-all duration-200 rounded-2xl px-8 py-4 font-semibold text-base hover:-translate-y-0.5'
+    ? 'bg-divine-500 hover:bg-divine-600 text-celestial-900 shadow-soft hover:shadow-glow transition-all duration-200 rounded-2xl px-8 py-4 font-semibold text-base hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-2'
     : variant === 'secondary'
-      ? 'bg-transparent border-2 border-celestial-700 text-celestial-700 hover:bg-celestial-700 hover:text-white rounded-2xl px-8 py-4 font-semibold text-base transition-all duration-200'
+      ? 'bg-transparent border-2 border-celestial-700 text-celestial-700 hover:bg-celestial-700 hover:text-white rounded-2xl px-8 py-4 font-semibold text-base transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-celestial-700 focus-visible:ring-offset-2'
       : 'bg-slate-200 text-slate-400 cursor-not-allowed rounded-2xl px-8 py-4 font-semibold text-base';
 
 const externalProps =

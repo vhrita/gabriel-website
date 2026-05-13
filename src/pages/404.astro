@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+---
+<BaseLayout
+  title="Página não encontrada — Gabriel"
+  description="A página que você procura não existe."
+  headerVariant="solid"
+  pathname="/404"
+>
+  <Section bg="white" class="min-h-[60vh] flex items-center">
+    <Container class="text-center">
+      <h1 class="font-serif font-bold text-celestial-700 tracking-tight" style="font-size: clamp(4rem, 15vw, 8rem); line-height: 1;">404</h1>
+      <p class="font-serif italic text-celestial-600 mt-4 mb-10" style="font-size: clamp(1.125rem, 3vw, 1.5rem);">Esse caminho não levou a lugar nenhum.</p>
+      <Button variant="primary" href="/">&#8592; Voltar pra Home</Button>
+    </Container>
+  </Section>
+</BaseLayout>

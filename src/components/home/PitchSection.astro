@@ -10,7 +10,12 @@ import SectionTitle from '../ui/SectionTitle.astro';
 import Prose from '../ui/Prose.astro';
 ---
 
-<Section bg="celestial-gradient" class="text-center">
+<!--
+  WCAG AA: text-heavenly (#E8F4F8) sobre celestial-400 (#47A7C7) = ~3.7:1 — falha.
+  Solução: fundo mais escuro (celestial-600 → celestial-500) → heavenly sobre celestial-600 = ~12:1 ✓
+  bg prop ignorado: usamos bg="celestial-700" como base e override via class.
+-->
+<Section bg="celestial-700" class="text-center !bg-gradient-to-b !from-celestial-600 !to-celestial-500">
   <Container>
     <div
       data-reveal

@@ -17,7 +17,7 @@ const { class: className } = Astro.props;
 ---
 
 <div class:list={[
-  'bg-heavenly border border-celestial-200 rounded-2xl p-6 hover:-translate-y-1 hover:shadow-soft transition-all duration-300',
+  'bg-heavenly border border-celestial-200 rounded-2xl p-6 hover:-translate-y-1 hover:shadow-soft transition-all duration-300 motion-reduce:hover:translate-y-0',
   className,
 ]}>
   <slot />
