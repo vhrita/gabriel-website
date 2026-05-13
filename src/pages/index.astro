@@ -1,16 +1,53 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
 import HeroSection from '../components/hero/HeroSection.astro';
 import WingsTransition from '../components/hero/WingsTransition.astro';
 import PitchSection from '../components/home/PitchSection.astro';
 import FeaturesGrid from '../components/home/FeaturesGrid.astro';
 import Showcase from '../components/home/Showcase.astro';
+
+const jsonLdData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "VHXCO",
+    "legalName": "VHXCO",
+    "url": "https://vhxco.com.br",
+    "taxID": "62.874.893/0001-51",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "vitor@vhxco.com",
+      "contactType": "customer support"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Gabriel — Bíblia e Devocional",
+    "description": "App mobile de crescimento espiritual com devocionais personalizados por IA, leitura bíblica em 3 idiomas e chat com IA contextualizada por religião.",
+    "url": "https://gabriel.vhxco.com",
+    "operatingSystem": "ANDROID, IOS",
+    "applicationCategory": "LifestyleApplication",
+    "publisher": {
+      "@type": "Organization",
+      "name": "VHXCO"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+];
 ---
 <BaseLayout
   title="Gabriel — Sua jornada espiritual, todos os dias"
   description="Devocionais personalizados por IA, a Bíblia inteira em 3 idiomas e um caminho de leitura que cresce com você."
   headerVariant="transparent"
 >
+  <JsonLd data={jsonLdData} />
   <HeroSection />
   <WingsTransition />
   <PitchSection />

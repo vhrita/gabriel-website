@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
 import Container from '../components/ui/Container.astro';
 import LegalSection from '../components/ui/LegalSection.astro';
 import InfoBox from '../components/ui/InfoBox.astro';
@@ -13,18 +14,25 @@ const sections = [
   { id: 'informacoes-adicionais', title: 'Informações Adicionais' },
 ];
 
-const jsonLd = JSON.stringify({
+const jsonLdData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Excluir Conta — Gabriel: Bíblia e Devocional",
   "description": "Solicite a exclusão da sua conta e dados pessoais do aplicativo Gabriel: Bíblia e Devocional.",
+  "url": "https://gabriel.vhxco.com/delete-account",
   "inLanguage": "pt-BR",
+  "lastReviewed": "2026-02-28",
   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Gabriel",
+    "url": "https://gabriel.vhxco.com"
+  },
+  "publisher": {
     "@type": "Organization",
     "name": "VHXCO",
     "url": "https://vhxco.com.br"
   }
-});
+};
 ---
 
 <BaseLayout
@@ -32,7 +40,7 @@ const jsonLd = JSON.stringify({
   description="Solicite a exclusão da sua conta e dados pessoais do aplicativo Gabriel: Bíblia e Devocional."
   headerVariant="solid"
 >
-  <script type="application/ld+json" set:html={jsonLd} />
+  <JsonLd data={jsonLdData} />
 
   <Container class="py-12">
     <!-- Cabeçalho da página -->

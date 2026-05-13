@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
 import Container from '../components/ui/Container.astro';
 import LegalSection from '../components/ui/LegalSection.astro';
 import InfoBox from '../components/ui/InfoBox.astro';
@@ -24,18 +25,25 @@ const sections = [
   { id: 'contato', title: '15. Contato' },
 ];
 
-const jsonLd = JSON.stringify({
+const jsonLdData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Termos de Uso — Gabriel: Bíblia e Devocional",
   "description": "Termos de Uso do aplicativo Gabriel: Bíblia e Devocional. Leia antes de utilizar o aplicativo.",
+  "url": "https://gabriel.vhxco.com/terms",
   "inLanguage": "pt-BR",
+  "lastReviewed": "2026-02-28",
   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Gabriel",
+    "url": "https://gabriel.vhxco.com"
+  },
+  "publisher": {
     "@type": "Organization",
     "name": "VHXCO",
     "url": "https://vhxco.com.br"
   }
-});
+};
 ---
 
 <BaseLayout
@@ -43,7 +51,7 @@ const jsonLd = JSON.stringify({
   description="Termos de Uso do aplicativo Gabriel: Bíblia e Devocional. Leia antes de utilizar o aplicativo."
   headerVariant="solid"
 >
-  <script type="application/ld+json" set:html={jsonLd} />
+  <JsonLd data={jsonLdData} />
 
   <Container class="py-12">
     <!-- Cabeçalho da página -->

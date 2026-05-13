@@ -2,20 +2,24 @@
 interface Props {
   title: string;
   description?: string;
-  canonical?: string;
-  ogImage?: string;
+  image?: string;
+  pathname?: string;
+  type?: 'website' | 'article';
   headerVariant?: 'transparent' | 'solid';
 }
 
 const {
   title,
   description = 'Gabriel: Bíblia e Devocional — Sua jornada espiritual, todos os dias.',
-  canonical,
-  ogImage = '/og-image.png',
+  image = '/og-image.png',
+  pathname,
+  type = 'website',
   headerVariant = 'solid',
 } = Astro.props;
 
-const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site ?? 'https://gabriel.vhxco.com.br').href;
+const resolvedPathname = pathname ?? Astro.url.pathname;
+const canonicalURL = new URL(resolvedPathname, Astro.site ?? 'https://gabriel.vhxco.com');
+const ogImageURL = new URL(image, Astro.site ?? 'https://gabriel.vhxco.com');
 const year = new Date().getFullYear();
 ---
 
@@ -31,22 +35,22 @@ const year = new Date().getFullYear();
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Theme color -->
-    <meta name="theme-color" content="#162B49" />
+    <meta name="theme-color" content="#1E3A5F" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageURL} />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content="Gabriel: Bíblia e Devocional" />
+    <meta property="og:site_name" content="Gabriel" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
