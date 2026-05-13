@@ -1,8 +1,121 @@
 /* ===========================
-   Gabriel App Website
-   Global Styles & Design Tokens
+   Gabriel Website — Global Styles
+   Tailwind 4 + @fontsource self-hosted
    =========================== */
 
+/* Tailwind 4 entry point */
+@import "tailwindcss";
+
+/* --- Self-hosted fonts via @fontsource --- */
+/* Inter (sans) */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+/* Lora (serif / display) */
+@import "@fontsource/lora/500-italic.css";
+@import "@fontsource/lora/600.css";
+@import "@fontsource/lora/700.css";
+
+/* --- Tailwind 4 design tokens via @theme --- */
+@theme {
+  /* Colors — celestial */
+  --color-celestial-50: #E8F4F8;
+  --color-celestial-100: #D1E9F1;
+  --color-celestial-200: #A3D3E3;
+  --color-celestial-300: #75BDD5;
+  --color-celestial-400: #47A7C7;
+  --color-celestial-500: #1E3A5F;
+  --color-celestial-600: #1A3354;
+  --color-celestial-700: #162B49;
+  --color-celestial-800: #12243E;
+  --color-celestial-900: #0E1D33;
+
+  /* Colors — divine */
+  --color-divine-50: #FBF7E8;
+  --color-divine-100: #F7EFD1;
+  --color-divine-200: #EFDFA3;
+  --color-divine-300: #E7CF75;
+  --color-divine-400: #DFBF47;
+  --color-divine-500: #D4AF37;
+  --color-divine-600: #BF9E32;
+  --color-divine-700: #AA8D2C;
+  --color-divine-800: #957C27;
+  --color-divine-900: #806B21;
+
+  /* Colors — sacred (50/500/700 only) */
+  --color-sacred-50: #EEEAF4;
+  --color-sacred-500: #4A3B6E;
+  --color-sacred-700: #3A2F58;
+
+  /* Colors — garden (50/500/700 only) */
+  --color-garden-50: #EDF4EF;
+  --color-garden-500: #4A7C59;
+  --color-garden-700: #3A6447;
+
+  /* Colors — life (50/500/700 only) */
+  --color-life-50: #F4FAE6;
+  --color-life-500: #7CB518;
+  --color-life-700: #649114;
+
+  /* Colors — semantic */
+  --color-heavenly: #E8F4F8;
+  --color-lavender: #E6E6FA;
+
+  /* Font families */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-serif: 'Lora', Georgia, serif;
+  --font-family-display: 'Lora', Georgia, serif; /* wordmark; substituir por Playfair Display se Vitor pedir */
+
+  /* Border radius */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Box shadows */
+  --shadow-soft: 0 4px 20px rgba(30, 58, 95, 0.08);
+  --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.3);
+
+  /* Keyframes */
+  --animate-breath: breath 4s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.6s ease-out forwards;
+}
+
+@keyframes breath {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.005); }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Reset minimal --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Body base — tema dark legado; SUB-2 vai migrar pro novo design system */
+body {
+  font-family: var(--font-family-sans);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+/* --- Legacy CSS custom properties ---
+   Mantidas para compatibilidade com <style> inline das páginas existentes.
+   Serão removidas quando SUB-2 refatorar os componentes.
+   ---------------------------------------- */
 :root {
   /* Colors */
   --color-bg: #0f0f13;
@@ -39,29 +152,7 @@
   --transition-base: 250ms ease;
 }
 
-/* Reset & Base */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  line-height: 1.6;
-  min-height: 100dvh;
-}
-
+/* Legacy base — mantido para páginas existentes (SUB-2 vai remover) */
 a {
   color: var(--color-accent);
   text-decoration: none;
@@ -72,7 +163,6 @@ a:hover {
   color: var(--color-accent-hover);
 }
 
-/* Utility */
 .container {
   width: 100%;
   max-width: 720px;

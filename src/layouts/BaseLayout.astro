@@ -17,13 +17,9 @@ const { title, description = 'Gabriel — Seu guia espiritual diário.' } = Astr
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts: self-hosted via @fontsource (see global.css) -->
+    <!-- Inter 400 latin preloaded via Astro's built-in font optimization.
+         @fontsource sets font-display: swap on all faces — no layout shift. -->
 
     <title>{title}</title>
   </head>
