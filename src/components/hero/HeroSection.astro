@@ -1,0 +1,37 @@
+---
+/**
+ * HeroSection.astro
+ * Seção Hero da Home — wordmark Gabriel, tagline, 2 CTAs, ScrollCue.
+ * Requer que o pai (BaseLayout) tenha headerVariant="transparent".
+ */
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+import ScrollCue from '../ui/ScrollCue.astro';
+---
+
+<Section bg="white" class="relative min-h-screen flex flex-col items-center justify-center text-center px-4">
+  <div class="flex flex-col items-center gap-0">
+    <h1 class="font-serif font-bold text-celestial-700 tracking-tight animate-breath" style="font-size: clamp(3rem, 12vw, 6rem); line-height: 1.05;">
+      Gabriel
+    </h1>
+
+    <p class="font-serif font-medium italic text-celestial-600 max-w-prose mt-4" style="font-size: clamp(1.25rem, 3vw, 1.75rem);">
+      Sua jornada espiritual, todos os dias.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 mt-8">
+      <Button
+        variant="primary"
+        href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+        external
+      >
+        Baixar no Google Play
+      </Button>
+      <Button variant="secondary" href="#features">
+        Saiba mais
+      </Button>
+    </div>
+  </div>
+
+  <ScrollCue />
+</Section>
