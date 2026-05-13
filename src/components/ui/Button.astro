@@ -2,6 +2,8 @@
 /**
  * Button.astro
  * CTA reutilizável com 3 variantes: primary (divine), secondary (outline), disabled.
+ * v1.5: text-ink (era celestial-900), rounded-editorial-md 8px (era 2xl 24px),
+ *       sem hover lift (manuscrito não pula — só shadow change).
  *
  * Props:
  *   variant: 'primary' | 'secondary' | 'disabled'
@@ -31,12 +33,21 @@ const {
   external = false,
 } = Astro.props;
 
+// v1.5: text-ink em primary (AAA sobre divine-500: 6.4:1), rounded-editorial-md (8px)
+// Sem hover:-translate-y — manuscrito é quieto, shadow-divine-glow basta
 const variantClass =
   variant === 'primary'
-    ? 'bg-divine-500 hover:bg-divine-600 text-celestial-900 shadow-soft hover:shadow-glow transition-all duration-200 rounded-2xl px-8 py-4 font-semibold text-base hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-2'
+    ? 'transition-all duration-200 hover:shadow-divine-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-2'
     : variant === 'secondary'
-      ? 'bg-transparent border-2 border-celestial-700 text-celestial-700 hover:bg-celestial-700 hover:text-white rounded-2xl px-8 py-4 font-semibold text-base transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-celestial-700 focus-visible:ring-offset-2'
-      : 'bg-slate-200 text-slate-400 cursor-not-allowed rounded-2xl px-8 py-4 font-semibold text-base';
+      ? 'transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
+      : 'cursor-not-allowed opacity-60';
+
+const variantStyle =
+  variant === 'primary'
+    ? `background-color: var(--color-divine-500); color: var(--color-ink); border-radius: var(--radius-editorial-md); padding: 0.875rem 2rem; font-family: var(--font-family-sans); font-weight: 600; font-size: 0.9375rem;`
+    : variant === 'secondary'
+      ? `background-color: transparent; color: var(--color-ink); border: 2px solid var(--color-ink); border-radius: var(--radius-editorial-md); padding: 0.875rem 2rem; font-family: var(--font-family-sans); font-weight: 600; font-size: 0.9375rem;`
+      : `background-color: #e2e8f0; color: #94a3b8; border-radius: var(--radius-editorial-md); padding: 0.875rem 2rem; font-family: var(--font-family-sans); font-weight: 600; font-size: 0.9375rem;`;
 
 const externalProps =
   external && Tag === 'a'
@@ -56,6 +67,7 @@ const disabledProps =
     variantClass,
     className,
   ]}
+  style={variantStyle}
   {...externalProps}
   {...disabledProps}
 >
@@ -63,8 +75,8 @@ const disabledProps =
   {external && (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
+      width="13"
+      height="13"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

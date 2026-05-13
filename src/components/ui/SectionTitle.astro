@@ -2,11 +2,13 @@
 /**
  * SectionTitle.astro
  * Título de seção tipográfico com variantes de heading, alinhamento e tom de cor.
+ * v1.5: font-display (Fraunces) em vez de font-serif (era Lora), tokens novos.
  *
  * Props:
  *   as?: 'h1' | 'h2' | 'h3'        — tag HTML (default: h2)
+ *   size?: 'display'|'h1'|'h2'|'h3' — escala (default: h1)
  *   align?: 'left' | 'center'       — alinhamento do texto (default: left)
- *   tone?: 'on-light' | 'on-dark'   — cor do texto conforme fundo (default: on-light)
+ *   tone?: 'on-paper'|'on-ink'|'on-light'|'on-dark' — cor (default: on-paper)
  *   class?: string                   — classes extras
  *   slot — conteúdo do título
  *
@@ -16,29 +18,50 @@
 
 interface Props {
   as?: 'h1' | 'h2' | 'h3';
+  size?: 'display' | 'h1' | 'h2' | 'h3';
   align?: 'left' | 'center';
-  tone?: 'on-light' | 'on-dark';
+  tone?: 'on-paper' | 'on-ink' | 'on-light' | 'on-dark';
   class?: string;
 }
 
 const {
   as: Tag = 'h2',
+  size = 'h1',
   align = 'left',
-  tone = 'on-light',
+  tone = 'on-paper',
   class: className,
 } = Astro.props;
 
 const alignClass = align === 'center' ? 'text-center' : 'text-left';
 
-// Classes de cor literais — sem interpolação
-const colorClass = tone === 'on-dark' ? 'text-heavenly' : 'text-celestial-700';
+// Cor inline via CSS var — sem interpolação de classe Tailwind
+const colorStyle =
+  tone === 'on-ink'
+    ? 'color: var(--color-paper);'
+    : tone === 'on-light'
+      ? 'color: var(--color-celestial-700);'  // legacy legais
+      : tone === 'on-dark'
+        ? 'color: var(--color-heavenly);'      // legacy legacy
+        : 'color: var(--color-ink);';           // on-paper (default v1.5)
+
+// Escala tipográfica editorial
+const sizeStyle =
+  size === 'display'
+    ? `font-size: clamp(2.5rem, 6vw, 4.5rem); font-variation-settings: 'opsz' 72, 'wght' 600; line-height: 1.02; letter-spacing: -0.025em;`
+    : size === 'h2'
+      ? `font-size: clamp(1.625rem, 3.2vw, 2.25rem); font-variation-settings: 'opsz' 32, 'wght' 600; line-height: 1.15; letter-spacing: -0.015em;`
+      : size === 'h3'
+        ? `font-size: 1.375rem; font-variation-settings: 'opsz' 24, 'wght' 600; line-height: 1.25; letter-spacing: -0.01em;`
+        : `font-size: clamp(2rem, 4.5vw, 3.25rem); font-variation-settings: 'opsz' 48, 'wght' 600; line-height: 1.08; letter-spacing: -0.02em;`; // h1
 ---
 
-<Tag class:list={[
-  'font-serif font-semibold text-3xl md:text-4xl lg:text-5xl tracking-tight',
-  alignClass,
-  colorClass,
-  className,
-]}>
+<Tag
+  class:list={[
+    'font-display',
+    alignClass,
+    className,
+  ]}
+  style={`font-family: var(--font-family-display); ${sizeStyle} ${colorStyle} -webkit-font-smoothing: antialiased;`}
+>
   <slot />
 </Tag>

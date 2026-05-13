@@ -684,6 +684,8 @@ Componente passa a:
 
 ## 9. Decisões abertas pra Vitor bater (HITL antes do builder)
 
+> **STATUS: RESPONDIDAS — 2026-05-13. Ver ADR-0015 §11 (source of truth).** Implementadas no builder commit feat(v1.5-1) a feat(v1.5-7). Decisões abaixo mantidas para registro histórico.
+
 > Essas decisões ficam pendentes até Vitor responder. Builder não pega a task até que respostas existam (ou Vitor mande "use default").
 
 ### Q1. Tom da copy editorial — solene vs acolhedor vs poético?
