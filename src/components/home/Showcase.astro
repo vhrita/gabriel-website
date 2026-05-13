@@ -1,0 +1,188 @@
+---
+/**
+ * Showcase.astro
+ * 3 phone-frame placeholders SVG + CTA Google Play + App Store.
+ * Parallax suave no mockup do meio via CSS scroll-driven (@supports).
+ * Fallback estático em browsers sem suporte a animation-timeline: scroll().
+ */
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import Button from '../ui/Button.astro';
+---
+
+<Section bg="heavenly" class="text-center">
+  <Container>
+    <!-- Mockups -->
+    <!-- TODO: Vitor entrega screenshots reais -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16 items-center justify-items-center">
+
+      <!-- Mockup esquerdo -->
+      <div data-reveal class="reveal-on-enter" style="--delay: 0ms">
+        <div class="phone-frame">
+          <svg
+            width="160"
+            height="280"
+            viewBox="0 0 160 280"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="Screenshot do app Gabriel (placeholder)"
+            role="img"
+          >
+            <!-- Frame externo -->
+            <rect x="2" y="2" width="156" height="276" rx="22" stroke="#1E3A5F" stroke-width="3" fill="white" />
+            <!-- Notch / câmera -->
+            <rect x="60" y="10" width="40" height="8" rx="4" fill="#CBD5E1" />
+            <!-- Área de conteúdo placeholder -->
+            <rect x="12" y="30" width="136" height="228" rx="8" fill="#F1F5F9" />
+            <text x="80" y="150" text-anchor="middle" font-size="11" fill="#94A3B8" font-family="system-ui, sans-serif">screenshot aqui</text>
+            <!-- Botão home -->
+            <rect x="65" y="266" width="30" height="4" rx="2" fill="#CBD5E1" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Mockup central (parallax) -->
+      <div data-reveal class="reveal-on-enter phone-frame-center" style="--delay: 80ms">
+        <div class="phone-frame phone-frame--featured">
+          <svg
+            width="180"
+            height="316"
+            viewBox="0 0 180 316"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="Screenshot principal do app Gabriel (placeholder)"
+            role="img"
+          >
+            <!-- Frame externo — celestial mais forte -->
+            <rect x="2" y="2" width="176" height="312" rx="26" stroke="#162B49" stroke-width="3.5" fill="white" />
+            <!-- Notch / câmera -->
+            <rect x="68" y="11" width="44" height="9" rx="4.5" fill="#B0C4D8" />
+            <!-- Área de conteúdo placeholder -->
+            <rect x="13" y="33" width="154" height="258" rx="10" fill="#EBF2FA" />
+            <text x="90" y="168" text-anchor="middle" font-size="12" fill="#7A9BB5" font-family="system-ui, sans-serif">screenshot aqui</text>
+            <!-- Sombra suave no topo -->
+            <rect x="13" y="33" width="154" height="24" rx="10" fill="#D4E4F2" />
+            <!-- Botão home -->
+            <rect x="73" y="300" width="34" height="5" rx="2.5" fill="#B0C4D8" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Mockup direito -->
+      <div data-reveal class="reveal-on-enter" style="--delay: 160ms">
+        <div class="phone-frame">
+          <svg
+            width="160"
+            height="280"
+            viewBox="0 0 160 280"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="Screenshot do app Gabriel (placeholder)"
+            role="img"
+          >
+            <!-- Frame externo -->
+            <rect x="2" y="2" width="156" height="276" rx="22" stroke="#1E3A5F" stroke-width="3" fill="white" />
+            <!-- Notch / câmera -->
+            <rect x="60" y="10" width="40" height="8" rx="4" fill="#CBD5E1" />
+            <!-- Área de conteúdo placeholder -->
+            <rect x="12" y="30" width="136" height="228" rx="8" fill="#F1F5F9" />
+            <text x="80" y="150" text-anchor="middle" font-size="11" fill="#94A3B8" font-family="system-ui, sans-serif">screenshot aqui</text>
+            <!-- Botão home -->
+            <rect x="65" y="266" width="30" height="4" rx="2" fill="#CBD5E1" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Título e CTAs -->
+    <div data-reveal class="reveal-on-enter flex flex-col items-center gap-8" style="--delay: 240ms">
+      <SectionTitle align="center">Comece hoje</SectionTitle>
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <Button
+          variant="primary"
+          href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+          external
+        >
+          Baixar no Google Play
+        </Button>
+        <Button variant="disabled">
+          App Store · Em breve
+        </Button>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  /* Reveal base */
+  [data-reveal],
+  .reveal-on-enter {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms ease-out;
+    transition-delay: var(--delay, 0ms);
+  }
+
+  [data-reveal].is-visible,
+  .reveal-on-enter.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    .reveal-on-enter {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Phone frame base */
+  .phone-frame {
+    display: inline-flex;
+    filter: drop-shadow(0 8px 24px rgba(22, 43, 73, 0.15));
+    transition: filter 300ms ease;
+  }
+
+  .phone-frame:hover {
+    filter: drop-shadow(0 12px 32px rgba(22, 43, 73, 0.22));
+  }
+
+  .phone-frame--featured {
+    filter: drop-shadow(0 12px 32px rgba(22, 43, 73, 0.22));
+  }
+
+  /* Parallax scroll-driven para o mockup central — CSS puro */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .phone-frame-center {
+        animation: parallax-float linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0% 60%;
+      }
+
+      @keyframes parallax-float {
+        from {
+          --parallax-offset: 0px;
+        }
+        to {
+          --parallax-offset: -40px;
+        }
+      }
+
+      /* Aplica o translateY em cima do reveal transform quando visível */
+      .phone-frame-center.is-visible {
+        transform: translateY(var(--parallax-offset, 0px));
+        transition: none; /* scroll-driven assume o controle */
+      }
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/reveal-on-enter.ts';
+</script>

@@ -1,0 +1,169 @@
+---
+/**
+ * FeaturesGrid.astro
+ * Grid de 4 feature cards com ícones SVG line-art divine.
+ * Stagger reveal via --delay custom property (CSS, sem setTimeout JS).
+ * id="features" é o target do CTA secondary do HeroSection.
+ */
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import Card from '../ui/Card.astro';
+
+const features = [
+  {
+    title: 'Devocional diário, gerado por IA',
+    copy: 'Cada dia, uma reflexão personalizada pela sua jornada espiritual.',
+    delay: '0ms',
+    icon: `<svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <!-- Livro aberto -->
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+      <!-- Brilho / faísca divina -->
+      <line x1="17" y1="6" x2="17" y2="6.01" stroke-width="2.5" />
+      <path d="M16 4l1 2 2-1-1 2 2 1-2 1 1 2-2-1-1 2-1-2-2 1 1-2-2-1 2-1-1-2 2 1z" />
+    </svg>`,
+  },
+  {
+    title: 'Bíblia + Jardim da Fé',
+    copy: '66 livros da Bíblia em 3 idiomas. Veja seu progresso crescer como um jardim.',
+    delay: '80ms',
+    icon: `<svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <!-- Livro -->
+      <rect x="3" y="3" width="10" height="15" rx="1.5" />
+      <line x1="6" y1="7" x2="10" y2="7" />
+      <line x1="6" y1="10" x2="10" y2="10" />
+      <!-- Planta / jardim -->
+      <path d="M16 21c0-4 3-7 5-9" />
+      <path d="M16 21c0-4-3-7-5-9" />
+      <line x1="16" y1="21" x2="16" y2="12" />
+      <!-- Folhas -->
+      <path d="M19 14c1-1 2-3 2-5-2 0-4 1-5 3" />
+      <path d="M13 14c-1-1-2-3-2-5 2 0 4 1 5 3" />
+    </svg>`,
+  },
+  {
+    title: 'Streak inteligente',
+    copy: 'Construa constância no seu próprio ritmo — diário, 3x ou 5x na semana.',
+    delay: '160ms',
+    icon: `<svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <!-- Chama estilizada -->
+      <path d="M12 2c0 0-4 4-4 9a4 4 0 0 0 8 0c0-2-1-4-2-5" />
+      <path d="M12 2c0 0 2 3 2 6" />
+      <path d="M10 14c0 1.1.9 2 2 2s2-.9 2-2" />
+    </svg>`,
+  },
+  {
+    title: 'Gabriel Chat',
+    copy: 'Tira dúvidas sobre fé e Bíblia com IA contextualizada pela sua religião.',
+    delay: '240ms',
+    icon: `<svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <!-- Balão de conversa -->
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      <!-- Asa -->
+      <path d="M17 8c2-2 4-1 4 2-1 0-3-1-4 0" />
+    </svg>`,
+  },
+] as const;
+---
+
+<Section bg="white" id="features">
+  <Container>
+    <SectionTitle align="center">O que o Gabriel entrega</SectionTitle>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+      {features.map((feature) => (
+        <div
+          data-reveal
+          class="reveal-on-enter"
+          style={`--delay: ${feature.delay}`}
+        >
+          <Card class="h-full flex flex-col items-start gap-4">
+            <div class="text-divine-500" set:html={feature.icon} />
+            <h3 class="font-serif font-semibold text-lg text-celestial-700 leading-snug">
+              {feature.title}
+            </h3>
+            <p class="font-sans text-sm text-celestial-600 leading-relaxed">
+              {feature.copy}
+            </p>
+          </Card>
+        </div>
+      ))}
+    </div>
+  </Container>
+</Section>
+
+<style>
+  [data-reveal],
+  .reveal-on-enter {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms ease-out;
+    transition-delay: var(--delay, 0ms);
+  }
+
+  [data-reveal].is-visible,
+  .reveal-on-enter.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    .reveal-on-enter {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/reveal-on-enter.ts';
+</script>

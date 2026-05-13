@@ -1,0 +1,56 @@
+---
+/**
+ * PitchSection.astro
+ * Seção de pitch posicional sobre fundo celestial-gradient.
+ * Reveal on-enter via IntersectionObserver (reveal-on-enter.ts).
+ */
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import Prose from '../ui/Prose.astro';
+---
+
+<Section bg="celestial-gradient" class="text-center">
+  <Container>
+    <div
+      data-reveal
+      class="flex flex-col items-center gap-6 reveal-on-enter"
+    >
+      <SectionTitle tone="on-dark">Um santuário no seu bolso.</SectionTitle>
+      <Prose tone="on-dark" class="mx-auto text-center">
+        Devocionais personalizados por IA, a Bíblia inteira em 3 idiomas,
+        e um caminho de leitura que cresce com você. Tudo isso, todos os dias.
+      </Prose>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  [data-reveal],
+  .reveal-on-enter {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms ease-out;
+  }
+
+  [data-reveal].is-visible,
+  .reveal-on-enter.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    .reveal-on-enter {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/reveal-on-enter.ts';
+</script>
