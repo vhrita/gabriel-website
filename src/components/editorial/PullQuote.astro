@@ -1,0 +1,79 @@
+---
+/**
+ * PullQuote.astro
+ * Wrapper editorial para citações bíblicas com aspas ornamentadas.
+ * Newsreader 400 italic + PullQuoteBrackets + attribution Inter 500 caps.
+ *
+ * ADR-0015 §11 Q2: versículo Hero = Sl 119:105
+ * Cor: divine-500 para aspas/underlines, ink para texto, ink-muted para ref.
+ *
+ * Props:
+ *   attribution: string — "Sl 119:105" etc
+ *   tone: 'on-paper' (default) | 'on-ink'
+ *   slot: texto da citação
+ */
+
+interface Props {
+  attribution: string;
+  tone?: 'on-paper' | 'on-ink';
+  class?: string;
+}
+
+const { attribution, tone = 'on-paper', class: className } = Astro.props;
+
+const textColor = tone === 'on-ink' ? 'var(--color-paper)' : 'var(--color-ink-soft)';
+const attribColor = tone === 'on-ink' ? 'var(--color-paper-deep)' : 'var(--color-ink-muted)';
+---
+
+<blockquote
+  class:list={['pull-quote-editorial', className]}
+  style={`
+    border-left: 2px solid var(--color-divine-500);
+    padding-left: 1.25rem;
+    margin: 0;
+  `}
+>
+  <!-- Aspas de abertura em divine-500 -->
+  <span
+    class="pull-quote-open"
+    aria-hidden="true"
+    style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 600; font-size: 2rem; color: var(--color-divine-500); line-height: 0.5; display: block; margin-bottom: 0.5rem;"
+  >«</span>
+
+  <!-- Texto da citação — Newsreader italic opsz display -->
+  <p
+    class="pull-quote-text"
+    style={`
+      font-family: var(--font-family-serif);
+      font-variation-settings: 'opsz' 28;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1rem, 1.4vw, 1.25rem);
+      line-height: 1.6;
+      color: ${textColor};
+      margin: 0 0 0.75rem;
+    `}
+  >
+    <slot />
+  </p>
+
+  <!-- Aspas de fechamento -->
+  <span
+    aria-hidden="true"
+    style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 600; font-size: 2rem; color: var(--color-divine-500); line-height: 0.5; display: block; margin-bottom: 0.75rem;"
+  >»</span>
+
+  <!-- Attribution — Inter 500 caps tracked -->
+  <cite
+    style={`
+      font-family: var(--font-family-sans);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      font-style: normal;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: ${attribColor};
+      display: block;
+    `}
+  >{attribution}</cite>
+</blockquote>

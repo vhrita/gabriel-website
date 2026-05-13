@@ -1,0 +1,59 @@
+---
+/**
+ * HaloGlyph.astro
+ * Sol/halo estilizado muito sutil para acentos pontuais (drop cap top, favicon variant).
+ * Usar em no máximo 1-2 lugares conforme ADR-0015 §6.1 ornamento #8.
+ *
+ * Fonte SVG: Phosphor Icons ph:sun-dim (MIT License)
+ * Referência: https://icon-sets.iconify.design/ph/sun-dim/
+ * Phosphor Icons © 2023 Phosphor Icons (MIT)
+ *
+ * Paths: sol com raios reduzidos/dim — circle central + 8 raios curtos
+ * Adaptado com stroke=currentColor fill=none para uso como ornamento.
+ * WCAG: aria-hidden="true" — decorativo.
+ */
+
+interface Props {
+  class?: string;
+  size?: number;
+  tone?: 'divine' | 'paper' | 'ink';
+}
+
+const { class: className, size = 32, tone = 'divine' } = Astro.props;
+const color = tone === 'paper'
+  ? 'var(--color-paper-deep)'
+  : tone === 'ink'
+  ? 'var(--color-ink-soft)'
+  : 'var(--color-divine-500)';
+---
+
+<svg
+  viewBox="0 0 256 256"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="16"
+  aria-hidden="true"
+  class={className}
+  style={`width: ${size}px; height: ${size}px; display: inline-block; color: ${color};`}
+>
+  <!--
+    Phosphor Icons — ph:sun-dim (MIT License)
+    Source: https://icon-sets.iconify.design/ph/sun-dim/
+    Phosphor Icons © Tobias Fried et al (MIT)
+    Sol "dim" = raios curtos/discretos — ideal para ornamento sutil
+  -->
+  <!-- Circle central -->
+  <circle cx="128" cy="128" r="48" />
+  <!-- Raios cardinais e diagonais (8 raios curtos) -->
+  <line x1="128" y1="60" x2="128" y2="32" />
+  <line x1="128" y1="196" x2="128" y2="224" />
+  <line x1="60" y1="128" x2="32" y2="128" />
+  <line x1="196" y1="128" x2="224" y2="128" />
+  <line x1="91" y1="91" x2="71" y2="71" />
+  <line x1="165" y1="91" x2="185" y2="71" />
+  <line x1="91" y1="165" x2="71" y2="185" />
+  <line x1="165" y1="165" x2="185" y2="185" />
+</svg>

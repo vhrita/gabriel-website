@@ -1,0 +1,83 @@
+---
+/**
+ * FloralDivider.astro
+ * Divisor horizontal editorial — composição com 3 elementos centrais
+ * e linhas afilando nas laterais.
+ *
+ * Fonte SVG: composição geométrica editorial baseada em padrões de
+ * divisores tipográficos clássicos de impressão (ornamental rules).
+ * Referência: The Atlantic / NYT Magazine editorial dividers.
+ * Não são Bezier artísticos inventados — são primitivas geométricas
+ * (lines, circles, diamonds, arcs mínimos) compostas editorialmente.
+ *
+ * WCAG: aria-hidden="true" — decorativo.
+ * Props:
+ *   width: CSS width (default "100%")
+ *   compact: versão menor pra uso inline (default false)
+ */
+
+interface Props {
+  class?: string;
+  width?: string;
+  compact?: boolean;
+}
+
+const { class: className, width = '100%', compact = false } = Astro.props;
+const vH = compact ? 16 : 24;
+const vW = 280;
+---
+
+<svg
+  viewBox={`0 0 ${vW} ${vH}`}
+  preserveAspectRatio="xMidYMid meet"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  class={className}
+  style={`width: ${width}; height: ${compact ? '16px' : '24px'}; display: block;`}
+>
+  <!-- Linhas principais laterais — afilam do centro para as bordas -->
+  <!-- Esquerda: linha sólida com taper via opacity -->
+  <line x1="0" y1={vH/2} x2="100" y2={vH/2} stroke-width="1" opacity="0.3"/>
+  <line x1="0" y1={vH/2} x2="80" y2={vH/2} stroke-width="1" opacity="0.3"/>
+  <line x1="0" y1={vH/2} x2="60" y2={vH/2} stroke-width="1.25" opacity="0.5"/>
+  <line x1="20" y1={vH/2} x2="110" y2={vH/2} stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Direita: espelho -->
+  <line x1={vW} y1={vH/2} x2={vW-100} y2={vH/2} stroke-width="1" opacity="0.3"/>
+  <line x1={vW} y1={vH/2} x2={vW-80} y2={vH/2} stroke-width="1" opacity="0.3"/>
+  <line x1={vW} y1={vH/2} x2={vW-60} y2={vH/2} stroke-width="1.25" opacity="0.5"/>
+  <line x1={vW-20} y1={vH/2} x2={vW-110} y2={vH/2} stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Centro: elemento floral principal — losango com florão -->
+  <path
+    d={`M${vW/2-10},${vH/2} L${vW/2},${vH/2-6} L${vW/2+10},${vH/2} L${vW/2},${vH/2+6} Z`}
+    stroke-width="1"
+    fill="currentColor"
+    opacity="0.15"
+  />
+  <path
+    d={`M${vW/2-10},${vH/2} L${vW/2},${vH/2-6} L${vW/2+10},${vH/2} L${vW/2},${vH/2+6} Z`}
+    stroke-width="1"
+    fill="none"
+  />
+
+  <!-- Elementos laterais ao centro — pequenos círculos ornamentais -->
+  <circle cx={vW/2 - 18} cy={vH/2} r="2" fill="currentColor" opacity="0.7"/>
+  <circle cx={vW/2 + 18} cy={vH/2} r="2" fill="currentColor" opacity="0.7"/>
+
+  <!-- Pontos decorativos intermediários -->
+  <circle cx={vW/2 - 30} cy={vH/2} r="1" fill="currentColor" opacity="0.5"/>
+  <circle cx={vW/2 + 30} cy={vH/2} r="1" fill="currentColor" opacity="0.5"/>
+
+  <!-- Pequenas marcas verticais secundárias -->
+  {!compact && (
+    <>
+      <line x1={vW/2 - 40} y1={vH/2 - 3} x2={vW/2 - 40} y2={vH/2 + 3} stroke-width="0.75" opacity="0.4"/>
+      <line x1={vW/2 + 40} y1={vH/2 - 3} x2={vW/2 + 40} y2={vH/2 + 3} stroke-width="0.75" opacity="0.4"/>
+    </>
+  )}
+</svg>
