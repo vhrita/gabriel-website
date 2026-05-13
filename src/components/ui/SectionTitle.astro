@@ -1,0 +1,44 @@
+---
+/**
+ * SectionTitle.astro
+ * Título de seção tipográfico com variantes de heading, alinhamento e tom de cor.
+ *
+ * Props:
+ *   as?: 'h1' | 'h2' | 'h3'        — tag HTML (default: h2)
+ *   align?: 'left' | 'center'       — alinhamento do texto (default: left)
+ *   tone?: 'on-light' | 'on-dark'   — cor do texto conforme fundo (default: on-light)
+ *   class?: string                   — classes extras
+ *   slot — conteúdo do título
+ *
+ * IMPORTANTE: classes de cor são literais por tone (sem interpolação) pra garantir
+ * tree-shaking correto no Tailwind 4.
+ */
+
+interface Props {
+  as?: 'h1' | 'h2' | 'h3';
+  align?: 'left' | 'center';
+  tone?: 'on-light' | 'on-dark';
+  class?: string;
+}
+
+const {
+  as: Tag = 'h2',
+  align = 'left',
+  tone = 'on-light',
+  class: className,
+} = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center' : 'text-left';
+
+// Classes de cor literais — sem interpolação
+const colorClass = tone === 'on-dark' ? 'text-heavenly' : 'text-celestial-700';
+---
+
+<Tag class:list={[
+  'font-serif font-semibold text-3xl md:text-4xl lg:text-5xl tracking-tight',
+  alignClass,
+  colorClass,
+  className,
+]}>
+  <slot />
+</Tag>

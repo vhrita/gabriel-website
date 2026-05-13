@@ -1,0 +1,33 @@
+---
+/**
+ * Prose.astro
+ * Wrapper de texto corrido com tipografia Inter, line-height confortável e
+ * largura máxima legível. Aceita tone pra uso em fundos claros ou escuros.
+ *
+ * Props:
+ *   tone?: 'on-light' | 'on-dark' — cor do texto (default: on-light)
+ *   class?: string                 — classes extras
+ *   slot — parágrafos / conteúdo textual
+ *
+ * IMPORTANTE: classes de cor são literais por tone (sem interpolação) pra garantir
+ * tree-shaking correto no Tailwind 4.
+ */
+
+interface Props {
+  tone?: 'on-light' | 'on-dark';
+  class?: string;
+}
+
+const { tone = 'on-light', class: className } = Astro.props;
+
+// Classes de cor literais — sem interpolação
+const colorClass = tone === 'on-dark' ? 'text-heavenly' : 'text-celestial-700';
+---
+
+<div class:list={[
+  'font-sans text-base md:text-lg leading-relaxed max-w-prose',
+  colorClass,
+  className,
+]}>
+  <slot />
+</div>

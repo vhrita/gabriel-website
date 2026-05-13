@@ -1,0 +1,38 @@
+---
+/**
+ * Section.astro
+ * Wrapper de seção com padding vertical consistente e variantes de background.
+ *
+ * Props:
+ *   bg: 'white' | 'heavenly' | 'celestial-gradient' | 'celestial-700'
+ *   class?: string — classes extras passadas ao <section>
+ *   slot — conteúdo da seção
+ *
+ * IMPORTANTE: classes Tailwind são literais (não interpoladas) pra garantir
+ * tree-shaking correto no Tailwind 4.
+ */
+
+interface Props {
+  bg?: 'white' | 'heavenly' | 'celestial-gradient' | 'celestial-700';
+  class?: string;
+}
+
+const { bg = 'white', class: className } = Astro.props;
+
+const bgClass =
+  bg === 'white'
+    ? 'bg-white'
+    : bg === 'heavenly'
+      ? 'bg-heavenly'
+      : bg === 'celestial-gradient'
+        ? 'bg-gradient-to-b from-celestial-400 to-celestial-300'
+        : 'bg-celestial-700'; // celestial-700
+---
+
+<section class:list={[
+  'py-20 md:py-28 lg:py-32',
+  bgClass,
+  className,
+]}>
+  <slot />
+</section>

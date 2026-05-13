@@ -1,0 +1,81 @@
+---
+/**
+ * Button.astro
+ * CTA reutilizável com 3 variantes: primary (divine), secondary (outline), disabled.
+ *
+ * Props:
+ *   variant: 'primary' | 'secondary' | 'disabled'
+ *   href?: string — se fornecido, renderiza <a>; senão <button>
+ *   as?: 'a' | 'button' — override explícito da tag
+ *   class?: string — classes extras
+ *   external?: boolean — abre em nova aba + ícone de link externo (SVG inline 14px)
+ *   slot — label / conteúdo do botão
+ *
+ * IMPORTANTE: classes Tailwind são literais (não interpoladas) pra garantir
+ * tree-shaking correto no Tailwind 4.
+ */
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'disabled';
+  href?: string;
+  as?: 'a' | 'button';
+  class?: string;
+  external?: boolean;
+}
+
+const {
+  variant = 'primary',
+  href,
+  as: Tag = href ? 'a' : 'button',
+  class: className,
+  external = false,
+} = Astro.props;
+
+const variantClass =
+  variant === 'primary'
+    ? 'bg-divine-500 hover:bg-divine-600 text-white shadow-soft hover:shadow-glow transition-all duration-200 rounded-2xl px-8 py-4 font-semibold text-base hover:-translate-y-0.5'
+    : variant === 'secondary'
+      ? 'bg-transparent border-2 border-celestial-700 text-celestial-700 hover:bg-celestial-700 hover:text-white rounded-2xl px-8 py-4 font-semibold text-base transition-all duration-200'
+      : 'bg-slate-200 text-slate-400 cursor-not-allowed rounded-2xl px-8 py-4 font-semibold text-base';
+
+const externalProps =
+  external && Tag === 'a'
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
+
+const disabledProps =
+  variant === 'disabled' && Tag === 'button'
+    ? { disabled: true, 'aria-disabled': 'true' }
+    : {};
+---
+
+<Tag
+  href={Tag === 'a' ? href : undefined}
+  class:list={[
+    'inline-flex items-center gap-2',
+    variantClass,
+    className,
+  ]}
+  {...externalProps}
+  {...disabledProps}
+>
+  <slot />
+  {external && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  )}
+</Tag>
