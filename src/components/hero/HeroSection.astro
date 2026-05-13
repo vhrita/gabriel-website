@@ -1,37 +1,256 @@
 ---
 /**
  * HeroSection.astro
- * Seção Hero da Home — wordmark Gabriel, tagline, 2 CTAs, ScrollCue.
- * Requer que o pai (BaseLayout) tenha headerVariant="transparent".
+ * Hero editorial assimétrico — composição manuscrito iluminado moderno.
+ * ADR-0015 §11 Q1-Q3 + PLAN-V1.5 §2.2.
+ *
+ * Estrutura:
+ *   - Esquerda (1.6fr): kicker + wordmark "Gabriel" stagger + drop cap U + FloralDivider + CTAs
+ *   - Direita (1fr): pull quote Sl 119:105 + MarginaliaCorner top-right
+ *   - CornerFleuron centralizado bottom como scroll cue
+ *
+ * Animações (ADR-0015 §7):
+ *   - Wordmark stagger por letra: 0/80/160/240/320/400/480ms
+ *   - DropCapFrame stroke draw-in: 1.2s delay 200ms
+ *   - FloralDivider stroke draw-in: 800ms delay 600ms
+ *   - Lead reveal: fade-up 600ms delay 1000ms
+ *   - Pull quote brackets fade: 500ms delay 1200ms
+ *   - prefers-reduced-motion: tudo aparece estático
+ *
+ * WingsTransition e WingsReveal.client.ts removidos (commit C).
  */
-import Section from '../ui/Section.astro';
+
+import SectionKickerBanner from '../ornaments/SectionKickerBanner.astro';
+import DropCap from '../editorial/DropCap.astro';
+import FloralDivider from '../ornaments/FloralDivider.astro';
+import PullQuote from '../editorial/PullQuote.astro';
+import MarginaliaCorner from '../ornaments/MarginaliaCorner.astro';
+import CornerFleuron from '../ornaments/CornerFleuron.astro';
 import Button from '../ui/Button.astro';
-import ScrollCue from '../ui/ScrollCue.astro';
+
+// Letras do wordmark "Gabriel" para stagger animation
+const wordmarkLetters = ['G', 'a', 'b', 'r', 'i', 'e', 'l'];
+const staggerDelays = [0, 80, 160, 240, 320, 400, 480];
 ---
 
-<Section bg="white" class="relative min-h-screen flex flex-col items-center justify-center text-center px-4">
-  <div class="flex flex-col items-center gap-0">
-    <h1 class="font-serif font-bold text-celestial-700 tracking-tight animate-breath motion-reduce:animate-none" style="font-size: clamp(3rem, 12vw, 6rem); line-height: 1.05;">
-      Gabriel
-    </h1>
+<section
+  class="hero-section relative"
+  style="
+    background-color: var(--color-paper);
+    min-height: 88vh;
+    padding: clamp(6rem, 12vw, 10rem) 0 clamp(4rem, 8vw, 7rem);
+    overflow: hidden;
+  "
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <p class="font-serif font-medium italic text-celestial-600 max-w-prose mt-4" style="font-size: clamp(1.25rem, 3vw, 1.75rem);">
-      Sua jornada espiritual, todos os dias.
-    </p>
+    <!-- Grid assimétrico: 1.6fr + 1fr desktop, stack mobile -->
+    <div
+      class="hero-grid"
+      style="
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: start;
+      "
+    >
 
-    <div class="flex flex-col sm:flex-row gap-4 mt-8">
-      <Button
-        variant="primary"
-        href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
-        external
+      <!-- COLUNA ESQUERDA: kicker + wordmark + drop cap + body + CTAs -->
+      <div class="hero-left">
+
+        <!-- Kicker I — UM SANTUÁRIO -->
+        <div class="hero-kicker-wrapper" style="margin-bottom: 2rem; animation: fade-in 400ms ease-out both; animation-delay: 0ms;">
+          <SectionKickerBanner numeral="I" label="Um Santuário" tone="on-paper" />
+        </div>
+
+        <!-- Wordmark "Gabriel" — cada letra com stagger -->
+        <h1
+          class="hero-wordmark"
+          style="
+            font-family: var(--font-family-display);
+            font-variation-settings: 'opsz' 144, 'wght' 800;
+            font-size: clamp(4.5rem, 18vw, 12rem);
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            color: var(--color-ink);
+            margin: 0 0 1.5rem;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+          "
+          aria-label="Gabriel"
+        >
+          {wordmarkLetters.map((letter, i) => (
+            <span
+              class="wordmark-letter"
+              aria-hidden="true"
+              style={`
+                display: inline-block;
+                animation: letter-in 600ms ease-out both;
+                animation-delay: ${staggerDelays[i]}ms;
+              `}
+            >{letter}</span>
+          ))}
+        </h1>
+
+        <!-- FloralDivider -->
+        <div
+          class="hero-divider"
+          style="
+            color: var(--color-divine-500);
+            margin-bottom: 1.75rem;
+            animation: fade-in 600ms ease-out both;
+            animation-delay: 600ms;
+          "
+        >
+          <FloralDivider width="220px" />
+        </div>
+
+        <!-- Lead paragraph com drop cap U -->
+        <!-- ADR-0015 §11 Q3: drop cap em U de "Um devocional..." -->
+        <div
+          class="hero-lead"
+          style="
+            max-width: 52ch;
+            animation: fade-up 600ms ease-out both;
+            animation-delay: 1000ms;
+          "
+        >
+          <!-- Drop cap U -->
+          <DropCap letter="U" frame tone="on-paper" />
+
+          <!-- Resto do parágrafo após o drop cap -->
+          <p style="
+            font-family: var(--font-family-serif);
+            font-variation-settings: 'opsz' 28;
+            font-weight: 400;
+            font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+            line-height: 1.65;
+            color: var(--color-ink-soft);
+            margin: 0 0 1.5rem;
+            overflow: hidden;
+          ">
+            <!--
+              "U" está no DropCap — o "m devocional..." continua aqui.
+              Clearfix via overflow:hidden no pai + float:left no DropCap.
+            -->
+            m devocional diário, gerado por IA, feito
+            pra sua jornada espiritual. A Bíblia inteira
+            em português, inglês e espanhol. Um caminho
+            de leitura que cresce com você.
+          </p>
+        </div>
+
+        <!-- CTAs -->
+        <div
+          class="hero-ctas flex flex-col sm:flex-row gap-4"
+          style="animation: fade-up 600ms ease-out both; animation-delay: 1200ms;"
+        >
+          <Button
+            variant="primary"
+            href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+            external
+          >
+            Baixar no Google Play
+          </Button>
+          <Button variant="secondary" href="#features">
+            Saiba mais
+          </Button>
+        </div>
+      </div>
+
+      <!-- COLUNA DIREITA: pull quote + marginalia corner -->
+      <!-- Em mobile: aparece após o lead mas antes dos CTAs (ordem visual melhor) -->
+      <div
+        class="hero-right"
+        style="
+          position: relative;
+          animation: fade-in 600ms ease-out both;
+          animation-delay: 1200ms;
+        "
       >
-        Baixar no Google Play
-      </Button>
-      <Button variant="secondary" href="#features">
-        Saiba mais
-      </Button>
-    </div>
-  </div>
+        <!-- MarginaliaCorner — canto top-right do bloco -->
+        <div
+          style="
+            position: absolute;
+            top: -1rem;
+            right: -0.5rem;
+            color: var(--color-divine-500);
+            opacity: 0.5;
+          "
+          aria-hidden="true"
+        >
+          <MarginaliaCorner size={60} rotate={0} />
+        </div>
 
-  <ScrollCue />
-</Section>
+        <!-- Pull quote Sl 119:105 (ADR-0015 §11 Q2) -->
+        <div style="padding-top: 2rem; padding-right: 1rem;">
+          <PullQuote attribution="Sl 119:105" tone="on-paper">
+            A tua palavra é lâmpada que ilumina os meus passos.
+          </PullQuote>
+        </div>
+      </div>
+
+    </div><!-- /hero-grid -->
+
+  </div><!-- /container -->
+
+  <!-- CornerFleuron centralizado bottom — scroll cue sutil -->
+  <div
+    class="text-center"
+    style="
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: fade-in 600ms ease-out both;
+      animation-delay: 1600ms;
+    "
+    aria-hidden="true"
+  >
+    <CornerFleuron size="md" tone="muted" />
+  </div>
+</section>
+
+<style>
+  /* Grid assimétrico — desktop: 1.6fr 1fr */
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1.6fr 1fr !important;
+      gap: 4rem !important;
+      align-items: start !important;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero-grid {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 2rem !important;
+    }
+  }
+
+  /* Mobile: direita aparece entre lead e CTAs visualmente — reordenamos via order */
+  @media (max-width: 767px) {
+    .hero-right {
+      order: -1; /* aparece antes no mobile também — pull quote first, depois lead */
+      /* Na realidade manter ordem natural: left first, right depois é ok no stack */
+      order: 2;
+    }
+    .hero-ctas {
+      order: 3;
+    }
+  }
+
+  /* prefers-reduced-motion: tudo aparece estático */
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark-letter,
+    .hero-kicker-wrapper,
+    .hero-divider,
+    .hero-lead,
+    .hero-ctas,
+    .hero-right {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
