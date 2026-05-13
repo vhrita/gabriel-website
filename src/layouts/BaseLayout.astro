@@ -2,9 +2,21 @@
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  ogImage?: string;
+  headerVariant?: 'transparent' | 'solid';
 }
 
-const { title, description = 'Gabriel — Seu guia espiritual diário.' } = Astro.props;
+const {
+  title,
+  description = 'Gabriel: Bíblia e Devocional — Sua jornada espiritual, todos os dias.',
+  canonical,
+  ogImage = '/og-image.png',
+  headerVariant = 'solid',
+} = Astro.props;
+
+const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site ?? 'https://gabriel.vhxco.com.br').href;
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -13,131 +25,196 @@ const { title, description = 'Gabriel — Seu guia espiritual diário.' } = Astr
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Fonts: self-hosted via @fontsource (see global.css) -->
-    <!-- Inter 400 latin preloaded via Astro's built-in font optimization.
-         @fontsource sets font-display: swap on all faces — no layout shift. -->
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#162B49" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Gabriel: Bíblia e Devocional" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
 
     <title>{title}</title>
   </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a href="/" class="logo">Gabriel</a>
-        <nav>
-          <ul class="nav-links">
-            <li><a href="/privacy">Privacidade</a></li>
-            <li><a href="/terms">Termos de Uso</a></li>
-            <li><a href="/delete-account">Excluir Conta</a></li>
-          </ul>
-        </nav>
+
+  <body class="font-sans text-celestial-700 bg-white min-h-dvh flex flex-col antialiased">
+
+    <!-- Skip to content (a11y) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-celestial-700 focus:text-white focus:rounded-xl focus:text-sm focus:font-medium focus:shadow-soft"
+    >
+      Ir para o conteúdo
+    </a>
+
+    <!-- Header -->
+    <header
+      id="site-header"
+      data-variant={headerVariant}
+      class:list={[
+        'sticky top-0 z-40 transition-all duration-300',
+        headerVariant === 'solid'
+          ? 'bg-celestial-700/95 backdrop-blur-md shadow-soft'
+          : 'bg-transparent',
+      ]}
+    >
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo wordmark -->
+          <a
+            href="/"
+            class="font-serif font-bold text-xl tracking-tight transition-opacity hover:opacity-80"
+            class:list={[
+              headerVariant === 'solid' ? 'text-white' : 'text-celestial-700',
+              'header-logo'
+            ]}
+            aria-label="Gabriel — Página inicial"
+          >
+            Gabriel
+          </a>
+
+          <!-- Nav legal links -->
+          <nav aria-label="Links legais">
+            <ul class="flex items-center gap-1 sm:gap-2">
+              <li>
+                <a
+                  href="/privacy"
+                  class="text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded-lg transition-colors"
+                  class:list={[
+                    headerVariant === 'solid'
+                      ? 'text-celestial-100 hover:text-white hover:bg-white/10'
+                      : 'text-celestial-600 hover:text-celestial-800 hover:bg-celestial-50',
+                    'header-nav-link'
+                  ]}
+                >
+                  Privacidade
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  class="text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded-lg transition-colors"
+                  class:list={[
+                    headerVariant === 'solid'
+                      ? 'text-celestial-100 hover:text-white hover:bg-white/10'
+                      : 'text-celestial-600 hover:text-celestial-800 hover:bg-celestial-50',
+                    'header-nav-link'
+                  ]}
+                >
+                  Termos
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/delete-account"
+                  class="text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded-lg transition-colors"
+                  class:list={[
+                    headerVariant === 'solid'
+                      ? 'text-celestial-100 hover:text-white hover:bg-white/10'
+                      : 'text-celestial-600 hover:text-celestial-800 hover:bg-celestial-50',
+                    'header-nav-link'
+                  ]}
+                >
+                  Excluir Conta
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
 
-    <main>
+    <!-- Main content -->
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>&copy; {new Date().getFullYear()} <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer" class="footer-company">VHXCO</a>. Todos os direitos reservados.</p>
-        <nav class="footer-links">
-          <a href="/privacy">Privacidade</a>
-          <a href="/terms">Termos de Uso</a>
-          <a href="/delete-account">Excluir Conta</a>
-        </nav>
+    <!-- Footer -->
+    <footer class="bg-celestial-700 text-celestial-100">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <!-- Wordmark + copy -->
+          <div>
+            <p class="font-serif font-semibold text-white text-lg mb-1">Gabriel</p>
+            <p class="text-celestial-300 text-xs">
+              &copy; {year} <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors underline underline-offset-2">VHXCO</a>.
+              Todos os direitos reservados.
+            </p>
+          </div>
+
+          <!-- Links legais -->
+          <nav aria-label="Links legais do rodapé">
+            <ul class="flex flex-wrap gap-x-4 gap-y-1">
+              <li>
+                <a href="/privacy" class="text-xs text-celestial-300 hover:text-white transition-colors">
+                  Privacidade
+                </a>
+              </li>
+              <li>
+                <a href="/terms" class="text-xs text-celestial-300 hover:text-white transition-colors">
+                  Termos de Uso
+                </a>
+              </li>
+              <li>
+                <a href="/delete-account" class="text-xs text-celestial-300 hover:text-white transition-colors">
+                  Excluir Conta
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </footer>
+
+    <!-- Header scroll behavior: transparent → solid (only when headerVariant='transparent') -->
+    <script>
+      const header = document.getElementById('site-header');
+      if (header && header.dataset.variant === 'transparent') {
+        const logoEl = header.querySelector('.header-logo');
+        const navLinks = header.querySelectorAll('.header-nav-link');
+
+        function applyScrollState() {
+          const scrolled = window.scrollY > 20;
+          if (scrolled) {
+            header!.classList.add('bg-celestial-700/95', 'backdrop-blur-md', 'shadow-soft');
+            header!.classList.remove('bg-transparent');
+            logoEl?.classList.replace('text-celestial-700', 'text-white');
+            navLinks.forEach((link) => {
+              link.classList.remove('text-celestial-600', 'hover:text-celestial-800', 'hover:bg-celestial-50');
+              link.classList.add('text-celestial-100', 'hover:text-white', 'hover:bg-white/10');
+            });
+          } else {
+            header!.classList.remove('bg-celestial-700/95', 'backdrop-blur-md', 'shadow-soft');
+            header!.classList.add('bg-transparent');
+            logoEl?.classList.replace('text-white', 'text-celestial-700');
+            navLinks.forEach((link) => {
+              link.classList.remove('text-celestial-100', 'hover:text-white', 'hover:bg-white/10');
+              link.classList.add('text-celestial-600', 'hover:text-celestial-800', 'hover:bg-celestial-50');
+            });
+          }
+        }
+
+        window.addEventListener('scroll', applyScrollState, { passive: true });
+        applyScrollState();
+      }
+    </script>
   </body>
 </html>
-
-<style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(15, 15, 19, 0.8);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-
-  .logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    letter-spacing: -0.02em;
-  }
-
-  .logo:hover {
-    color: var(--color-accent);
-  }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: var(--space-lg);
-  }
-
-  .nav-links a {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-  }
-
-  .nav-links a:hover {
-    color: var(--color-accent-hover);
-  }
-
-  .site-footer {
-    margin-top: auto;
-    border-top: 1px solid var(--color-border);
-    padding: var(--space-xl) 0;
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-  }
-
-  .footer-inner p {
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: var(--space-lg);
-  }
-
-  .footer-inner a {
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-  }
-
-  .footer-inner a:hover {
-    color: var(--color-accent);
-  }
-
-  .footer-company {
-    color: var(--color-text-muted);
-    font-weight: 500;
-  }
-
-  .footer-company:hover {
-    color: var(--color-accent);
-  }
-</style>

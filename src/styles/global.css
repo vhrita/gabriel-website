@@ -103,11 +103,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Body base — tema dark legado; SUB-2 vai migrar pro novo design system */
+/* Body base — novo design system: white + celestial-700 */
 body {
   font-family: var(--font-family-sans);
-  color: var(--color-text-primary);
-  background: var(--color-bg);
+  color: var(--color-celestial-700);
+  background: white;
   line-height: 1.6;
   min-height: 100dvh;
 }
@@ -152,7 +152,7 @@ body {
   --transition-base: 250ms ease;
 }
 
-/* Legacy base — mantido para páginas existentes (SUB-2 vai remover) */
+/* Legacy base — mantido para index.astro placeholder (SUB-4/5 remove) */
 a {
   color: var(--color-accent);
   text-decoration: none;
@@ -161,6 +161,199 @@ a {
 
 a:hover {
   color: var(--color-accent-hover);
+}
+
+/* --- Prose styles for legal pages (.prose-legal) --- */
+.prose-legal p {
+  color: var(--color-celestial-700);
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
+}
+
+.prose-legal h3 {
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-celestial-700);
+  margin-top: 1.25rem;
+  margin-bottom: 0.375rem;
+}
+
+.prose-legal ul {
+  color: var(--color-celestial-700);
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.prose-legal li {
+  margin-bottom: 0.25rem;
+}
+
+.prose-legal a {
+  color: var(--color-celestial-500);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-legal a:hover {
+  color: var(--color-celestial-700);
+}
+
+.prose-legal strong {
+  font-weight: 600;
+  color: var(--color-celestial-800);
+}
+
+.prose-legal code {
+  display: inline-block;
+  background: var(--color-celestial-50);
+  border: 1px solid var(--color-celestial-200);
+  border-radius: 0.375rem;
+  padding: 0.1em 0.4em;
+  font-family: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  color: var(--color-celestial-700);
+}
+
+/* Steps layout for delete-account */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--color-celestial-50);
+  border: 1px solid var(--color-celestial-200);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-celestial-700);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-celestial-700);
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+}
+
+.step-content p {
+  font-size: 0.875rem;
+  margin-bottom: 0;
+  color: var(--color-celestial-700);
+}
+
+.step-content code {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--color-celestial-200);
+  border-radius: 0.375rem;
+  padding: 0.15em 0.5em;
+  font-family: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  color: var(--color-celestial-700);
+  margin-top: 0.25rem;
+}
+
+/* CTA button for delete-account */
+.cta-button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-celestial-700);
+  color: #fff !important;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: center;
+  text-decoration: none !important;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.cta-button:hover {
+  background: var(--color-celestial-600);
+  transform: translateY(-1px);
+}
+
+/* Data tables for delete-account */
+.data-table {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-celestial-200);
+}
+
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background: var(--color-celestial-50);
+}
+
+.data-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-celestial-700);
+  border-bottom: 1px solid var(--color-celestial-200);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-celestial-700);
+  border-bottom: 1px solid var(--color-celestial-100);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Document footer inside legal content */
+.document-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-celestial-100);
+}
+
+.document-footer p {
+  color: var(--color-celestial-400);
+  font-size: 0.8125rem;
+  margin-bottom: 0.25rem;
+}
+
+.document-footer a {
+  color: var(--color-celestial-500);
+}
+
+.document-footer a:hover {
+  color: var(--color-celestial-700);
 }
 
 .container {
