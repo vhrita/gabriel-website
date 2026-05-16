@@ -154,65 +154,67 @@ const year = new Date().getFullYear();
       <slot />
     </main>
 
-    <!-- Footer — refeito ink + ornamentos (ADR-0015 §11 Q7, PLAN-V1.5 §2.7) -->
+    <!-- Footer v2 — Type as Sky. Sem ornamentos. Layout wordmark + 2 col links. -->
     <footer style="background-color: var(--color-ink); color: var(--color-paper);">
-      <!-- FloralDivider top — divine-500 full width -->
-      <div
-        aria-hidden="true"
-        style="width: 100%; overflow: hidden; line-height: 0; opacity: 0.6;"
-      >
-        <svg
-          viewBox="0 0 400 20"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style="width: 100%; height: 20px; display: block;"
-          aria-hidden="true"
-        >
-          <!-- FloralDivider horizontal editorial — composição linha + elementos centrais -->
-          <!-- Fonte tipográfica: SVG geométrico próprio (linhas + diamante) — não é Bezier artístico inventado -->
-          <!-- Baseado em padrão ornamental clássico de divisores editoriais de impressão tipográfica -->
-          <line x1="0" y1="10" x2="160" y2="10" stroke="#D4AF37" stroke-width="0.75" opacity="0.8"/>
-          <line x1="240" y1="10" x2="400" y2="10" stroke="#D4AF37" stroke-width="0.75" opacity="0.8"/>
-          <circle cx="200" cy="10" r="3" fill="none" stroke="#D4AF37" stroke-width="1"/>
-          <circle cx="185" cy="10" r="1.5" fill="#D4AF37"/>
-          <circle cx="215" cy="10" r="1.5" fill="#D4AF37"/>
-          <path d="M195 10 L200 5 L205 10 L200 15 Z" fill="none" stroke="#D4AF37" stroke-width="0.75"/>
-          <circle cx="170" cy="10" r="1" fill="#D4AF37" opacity="0.6"/>
-          <circle cx="230" cy="10" r="1" fill="#D4AF37" opacity="0.6"/>
-        </svg>
-      </div>
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div class="footer-grid">
 
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start">
-          <!-- Wordmark + copyright -->
-          <div>
+          <!-- Wordmark + tagline -->
+          <div class="footer-brand">
             <p
-              class="font-bold mb-2"
-              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 32, 'wght' 700; font-size: 1.5rem; color: var(--color-paper);"
+              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 700; font-size: 1.75rem; color: var(--color-paper); margin: 0 0 0.5rem; letter-spacing: -0.025em; -webkit-font-smoothing: antialiased;"
             >
               Gabriel
             </p>
-            <p class="text-xs" style="color: var(--color-paper-deep); line-height: 1.6;">
-              &copy; {year}
-              <a
-                href="https://vhxco.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:opacity-80 transition-opacity underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1 rounded"
-                style="color: var(--color-paper-deep);"
-              >VHXCO</a>.
-              Todos os direitos reservados.
+            <p
+              style="font-family: var(--font-family-serif); font-variation-settings: 'opsz' 14; font-style: italic; font-size: 0.875rem; color: rgba(250, 247, 240, 0.55); margin: 0; line-height: 1.5;"
+            >
+              Sua jornada espiritual, todos os dias.
             </p>
           </div>
 
-          <!-- Links legais -->
-          <nav aria-label="Links legais do rodapé" class="sm:text-right">
-            <ul class="flex flex-wrap sm:justify-end gap-x-5 gap-y-2">
+          <!-- Links coluna App -->
+          <nav aria-label="Links do app" class="footer-col">
+            <p
+              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.4); margin: 0 0 0.75rem;"
+            >
+              App
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
+                >
+                  Google Play
+                </a>
+              </li>
+              <li>
+                <span
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.3); letter-spacing: 0.02em;"
+                >
+                  App Store · Em breve
+                </span>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Links coluna Legal -->
+          <nav aria-label="Links legais do rodapé" class="footer-col">
+            <p
+              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.4); margin: 0 0 0.75rem;"
+            >
+              Legal
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
               <li>
                 <a
                   href="/privacy"
-                  class="text-xs hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1 rounded"
-                  style="color: var(--color-paper-deep); letter-spacing: 0.04em;"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
                 >
                   Privacidade
                 </a>
@@ -220,36 +222,63 @@ const year = new Date().getFullYear();
               <li>
                 <a
                   href="/terms"
-                  class="text-xs hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1 rounded"
-                  style="color: var(--color-paper-deep); letter-spacing: 0.04em;"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
                 >
-                  Termos de Uso
+                  Termos
                 </a>
               </li>
               <li>
                 <a
                   href="/delete-account"
-                  class="text-xs hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1 rounded"
-                  style="color: var(--color-paper-deep); letter-spacing: 0.04em;"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
                 >
                   Excluir Conta
                 </a>
               </li>
             </ul>
           </nav>
+
         </div>
 
-        <!-- CornerFleuron bottom centralizado -->
+        <!-- Bottom bar -->
         <div
-          class="text-center mt-8 pt-6"
-          style="border-top: 1px solid rgba(212, 175, 55, 0.15);"
-          aria-hidden="true"
+          style="border-top: 1px solid rgba(170, 141, 44, 0.2); margin-top: 3rem; padding-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;"
         >
-          <span
-            style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 32, 'wght' 500; color: var(--color-divine-700); font-size: 1.25rem; opacity: 0.8;"
-          >❧</span>
+          <p
+            style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.35); margin: 0; letter-spacing: 0.02em;"
+          >
+            &copy; {year} VHXCO · CNPJ 62.874.893/0001-51
+          </p>
+          <a
+            href="https://vhxco.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.35); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+            class="footer-link"
+          >
+            vhxco.com
+          </a>
         </div>
       </div>
+
+      <style>
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        @media (min-width: 640px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+          }
+        }
+        .footer-link:hover {
+          color: rgba(250, 247, 240, 0.95) !important;
+        }
+      </style>
     </footer>
 
     <!-- Header scroll behavior: transparent → paper-deep (headerVariant='transparent') -->
