@@ -1,42 +1,59 @@
 ---
 /**
  * HeroSection.astro
- * Hero v2 — Direção B "Type as Sky" (typography ambient + gradient mesh).
- * HERO-ITERATION-V2.md §3, decisões Vitor 2026-05-14.
+ * Hero v2 polish — "Type as Sky" direction.
+ * Changes (polish-v2):
+ *   - StoreBadge replaces Button CTA (Google Play + App Store disabled)
+ *   - AppMockupCycler in right col (desktop) / below text (mobile)
+ *   - Cycler peeks into Pitch: margin-bottom negative + overflow visible
+ *   - 2-col desktop grid: text left, cycler right
+ *   - Headline re-animate on scroll in/out via transition instead of animation
+ *   - verse moved below badges
  *
- * Zero ornamento. Gradient mesh CSS puro (celestial-100 + divine-100).
- * Fraunces opsz 144 wght 880, italic em "você" via WONK axis.
- * Clip-path reveal por linha, drift 18s imperceptível no mesh.
- * prefers-reduced-motion: mesh estático, lines aparecem sem clip-path.
- *
- * Componentes do Hero antigo (DropCap, FloralDivider, PullQuote,
- * MarginaliaCorner, CornerFleuron, SectionKickerBanner) não são mais
- * importados aqui — ficam órfãos mas não deletados (Vitor decide cleanup).
+ * HERO-ITERATION-V2.md §3, polish-v2 adjustments.
  */
 
-import Button from '../ui/Button.astro';
+import StoreBadge from '../ui/StoreBadge.astro';
+import AppMockupCycler from '../mockups/AppMockupCycler.astro';
 ---
 
 <section class="hero" aria-label="Hero — Gabriel">
   <div class="hero-mesh" aria-hidden="true"></div>
-  <div class="hero-content">
-    <p class="eyebrow">d e v o c i o n a i s</p>
-    <h1 class="headline">
-      <span class="line">Que crescem</span>
-      <span class="line">com <em>você</em>.</span>
-    </h1>
-    <p class="sub">
-      Gerados por IA, escritos pra sua jornada.<br/>
-      Bíblia em português, inglês e espanhol.
-    </p>
-    <div class="cta-wrapper">
-      <Button variant="primary" href="https://play.google.com/store/apps/details?id=com.gabriel.biblia" external>
-        Baixar no Android →
-      </Button>
+  <div class="hero-inner">
+
+    <!-- Text column -->
+    <div class="hero-text" data-reveal>
+      <p class="eyebrow">d e v o c i o n a i s</p>
+      <h1 class="headline">
+        <span class="line">Que crescem</span>
+        <span class="line">com <em>você</em>.</span>
+      </h1>
+      <p class="sub">
+        Gerados por IA, escritos pra sua jornada.<br/>
+        Bíblia em português, inglês e espanhol.
+      </p>
+      <div class="cta-wrapper">
+        <StoreBadge
+          variant="google-play"
+          href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+          size="md"
+        />
+        <StoreBadge
+          variant="app-store"
+          disabled
+          size="md"
+        />
+      </div>
+      <p class="verse">
+        <span class="verse-ref">Sl 119:105</span> — A tua palavra é lâmpada que ilumina os meus passos.
+      </p>
     </div>
-    <p class="verse">
-      <span class="verse-ref">Sl 119:105</span> — A tua palavra é lâmpada que ilumina os meus passos.
-    </p>
+
+    <!-- Cycler column — peeks into Pitch below -->
+    <div class="hero-cycler-wrap" aria-hidden="true">
+      <AppMockupCycler size="lg" tilt={-2} class="hero-cycler" />
+    </div>
+
   </div>
 </section>
 
@@ -45,13 +62,12 @@ import Button from '../ui/Button.astro';
     position: relative;
     min-height: 100vh;
     background: var(--color-paper);
-    display: flex;
-    align-items: center;
-    padding: 6vw 6vw 4vw;
-    overflow: hidden;
+    /* overflow: visible so cycler can peek into Pitch */
+    overflow: visible;
+    padding: 0;
   }
 
-  /* Gradient mesh — duas elipses radiais + base paper */
+  /* Gradient mesh */
   .hero-mesh {
     position: absolute;
     inset: 0;
@@ -61,6 +77,7 @@ import Button from '../ui/Button.astro';
     filter: blur(8px);
     pointer-events: none;
     animation: mesh-drift 18s ease-in-out infinite;
+    overflow: hidden; /* mesh stays clipped; only inner content overflows */
   }
 
   @keyframes mesh-drift {
@@ -72,11 +89,44 @@ import Button from '../ui/Button.astro';
     .hero-mesh { animation: none; }
   }
 
-  .hero-content {
+  /* Inner grid: text left + cycler right on desktop */
+  .hero-inner {
     position: relative;
     z-index: 1;
-    max-width: 64rem;
-    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 6vw 6vw 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+
+  @media (min-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr auto;
+      gap: 5rem;
+      align-items: center;
+      padding-bottom: 0;
+    }
+  }
+
+  /* Text column */
+  .hero-text {
+    padding-bottom: 4vw;
+    /* reveal-on-enter: transition-based so it reverses on scroll out */
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  .hero-text.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-text { opacity: 1; transform: none; transition: none; }
   }
 
   .eyebrow {
@@ -90,7 +140,7 @@ import Button from '../ui/Button.astro';
   }
 
   .headline {
-    font-family: var(--font-family-display); /* Fraunces */
+    font-family: var(--font-family-display);
     font-variation-settings: 'opsz' 144, 'wght' 880, 'SOFT' 50, 'WONK' 0;
     font-size: clamp(3.5rem, 9vw, 8.5rem);
     line-height: 0.92;
@@ -99,54 +149,59 @@ import Button from '../ui/Button.astro';
     margin: 0 0 2.5rem;
   }
 
+  /* Headline lines: transition-based clip-path (reversible on scroll) */
   .headline .line {
     display: block;
     clip-path: inset(0 0 100% 0);
-    animation: line-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transition: clip-path 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .headline .line:nth-child(2) {
-    animation-delay: 150ms;
+  .hero-text.is-visible .headline .line:nth-child(1) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 0ms;
+  }
+
+  .hero-text.is-visible .headline .line:nth-child(2) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 150ms;
   }
 
   .headline em {
-    /* italic em "você" via Fraunces WONK axis */
     font-style: italic;
     font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
   }
 
-  @keyframes line-in {
-    from { clip-path: inset(0 0 100% 0); }
-    to { clip-path: inset(0 0 0% 0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .headline .line {
-      clip-path: none;
-      animation: none;
+      clip-path: none !important;
+      transition: none !important;
     }
   }
 
   .sub {
-    font-family: var(--font-family-serif); /* Newsreader */
+    font-family: var(--font-family-serif);
     font-variation-settings: 'opsz' 28;
     font-weight: 400;
     font-size: clamp(1.125rem, 1.5vw, 1.375rem);
     line-height: 1.5;
     color: var(--color-ink-soft);
-    margin: 0 0 3rem;
+    margin: 0 0 2.5rem;
     max-width: 32rem;
   }
 
   .cta-wrapper {
-    margin-bottom: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
   }
 
   .verse {
     font-family: var(--font-family-serif);
     font-variation-settings: 'opsz' 14;
     font-style: italic;
-    font-size: 1rem;
+    font-size: 0.9375rem;
     line-height: 1.55;
     color: var(--color-ink-muted);
     margin: 0;
@@ -162,10 +217,43 @@ import Button from '../ui/Button.astro';
     color: var(--color-ink-muted);
   }
 
-  /* Mobile */
-  @media (max-width: 640px) {
-    .hero { padding: 8rem 1.5rem 4rem; min-height: 90vh; }
+  /* Cycler column — peek effect */
+  .hero-cycler-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Peek: push cycler down so bottom half overflows into Pitch */
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .hero-cycler-wrap {
+      /* Align cycler top to hero vertical center, let bottom overflow */
+      margin-top: 4rem;
+      /* Negative margin pushes space below hero into pitch territory */
+      margin-bottom: calc(-38% - 2rem);
+    }
+  }
+
+  /* Mobile: cycler below text, smaller, less peek */
+  @media (max-width: 899px) {
+    .hero {
+      padding-bottom: 0;
+    }
+    .hero-inner {
+      padding: 8rem 1.5rem 0;
+    }
+    .hero-cycler-wrap {
+      margin-bottom: calc(-28% - 1rem);
+    }
     .headline { font-size: clamp(3rem, 14vw, 5rem); }
     .eyebrow { margin-bottom: 2.5rem; }
+  }
+
+  /* z-index: cycler above Pitch section */
+  .hero-cycler-wrap :global(.mockup-cycler) {
+    position: relative;
+    z-index: 10;
+    filter: drop-shadow(0 20px 48px rgba(26, 24, 20, 0.18));
   }
 </style>
