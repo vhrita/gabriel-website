@@ -1,8 +1,10 @@
 /**
  * reveal-on-enter.ts
  * IntersectionObserver universal para elementos [data-reveal] ou .reveal-on-enter.
- * Adiciona classe `is-visible` quando o elemento entra na viewport.
- * prefers-reduced-motion: tudo aparece imediatamente, sem animação.
+ * polish-v2: bidirectional — toggles `is-visible` on both enter and leave.
+ * Removed observer.unobserve so elements re-animate when scrolling back up.
+ * rootMargin: '-5% 0px -5% 0px' — small buffer avoids jitter at edge.
+ * prefers-reduced-motion: all elements shown immediately, no animation.
  */
 
 const prefersReduced =
@@ -22,21 +24,12 @@ function initReveal() {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const el = entry.target as HTMLElement;
-          const delay = el.style.getPropertyValue('--delay') || '0ms';
-          // Aplicar delay via setTimeout apenas se definido
-          const ms = parseFloat(delay) || 0;
-          if (ms > 0) {
-            setTimeout(() => el.classList.add('is-visible'), ms);
-          } else {
-            el.classList.add('is-visible');
-          }
-          observer.unobserve(el);
-        }
+        const el = entry.target as HTMLElement;
+        // Toggle: add when entering, remove when leaving
+        el.classList.toggle('is-visible', entry.isIntersecting);
       });
     },
-    { threshold: 0.12 },
+    { threshold: 0.12, rootMargin: '-5% 0px -5% 0px' },
   );
 
   targets.forEach((el) => observer.observe(el));
