@@ -4,7 +4,7 @@ import JsonLd from '../components/seo/JsonLd.astro';
 import HeroSection from '../components/hero/HeroSection.astro';
 import PitchSection from '../components/home/PitchSection.astro';
 import FeaturesGrid from '../components/home/FeaturesGrid.astro';
-import Showcase from '../components/home/Showcase.astro';
+// import Showcase from '../components/home/Showcase.astro'; // removida (polish-v2: carousel é redundante com mockups no FeaturesGrid)
 // VerseMarquee removida (home-v2: microcopy versículo já está no Hero — duplicação)
 // WingsTransition removido (ADR-0015 §11, TASK-2026-0513-2310 commit C)
 
@@ -53,5 +53,5 @@ const jsonLdData = [
   <!-- WingsTransition deletado — asas removidas (ADR-0015 §8.1) -->
   <PitchSection />
   <FeaturesGrid />
-  <Showcase />
+  <!-- <Showcase /> removida (polish-v2) -->
 </BaseLayout>
