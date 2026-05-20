@@ -30,8 +30,12 @@
   .pitch {
     position: relative;
     background: var(--color-paper);
-    /* Extra padding-top to push content below the Hero cycler that peeks in */
-    padding: clamp(10rem, 20vw, 16rem) 6vw clamp(6rem, 12vw, 10rem);
+    /*
+     * padding-top mirrors Hero padding-bottom:
+     * accommodates the bottom half of the cycler (cyclerH/2 = 280px + buffer).
+     * clamp(18rem, 32vw, 24rem) matches Hero padding-bottom for true 50/50 symmetry.
+     */
+    padding: clamp(22rem, 32vw, 26rem) 6vw clamp(6rem, 12vw, 10rem);
     overflow: visible;
   }
 
@@ -124,8 +128,10 @@
     max-width: 38rem;
   }
 
-  @media (max-width: 640px) {
-    .pitch { padding: 8rem 1.5rem 5rem; }
+  @media (max-width: 899px) {
+    /* mirrors Hero mobile padding-bottom: clamp(14rem, 40vw, 18rem) */
+    /* mirrors Hero mobile padding-bottom (cyclerH/2 = 320px ≈ 20rem) */
+    .pitch { padding: clamp(22rem, 38vw, 26rem) 1.5rem 5rem; }
     .pitch-title { font-size: clamp(2.25rem, 12vw, 4rem); }
     .pitch-eyebrow { margin-bottom: 2rem; }
   }
