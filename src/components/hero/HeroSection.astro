@@ -250,6 +250,28 @@ import AppMockupCycler from '../mockups/AppMockupCycler.astro';
     filter: drop-shadow(0 20px 48px rgba(26, 24, 20, 0.18));
   }
 
+  /* Desktop: center all Hero content (≥900px) */
+  @media (min-width: 900px) {
+    .hero-inner {
+      text-align: center;
+    }
+    .hero-text {
+      margin-inline: auto;
+    }
+    .sub {
+      margin-inline: auto;
+    }
+    .verse {
+      margin-inline: auto;
+    }
+    .cta-wrapper {
+      justify-content: center;
+    }
+    .cta-hint {
+      text-align: center;
+    }
+  }
+
   /* Mobile */
   @media (max-width: 899px) {
     .hero {
