@@ -310,21 +310,3 @@ const features = [
     }
   }
 </style>
-
-<script>
-  // Reveal-on-enter: bidirectional — toggles is-visible on intersection (no unobserve)
-  const header = document.querySelector<HTMLElement>('.features-header');
-  const rows = document.querySelectorAll<HTMLElement>('.feature-row');
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        (entry.target as HTMLElement).classList.toggle('is-visible', entry.isIntersecting);
-      });
-    },
-    { threshold: 0.12, rootMargin: '-5% 0px -5% 0px' }
-  );
-
-  if (header) observer.observe(header);
-  rows.forEach((row) => observer.observe(row));
-</script>
