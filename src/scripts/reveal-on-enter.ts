@@ -3,7 +3,8 @@
  * IntersectionObserver universal para elementos [data-reveal] ou .reveal-on-enter.
  * polish-v2: bidirectional — toggles `is-visible` on both enter and leave.
  * Removed observer.unobserve so elements re-animate when scrolling back up.
- * rootMargin: '-5% 0px -5% 0px' — small buffer avoids jitter at edge.
+ * threshold: 0 — any pixel intersecting counts as visible.
+ * rootMargin: '0px' — only "exits" when element is fully outside the viewport.
  * prefers-reduced-motion: all elements shown immediately, no animation.
  */
 
@@ -29,7 +30,7 @@ function initReveal() {
         el.classList.toggle('is-visible', entry.isIntersecting);
       });
     },
-    { threshold: 0.12, rootMargin: '-5% 0px -5% 0px' },
+    { threshold: 0, rootMargin: '0px 0px 0px 0px' },
   );
 
   targets.forEach((el) => observer.observe(el));
