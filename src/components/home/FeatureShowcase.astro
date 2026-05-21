@@ -1,9 +1,9 @@
 ---
 /**
- * FeatureShowcase.astro — Horizontal scroll-snap showcase for desktop ≥1024px
+ * FeatureShowcase.astro — Horizontal scroll-snap showcase for tablet/desktop ≥768px
  *
- * Mobile (<1024px): children stack vertically (default flow, no changes).
- * Desktop (≥1024px): children displayed in a horizontal scroll-snap row,
+ * Mobile (<768px): children stack vertically (default flow, no changes).
+ * Tablet/Desktop (≥768px): children displayed in a horizontal scroll-snap row,
  * Play Store carousel style — 2-3 cards visible, peek on next card.
  *
  * Uses CSS scroll-snap (no JS, no extra libs).
@@ -69,8 +69,8 @@
     display: none;
   }
 
-  /* ===== Desktop ≥1024px: horizontal scroll-snap carousel ===== */
-  @media (min-width: 1024px) {
+  /* ===== Tablet/Desktop ≥768px: horizontal scroll-snap carousel ===== */
+  @media (min-width: 768px) {
     .feature-showcase {
       /* Navy background for the whole row — unifies panels */
       background: linear-gradient(180deg, #12243e 0%, #0e1d33 100%);
@@ -97,8 +97,8 @@
     }
   }
 
-  /* Scroll hint — desktop only */
-  @media (min-width: 1024px) {
+  /* Scroll hint — tablet/desktop only */
+  @media (min-width: 768px) {
     .showcase-scroll-hint {
       display: flex;
       align-items: center;

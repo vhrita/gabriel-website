@@ -138,40 +138,6 @@
    Keyframes: animações editoriais (ADR-0015 §7)
    ======================== */
 
-/* Stagger letras wordmark Hero */
-@keyframes letter-in {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Drop cap fade-in */
-@keyframes drop-cap-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* SVG stroke draw-in (ornamentos) */
-@keyframes stroke-draw {
-  0% {
-    stroke-dashoffset: var(--stroke-length, 400);
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
 /* Fade-up padrão */
 @keyframes fade-up {
   0% {
@@ -681,10 +647,10 @@ body {
 }
 
 /* ========================
-   Panel system overrides for FeatureShowcase (desktop ≥1024px)
+   Panel system overrides for FeatureShowcase (tablet/desktop ≥768px)
    These global rules pierce Panel.astro's scoped styles.
    ======================== */
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   /* Each panel becomes a scroll-snap card */
   .feature-showcase .panel {
     /* Width: clamp so cards scale across 1024–1920 range.
