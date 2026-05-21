@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
-import HeroSection from '../components/hero/HeroSection.astro';
-import PitchSection from '../components/home/PitchSection.astro';
-import FeaturesGrid from '../components/home/FeaturesGrid.astro';
-// import Showcase from '../components/home/Showcase.astro'; // removida (polish-v2: carousel é redundante com mockups no FeaturesGrid)
-// VerseMarquee removida (home-v2: microcopy versículo já está no Hero — duplicação)
-// WingsTransition removido (ADR-0015 §11, TASK-2026-0513-2310 commit C)
+import HeroPanel from '../components/home/HeroPanel.astro';
+import PersonalizationPanel from '../components/home/PersonalizationPanel.astro';
+import ReflexoesPanel from '../components/home/ReflexoesPanel.astro';
+import ChatPanel from '../components/home/ChatPanel.astro';
+import JardimPanel from '../components/home/JardimPanel.astro';
+import StreakPanel from '../components/home/StreakPanel.astro';
+import VersiculoPanel from '../components/home/VersiculoPanel.astro';
+import SocialProofPanel from '../components/home/SocialProofPanel.astro';
 
 const jsonLdData = [
   {
@@ -45,13 +47,17 @@ const jsonLdData = [
 ---
 <BaseLayout
   title="Gabriel — Sua jornada espiritual, todos os dias"
-  description="Devocionais personalizados por IA, a Bíblia inteira em 3 idiomas e um caminho de leitura que cresce com você."
+  description="Devocionais personalizados por IA, a Bíblia inteira em 3 idiomas e conversas com Gabriel sobre fé. Grátis no Google Play."
   headerVariant="transparent"
+  headerTone="on-dark"
 >
   <JsonLd data={jsonLdData} />
-  <HeroSection />
-  <!-- WingsTransition deletado — asas removidas (ADR-0015 §8.1) -->
-  <PitchSection />
-  <FeaturesGrid />
-  <!-- <Showcase /> removida (polish-v2) -->
+  <HeroPanel />
+  <PersonalizationPanel />
+  <ReflexoesPanel />
+  <ChatPanel />
+  <JardimPanel />
+  <StreakPanel />
+  <VersiculoPanel />
+  <SocialProofPanel />
 </BaseLayout>

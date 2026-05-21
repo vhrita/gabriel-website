@@ -26,80 +26,80 @@
   /* ========================
      Colors — celestial (mantidos — legais reusam)
      ======================== */
-  --color-celestial-50: #E8F4F8;
-  --color-celestial-100: #D1E9F1;
-  --color-celestial-200: #A3D3E3;
-  --color-celestial-300: #75BDD5;
-  --color-celestial-400: #47A7C7;
-  --color-celestial-500: #1E3A5F;
-  --color-celestial-600: #1A3354;
-  --color-celestial-700: #162B49;
-  --color-celestial-800: #12243E;
-  --color-celestial-900: #0E1D33;
+  --color-celestial-50: #e8f4f8;
+  --color-celestial-100: #d1e9f1;
+  --color-celestial-200: #a3d3e3;
+  --color-celestial-300: #75bdd5;
+  --color-celestial-400: #47a7c7;
+  --color-celestial-500: #1e3a5f;
+  --color-celestial-600: #1a3354;
+  --color-celestial-700: #162b49;
+  --color-celestial-800: #12243e;
+  --color-celestial-900: #0e1d33;
 
   /* Colors — divine */
-  --color-divine-50: #FBF7E8;
-  --color-divine-100: #F7EFD1;
-  --color-divine-200: #EFDFA3;
-  --color-divine-300: #E7CF75;
-  --color-divine-400: #DFBF47;
-  --color-divine-500: #D4AF37;
-  --color-divine-600: #BF9E32;
-  --color-divine-700: #AA8D2C;
-  --color-divine-800: #957C27;
-  --color-divine-900: #806B21;
+  --color-divine-50: #fbf7e8;
+  --color-divine-100: #f7efd1;
+  --color-divine-200: #efdfa3;
+  --color-divine-300: #e7cf75;
+  --color-divine-400: #dfbf47;
+  --color-divine-500: #d4af37;
+  --color-divine-600: #bf9e32;
+  --color-divine-700: #aa8d2c;
+  --color-divine-800: #957c27;
+  --color-divine-900: #806b21;
 
   /* Colors — sacred */
-  --color-sacred-50: #EEEAF4;
-  --color-sacred-500: #4A3B6E;
-  --color-sacred-700: #3A2F58;
+  --color-sacred-50: #eeeaf4;
+  --color-sacred-500: #4a3b6e;
+  --color-sacred-700: #3a2f58;
 
   /* Colors — garden */
-  --color-garden-50: #EDF4EF;
-  --color-garden-500: #4A7C59;
-  --color-garden-700: #3A6447;
+  --color-garden-50: #edf4ef;
+  --color-garden-500: #4a7c59;
+  --color-garden-700: #3a6447;
 
   /* Colors — life */
-  --color-life-50: #F4FAE6;
-  --color-life-500: #7CB518;
+  --color-life-50: #f4fae6;
+  --color-life-500: #7cb518;
   --color-life-700: #649114;
 
   /* Colors — semantic legacy */
-  --color-heavenly: #E8F4F8;
-  --color-lavender: #E6E6FA;
+  --color-heavenly: #e8f4f8;
+  --color-lavender: #e6e6fa;
 
   /* ========================
      Colors — Editorial neutrals (ADR-0015 §5.1)
      paper/ink paleta manuscrito iluminado moderno
      ======================== */
-  --color-paper: #FAF7F0;        /* pergaminho moderno: warm white */
-  --color-paper-deep: #F2EDE0;   /* paper aged, bg de seções alternadas */
-  --color-ink: #1A1814;          /* preto editorial profundo */
-  --color-ink-soft: #3A352B;     /* body em paper */
-  --color-ink-muted: #6E6759;    /* captions, microcopy em paper */
+  --color-paper: #faf7f0; /* pergaminho moderno: warm white */
+  --color-paper-deep: #f2ede0; /* paper aged, bg de seções alternadas */
+  --color-ink: #1a1814; /* preto editorial profundo */
+  --color-ink-soft: #3a352b; /* body em paper */
+  --color-ink-muted: #6e6759; /* captions, microcopy em paper */
 
   /* ========================
      Font families (ADR-0015 §4.1)
      ======================== */
-  --font-family-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
-  --font-family-serif: 'Newsreader Variable', 'Newsreader', Georgia, serif;
-  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-display: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-family-serif: "Newsreader Variable", "Newsreader", Georgia, serif;
+  --font-family-sans: "Inter", system-ui, sans-serif;
 
   /* ========================
      Escala tipográfica — 12 tokens (ADR-0015 §4.2)
      ======================== */
-  --text-display-2xl: clamp(4.5rem, 18vw, 12rem);   /* Hero wordmark "Gabriel" */
-  --text-display-xl: clamp(3rem, 9vw, 6rem);          /* Drop cap capitular */
-  --text-display: clamp(2.5rem, 6vw, 4.5rem);         /* H1 seção principal */
-  --text-h1: clamp(2rem, 4.5vw, 3.25rem);             /* H1 seções secundárias */
-  --text-h2: clamp(1.625rem, 3.2vw, 2.25rem);         /* H2 features, showcase */
-  --text-h3: 1.375rem;                                  /* Card titles */
-  --text-h4: 1.125rem;                                  /* Sub-itens */
-  --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);      /* Lead paragraph */
-  --text-body-lg: 1.125rem;                             /* Pull quotes inline */
-  --text-body: 1rem;                                    /* Body padrão */
-  --text-small: 0.875rem;                               /* Captions */
-  --text-caption: 0.75rem;                              /* Kickers */
+  --text-display-2xl: clamp(4.5rem, 18vw, 12rem); /* Hero wordmark "Gabriel" */
+  --text-display-xl: clamp(3rem, 9vw, 6rem); /* Drop cap capitular */
+  --text-display: clamp(2.5rem, 6vw, 4.5rem); /* H1 seção principal */
+  --text-h1: clamp(2rem, 4.5vw, 3.25rem); /* H1 seções secundárias */
+  --text-h2: clamp(1.625rem, 3.2vw, 2.25rem); /* H2 features, showcase */
+  --text-h3: 1.375rem; /* Card titles */
+  --text-h4: 1.125rem; /* Sub-itens */
+  --text-lead: clamp(1.125rem, 1.6vw, 1.375rem); /* Lead paragraph */
+  --text-body-lg: 1.125rem; /* Pull quotes inline */
+  --text-body: 1rem; /* Body padrão */
+  --text-small: 0.875rem; /* Captions */
+  --text-caption: 0.75rem; /* Kickers */
 
   /* Line heights */
   --leading-display: 0.92;
@@ -115,7 +115,7 @@
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
   --radius-editorial-sm: 4px;
-  --radius-editorial-md: 8px;    /* Buttons v1.5 — menos "pillow shaped" */
+  --radius-editorial-md: 8px; /* Buttons v1.5 — menos "pillow shaped" */
   --radius-editorial-lg: 12px;
 
   /* ========================
@@ -123,7 +123,8 @@
      ======================== */
   --shadow-soft: 0 4px 20px rgba(30, 58, 95, 0.08);
   --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.3);
-  --shadow-paper-lift: 0 4px 16px rgba(26, 24, 20, 0.04), 0 1px 2px rgba(26, 24, 20, 0.06);
+  --shadow-paper-lift:
+    0 4px 16px rgba(26, 24, 20, 0.04), 0 1px 2px rgba(26, 24, 20, 0.06);
   --shadow-soft-text: 0 1px 1px rgba(26, 24, 20, 0.08);
   --shadow-divine-glow: 0 0 24px rgba(212, 175, 55, 0.16);
 
@@ -139,32 +140,58 @@
 
 /* Stagger letras wordmark Hero */
 @keyframes letter-in {
-  0% { opacity: 0; transform: translateY(12px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Drop cap fade-in */
 @keyframes drop-cap-in {
-  0% { opacity: 0; transform: scale(0.96); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* SVG stroke draw-in (ornamentos) */
 @keyframes stroke-draw {
-  0% { stroke-dashoffset: var(--stroke-length, 400); }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: var(--stroke-length, 400);
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* Fade-up padrão */
 @keyframes fade-up {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Fade in simples */
 @keyframes fade-in {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* ========================
@@ -217,36 +244,102 @@
   /* Família display (Fraunces) */
   .font-display {
     font-family: var(--font-family-display);
-    font-variation-settings: 'opsz' 32;
+    font-variation-settings: "opsz" 32;
   }
 
   /* Família serif (Newsreader) */
   .font-editorial {
     font-family: var(--font-family-serif);
-    font-variation-settings: 'opsz' 16;
+    font-variation-settings: "opsz" 16;
   }
 
   /* Fraunces opsz variants — usados em componentes */
-  .fraunces-caption { font-family: var(--font-family-display); font-variation-settings: 'opsz' 9, 'wght' 400; }
-  .fraunces-body { font-family: var(--font-family-display); font-variation-settings: 'opsz' 18, 'wght' 500; }
-  .fraunces-h3 { font-family: var(--font-family-display); font-variation-settings: 'opsz' 24, 'wght' 600; }
-  .fraunces-h2 { font-family: var(--font-family-display); font-variation-settings: 'opsz' 32, 'wght' 600; }
-  .fraunces-h1 { font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 600; }
-  .fraunces-display { font-family: var(--font-family-display); font-variation-settings: 'opsz' 72, 'wght' 600; }
-  .fraunces-display-xl { font-family: var(--font-family-display); font-variation-settings: 'opsz' 96, 'wght' 700; }
-  .fraunces-wordmark { font-family: var(--font-family-display); font-variation-settings: 'opsz' 144, 'wght' 800; }
-  .fraunces-numeral { font-family: var(--font-family-display); font-variation-settings: 'opsz' 96, 'wght' 800; font-style: italic; }
-  .fraunces-dropcap { font-family: var(--font-family-display); font-variation-settings: 'opsz' 96, 'wght' 900; }
+  .fraunces-caption {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 9,
+      "wght" 400;
+  }
+  .fraunces-body {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 18,
+      "wght" 500;
+  }
+  .fraunces-h3 {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 24,
+      "wght" 600;
+  }
+  .fraunces-h2 {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 32,
+      "wght" 600;
+  }
+  .fraunces-h1 {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 48,
+      "wght" 600;
+  }
+  .fraunces-display {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 72,
+      "wght" 600;
+  }
+  .fraunces-display-xl {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 96,
+      "wght" 700;
+  }
+  .fraunces-wordmark {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 144,
+      "wght" 800;
+  }
+  .fraunces-numeral {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 96,
+      "wght" 800;
+    font-style: italic;
+  }
+  .fraunces-dropcap {
+    font-family: var(--font-family-display);
+    font-variation-settings:
+      "opsz" 96,
+      "wght" 900;
+  }
 
   /* Newsreader opsz variants */
-  .newsreader-display { font-family: var(--font-family-serif); font-variation-settings: 'opsz' 36; }
-  .newsreader-text { font-family: var(--font-family-serif); font-variation-settings: 'opsz' 16; }
-  .newsreader-caption { font-family: var(--font-family-serif); font-variation-settings: 'opsz' 9; }
+  .newsreader-display {
+    font-family: var(--font-family-serif);
+    font-variation-settings: "opsz" 36;
+  }
+  .newsreader-text {
+    font-family: var(--font-family-serif);
+    font-variation-settings: "opsz" 16;
+  }
+  .newsreader-caption {
+    font-family: var(--font-family-serif);
+    font-variation-settings: "opsz" 9;
+  }
 
   /* Radius editorial */
-  .rounded-editorial { border-radius: var(--radius-editorial-md); }
-  .rounded-editorial-sm { border-radius: var(--radius-editorial-sm); }
-  .rounded-editorial-lg { border-radius: var(--radius-editorial-lg); }
+  .rounded-editorial {
+    border-radius: var(--radius-editorial-md);
+  }
+  .rounded-editorial-sm {
+    border-radius: var(--radius-editorial-sm);
+  }
+  .rounded-editorial-lg {
+    border-radius: var(--radius-editorial-lg);
+  }
 }
 
 /* ========================
@@ -315,8 +408,8 @@ body {
   --color-border: rgba(255, 255, 255, 0.06);
 
   /* Typography */
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -389,7 +482,7 @@ body {
   border: 1px solid var(--color-celestial-200);
   border-radius: 0.375rem;
   padding: 0.1em 0.4em;
-  font-family: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: ui-monospace, "JetBrains Mono", "Fira Code", monospace;
   font-size: 0.8125rem;
   color: var(--color-celestial-700);
 }
@@ -447,7 +540,7 @@ body {
   border: 1px solid var(--color-celestial-200);
   border-radius: 0.375rem;
   padding: 0.15em 0.5em;
-  font-family: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: ui-monospace, "JetBrains Mono", "Fira Code", monospace;
   font-size: 0.8125rem;
   color: var(--color-celestial-700);
   margin-top: 0.25rem;
@@ -465,7 +558,9 @@ body {
   font-size: 0.875rem;
   text-align: center;
   text-decoration: none !important;
-  transition: background 150ms ease, transform 150ms ease;
+  transition:
+    background 150ms ease,
+    transform 150ms ease;
 }
 
 .cta-button:hover {
@@ -550,4 +645,37 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ========================
+   Panel system (overhaul v2)
+   Used by Panel.astro and panel sub-components.
+   ======================== */
+.panel {
+  position: relative;
+  overflow: hidden;
+}
+.panel-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.panel--navy-dark .panel-bg {
+  background: linear-gradient(
+    180deg,
+    var(--color-celestial-800) 0%,
+    var(--color-celestial-900) 100%
+  );
+}
+.panel--navy-soft .panel-bg {
+  background: linear-gradient(
+    180deg,
+    var(--color-celestial-700) 0%,
+    var(--color-celestial-800) 100%
+  );
+}
+.panel-inner {
+  position: relative;
+  z-index: 1;
 }

@@ -1,0 +1,137 @@
+---
+/**
+ * Panel.astro — Base panel primitive for the LP overhaul (v2)
+ *
+ * Inspired by Preline UI "Full-Bleed Image Hero with Text Overlay" (free)
+ * https://preline.co/blocks/marketing/hero-sections/
+ *
+ * Each Play Store marketing PNG is the canvas. LP is chrome around it.
+ * Panels stack vertically: navy-dark / navy-soft alternating for rhythm.
+ */
+
+interface Props {
+  /** Path to the 1080w WebP (mobile default) */
+  src: string;
+  /** Path to the 1620w WebP (desktop/retina) */
+  src2x?: string;
+  /** Accessible description of the image in PT-BR */
+  alt: string;
+  /** Background gradient tone behind the PNG on desktop */
+  bgTone?: 'navy-dark' | 'navy-soft';
+  /** Use loading="eager" + fetchpriority="high" only for the hero (panel 1) */
+  eager?: boolean;
+  /** Anchor id for scroll targets */
+  id?: string;
+  /** Optional extra CSS class */
+  class?: string;
+}
+
+const {
+  src,
+  src2x,
+  alt,
+  bgTone = 'navy-dark',
+  eager = false,
+  id,
+  class: className,
+} = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['panel', `panel--${bgTone}`, className]}
+>
+  <div class="panel-bg" aria-hidden="true"></div>
+  <div class="panel-inner">
+    <picture class="panel-image">
+      {src2x && (
+        <source
+          media="(min-width: 1024px)"
+          srcset={src2x}
+          type="image/webp"
+        />
+      )}
+      <source srcset={src} type="image/webp" />
+      <img
+        src={src}
+        alt={alt}
+        width="1080"
+        height="1570"
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchpriority={eager ? 'high' : undefined}
+      />
+    </picture>
+
+    {/* Chrome slot — only hero and social-proof panels use this */}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .panel {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .panel--navy-dark .panel-bg {
+    background: linear-gradient(180deg, #12243e 0%, #0e1d33 100%);
+  }
+
+  .panel--navy-soft .panel-bg {
+    background: linear-gradient(180deg, #162b49 0%, #12243e 100%);
+  }
+
+  .panel-inner {
+    position: relative;
+    z-index: 1;
+    /* Mobile: edge-to-edge PNG */
+    padding: 0;
+  }
+
+  .panel-image {
+    display: block;
+    line-height: 0;
+  }
+
+  .panel-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Tablet+ (≥640px): contained PNG with navy lateral bleed */
+  @media (min-width: 640px) {
+    .panel-inner {
+      max-width: 720px;
+      margin-inline: auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .panel-image img {
+      max-width: 600px;
+      margin-inline: auto;
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(14, 29, 51, 0.55);
+    }
+  }
+
+  /* Desktop (≥1024px): wider container, deeper padding */
+  @media (min-width: 1024px) {
+    .panel-inner {
+      max-width: 800px;
+      padding: 6rem 2rem 8rem;
+    }
+
+    .panel-image img {
+      max-width: 640px;
+    }
+  }
+</style>

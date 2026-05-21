@@ -1,0 +1,95 @@
+---
+/**
+ * SocialProofPanel.astro — Panel 8
+ * "Junte-se hoje a outros cristãos e nunca mais tenha dúvidas!"
+ * PNG 8 already has 5-star testimonial baked in.
+ * This panel adds CTA chrome below the PNG (repeat call-to-action for users who scrolled all 8 panels).
+ *
+ * Bloco-fonte: Preline UI "Testimonial Section with Stats" (free)
+ * https://preline.co/blocks/marketing/testimonials/
+ * + inline CTA from Preline "Hero with CTA" pattern
+ */
+
+import Panel from './Panel.astro';
+import StoreBadge from '../ui/StoreBadge.astro';
+---
+
+<Panel
+  src="/screens/v2/8-1080.webp"
+  src2x="/screens/v2/8-1620.webp"
+  alt="Junte-se hoje a outros cristãos e nunca mais tenha dúvidas. Depoimento de Maria com 5 estrelas: O único app que eu uso e recomendo. Comparativo Você hoje versus Você em uma semana com Gabriel."
+  bgTone="navy-dark"
+  id="social-proof"
+>
+  <div class="social-proof-cta">
+    <p class="cta-eyebrow">b a i x e &nbsp; a g o r a</p>
+    <h2 class="cta-headline">Comece sua jornada <em>hoje</em>.</h2>
+    <p class="cta-sub">Devocionais personalizados, Bíblia em 3 idiomas, conversa com Gabriel. Grátis no Google Play.</p>
+    <div class="cta-badges">
+      <StoreBadge
+        variant="google-play"
+        href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+        size="md"
+      />
+      <StoreBadge
+        variant="app-store"
+        disabled
+        size="md"
+      />
+    </div>
+  </div>
+</Panel>
+
+<style>
+  .social-proof-cta {
+    text-align: center;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .cta-eyebrow {
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--color-divine-300);
+    margin: 0 0 1rem;
+  }
+
+  .cta-headline {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 72, 'wght' 600;
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--color-paper);
+    margin: 0 0 1rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .cta-headline em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 72, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+    color: var(--color-divine-300);
+  }
+
+  .cta-sub {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 24;
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    line-height: 1.6;
+    color: rgba(250, 247, 240, 0.7);
+    margin: 0 0 2rem;
+    max-width: 480px;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+  }
+
+  .cta-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
