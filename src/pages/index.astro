@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import HeroPanel from '../components/home/HeroPanel.astro';
+import FeatureShowcase from '../components/home/FeatureShowcase.astro';
 import PersonalizationPanel from '../components/home/PersonalizationPanel.astro';
 import ReflexoesPanel from '../components/home/ReflexoesPanel.astro';
 import ChatPanel from '../components/home/ChatPanel.astro';
@@ -52,12 +53,21 @@ const jsonLdData = [
   headerTone="on-dark"
 >
   <JsonLd data={jsonLdData} />
+
+  <!-- Hero panel: standalone, outside the carousel -->
   <HeroPanel />
-  <PersonalizationPanel />
-  <ReflexoesPanel />
-  <ChatPanel />
-  <JardimPanel />
-  <StreakPanel />
-  <VersiculoPanel />
+
+  <!-- Feature showcase: 7 panels as horizontal scroll-snap on desktop,
+       stacked vertically on mobile. SocialProof is separate CTA after. -->
+  <FeatureShowcase>
+    <PersonalizationPanel />
+    <ReflexoesPanel />
+    <ChatPanel />
+    <JardimPanel />
+    <StreakPanel />
+    <VersiculoPanel />
+  </FeatureShowcase>
+
+  <!-- Social proof + final CTA: outside the carousel, renders as closing section -->
   <SocialProofPanel />
 </BaseLayout>
