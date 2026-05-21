@@ -50,17 +50,43 @@ for (const vp of VIEWPORTS) {
   const page = await ctx.newPage();
 
   for (const p of PAGES) {
-    await page.goto(`${BASE}${p.url}`, { waitUntil: "networkidle" });
-    // Wait for fonts + fade-in animations to settle
-    await page.waitForTimeout(800);
+    await page.goto(BASE + p.url, { waitUntil: "networkidle" });
 
-    const outPath = `${OUT}/${p.name}-${vp.name}-${vp.width}x${vp.height}.png`;
+    // Scroll through the full page to trigger lazy-loaded images.
+    // Playwright fullPage screenshots don't auto-scroll, so lazy images stay
+    // unloaded if we don't trigger them first.
+    const pageHeight = await page.evaluate(() => document.body.scrollHeight);
+    for (let y = 0; y < pageHeight; y += vp.height) {
+      await page.evaluate((sy) => window.scrollTo(0, sy), y);
+      await page.waitForTimeout(150);
+    }
+    // Scroll back to top
+    await page.evaluate(() => window.scrollTo(0, 0));
+
+    // Wait for image loads to settle after scroll
+    await page.waitForLoadState("networkidle");
+    // Extra settle for fonts + CSS animations
+    await page.waitForTimeout(600);
+
+    const outPath =
+      OUT +
+      "/" +
+      p.name +
+      "-" +
+      vp.name +
+      "-" +
+      vp.width +
+      "x" +
+      vp.height +
+      ".png";
     await page.screenshot({ path: outPath, fullPage: true });
-    console.log(`✓ ${p.name} @ ${vp.name} (${vp.width}x${vp.height})`);
+    console.log(
+      "✓ " + p.name + " @ " + vp.name + " (" + vp.width + "x" + vp.height + ")",
+    );
   }
 
   await ctx.close();
 }
 
 await browser.close();
-console.log(`\nDone. 20 screenshots saved to docs/screenshots/v2/`);
+console.log("\nDone. 20 screenshots saved to docs/screenshots/v2/");
