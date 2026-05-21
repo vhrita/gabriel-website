@@ -338,24 +338,28 @@ const year = new Date().getFullYear();
          solid (legal pages): always paper bg + hairline, no transitions needed
     -->
     <script>
-      const header = document.getElementById('site-header');
-      if (header && header.dataset.variant === 'transparent') {
+      const headerEl = document.getElementById('site-header') as HTMLElement | null;
+      if (headerEl && headerEl.dataset.variant === 'transparent') {
+        // Use non-null assertion — narrowed to HTMLElement by the if guard above
+        const h = headerEl as HTMLElement;
+        // Cast style to access vendor-prefixed webkitBackdropFilter
+        const s = h.style as CSSStyleDeclaration & Record<string, string>;
         function applyScrollState() {
           const scrolled = window.scrollY > 20;
           if (scrolled) {
-            header!.style.backgroundColor = 'rgba(250, 247, 240, 0.85)';
-            header!.style.backdropFilter = 'blur(12px)';
-            header!.style.webkitBackdropFilter = 'blur(12px)';
-            header!.style.borderBottom = '1px solid rgba(26, 24, 20, 0.06)';
-            header!.style.boxShadow = 'none';
-            header!.setAttribute('data-scrolled', '');
+            s.backgroundColor = 'rgba(250, 247, 240, 0.85)';
+            s.backdropFilter = 'blur(12px)';
+            s.webkitBackdropFilter = 'blur(12px)';
+            s.borderBottom = '1px solid rgba(26, 24, 20, 0.06)';
+            s.boxShadow = 'none';
+            h.setAttribute('data-scrolled', '');
           } else {
-            header!.style.backgroundColor = 'transparent';
-            header!.style.backdropFilter = '';
-            header!.style.webkitBackdropFilter = '';
-            header!.style.borderBottom = '';
-            header!.style.boxShadow = '';
-            header!.removeAttribute('data-scrolled');
+            s.backgroundColor = 'transparent';
+            s.backdropFilter = '';
+            s.webkitBackdropFilter = '';
+            s.borderBottom = '';
+            s.boxShadow = '';
+            h.removeAttribute('data-scrolled');
           }
         }
 
