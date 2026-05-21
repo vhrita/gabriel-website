@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
-import HeroSection from '../components/hero/HeroSection.astro';
-import PitchSection from '../components/home/PitchSection.astro';
-import FeaturesGrid from '../components/home/FeaturesGrid.astro';
-// import Showcase from '../components/home/Showcase.astro'; // removida (polish-v2: carousel é redundante com mockups no FeaturesGrid)
-// VerseMarquee removida (home-v2: microcopy versículo já está no Hero — duplicação)
-// WingsTransition removido (ADR-0015 §11, TASK-2026-0513-2310 commit C)
+import HeroSection from '../components/home/HeroSection.astro';
+import FeaturesIntro from '../components/home/FeaturesIntro.astro';
+import FeatureRow from '../components/home/FeatureRow.astro';
+import TestimonialSection from '../components/home/TestimonialSection.astro';
+import FinalCTA from '../components/home/FinalCTA.astro';
 
 const jsonLdData = [
   {
@@ -45,13 +44,58 @@ const jsonLdData = [
 ---
 <BaseLayout
   title="Gabriel — Sua jornada espiritual, todos os dias"
-  description="Devocionais personalizados por IA, a Bíblia inteira em 3 idiomas e um caminho de leitura que cresce com você."
+  description="Devocionais personalizados por IA, a Bíblia em 3 idiomas e conversas com Gabriel sobre fé. Grátis no Google Play."
   headerVariant="transparent"
+  bodyTheme="dark"
 >
   <JsonLd data={jsonLdData} />
   <HeroSection />
-  <!-- WingsTransition deletado — asas removidas (ADR-0015 §8.1) -->
-  <PitchSection />
-  <FeaturesGrid />
-  <!-- <Showcase /> removida (polish-v2) -->
+  <FeaturesIntro />
+  <FeatureRow
+    num="01"
+    textSide="right"
+    tone="alt"
+    title="Devocional do dia."
+    copy="Uma reflexão escrita pra você esta manhã. Pequena, certeira, contextualizada pelo que você está vivendo. Cada dia é diferente, cada dia te encontra."
+    screen="devocional"
+    alt="Tela de devocional do app Gabriel"
+  />
+  <FeatureRow
+    num="02"
+    textSide="left"
+    tone="base"
+    title="Bíblia que floresce com você."
+    copy="Os 66 livros em português, inglês e espanhol. A cada capítulo lido, seu Jardim da Fé floresce — um mapa visual do seu caminho."
+    screen="bible"
+    alt="Tela do Jardim da Fé"
+  />
+  <FeatureRow
+    num="03"
+    textSide="right"
+    tone="alt"
+    title="Um amigo pra conversar."
+    copy="Pergunte sobre fé, Bíblia, dúvidas teológicas. Gabriel responde com profundidade, sempre consultando a Bíblia — sem julgamento."
+    screen="chat"
+    alt="Tela do chat com Gabriel"
+  />
+  <FeatureRow
+    num="04"
+    textSide="left"
+    tone="base"
+    title="Constância sem culpa."
+    copy="Diário, três vezes, cinco vezes na semana. Você escolhe. O streak respeita seu ritmo e celebra cada retorno."
+    screen="streak"
+    alt="Tela de constância e streak"
+  />
+  <FeatureRow
+    num="05"
+    textSide="right"
+    tone="alt"
+    title="Um versículo por dia."
+    copy="Cada manhã, um novo versículo pra compartilhar com quem você ama. Pequeno gesto, eco longo."
+    screen="verse"
+    alt="Tela do versículo do dia"
+  />
+  <TestimonialSection />
+  <FinalCTA />
 </BaseLayout>
