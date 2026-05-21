@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Playwright validation outputs (não commit, só anexar no PR)
+docs/screenshots/v3/
