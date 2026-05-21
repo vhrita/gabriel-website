@@ -158,12 +158,12 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     display: flex;
     justify-content: center;
     align-items: center;
-    order: -1; /* mobile: phone acima do texto */
+    /* mobile: phone abaixo do texto (sem order override — flui depois do text col) */
   }
 
   @media (min-width: 768px) {
     .hero-phone {
-      order: 0; /* desktop: phone à direita */
+      /* desktop: phone à direita (já é col-2 no grid de 2 colunas) */
       justify-content: flex-end;
     }
   }

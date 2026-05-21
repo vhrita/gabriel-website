@@ -27,10 +27,10 @@ interface Props {
 
 const { num, title, copy, screen, alt, textSide, tone = 'base' } = Astro.props;
 
-// When textSide="right" → text is on right, phone is on left (phone first in DOM order on desktop)
-// When textSide="left"  → text is on left, phone is on right
+// textSide="right" → text on RIGHT, phone on LEFT (default grid order — no reverse needed)
+// textSide="left"  → text on LEFT, phone on RIGHT (reversed: phone gets order:2, text gets order:1)
 const bgClass = tone === 'alt' ? 'feature-row--alt' : 'feature-row--base';
-const reverseClass = textSide === 'right' ? 'feature-row--reverse' : '';
+const reverseClass = textSide === 'left' ? 'feature-row--reverse' : '';
 ---
 
 <section
@@ -91,8 +91,8 @@ const reverseClass = textSide === 'right' ? 'feature-row--reverse' : '';
       gap: clamp(3rem, 6vw, 6rem);
     }
 
-    /* textSide="right" → phone is col-1 (left), text is col-2 (right) — default */
-    /* textSide="left"  → text is col-1 (left), phone is col-2 (right) — reversed */
+    /* textSide="right" → phone col-1 (left), text col-2 (right) — default, no reverse class */
+    /* textSide="left"  → text col-1 (left), phone col-2 (right) — feature-row--reverse */
     .feature-row--reverse .feature-row-phone {
       order: 2;
     }
