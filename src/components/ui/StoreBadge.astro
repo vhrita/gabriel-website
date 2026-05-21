@@ -1,0 +1,87 @@
+---
+/**
+ * StoreBadge.astro
+ * Official store badges using downloaded assets from Google Play and Apple.
+ * post-qa-v2: dropped hand-drawn SVG inline, uses <img> with official assets.
+ *
+ * Props:
+ *   variant: 'google-play' | 'app-store'
+ *   disabled?: boolean — reduces opacity, disables pointer (aria-label updated)
+ *   href?: string — renders as <a> when provided (and not disabled)
+ *   size?: 'md' | 'sm' — md=50px tall (hero), sm=36px tall (footer)
+ *   class?: string
+ */
+
+interface Props {
+  variant: 'google-play' | 'app-store';
+  disabled?: boolean;
+  href?: string;
+  size?: 'md' | 'sm';
+  class?: string;
+}
+
+const {
+  variant,
+  disabled = false,
+  href,
+  size = 'md',
+  class: className,
+} = Astro.props;
+
+const isLink = !!href && !disabled;
+const src = variant === 'google-play' ? '/badges/google-play.png' : '/badges/app-store.svg';
+const alt = variant === 'google-play' ? 'Disponível no Google Play' : 'Baixar na App Store';
+const ariaLabel = disabled ? `${alt} — Em breve` : alt;
+---
+
+<a
+  class:list={['store-badge', `store-badge--${size}`, disabled && 'store-badge--disabled', className]}
+  href={isLink ? href : undefined}
+  target={isLink ? '_blank' : undefined}
+  rel={isLink ? 'noopener noreferrer' : undefined}
+  aria-label={ariaLabel}
+  aria-disabled={disabled ? 'true' : undefined}
+  role={!isLink ? 'img' : undefined}
+>
+  <img src={src} alt="" class="store-badge__img" aria-hidden="true" />
+</a>
+
+<style>
+  .store-badge {
+    display: inline-block;
+    text-decoration: none;
+    line-height: 0;
+    transition: opacity 200ms ease, transform 200ms ease;
+    border-radius: 8px;
+  }
+
+  .store-badge:not(.store-badge--disabled):hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .store-badge:not(.store-badge--disabled):active {
+    transform: translateY(0);
+  }
+
+  .store-badge--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
+  }
+
+  .store-badge__img {
+    display: block;
+    height: auto;
+    width: auto;
+  }
+
+  .store-badge--md .store-badge__img {
+    height: 50px;
+  }
+
+  .store-badge--sm .store-badge__img {
+    height: 36px;
+  }
+</style>

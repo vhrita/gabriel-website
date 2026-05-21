@@ -2,13 +2,16 @@
 /**
  * PitchSection.astro
  * Home v2 — Type as Sky.
- * Gradient mesh variação tonal (celestial-200 + divine-50) — mais frio que o Hero.
- * Fraunces oversize "Um lugar pra parar." italic WONK em "parar".
- * Sem kicker numeral romano, sem ornamentos. Espaço branco é a intenção.
+ * polish-v2 changes:
+ *   - Extra padding-top to accommodate Hero cycler peek (phone invades from above)
+ *   - overflow: visible so cycler can render above
+ *   - position: relative + z-index for stacking context
+ *   - Clip-path lines converted to transition (reversible on scroll)
+ *   - Script replaced by data-reveal + reveal-on-enter.ts central observer
  */
 ---
 
-<section class="pitch" aria-label="Sobre o Gabriel">
+<section class="pitch" aria-label="Sobre o Gabriel" data-reveal>
   <div class="pitch-mesh" aria-hidden="true"></div>
   <div class="pitch-content">
     <p class="pitch-eyebrow">s o b r e &nbsp; o &nbsp; G a b r i e l</p>
@@ -27,8 +30,13 @@
   .pitch {
     position: relative;
     background: var(--color-paper);
-    padding: clamp(6rem, 12vw, 10rem) 6vw;
-    overflow: hidden;
+    /*
+     * padding-top mirrors Hero padding-bottom:
+     * accommodates the bottom half of the cycler (cyclerH/2 = 280px + buffer).
+     * clamp(18rem, 32vw, 24rem) matches Hero padding-bottom for true 50/50 symmetry.
+     */
+    padding: clamp(22rem, 32vw, 26rem) 6vw clamp(6rem, 12vw, 10rem);
+    overflow: visible;
   }
 
   .pitch-mesh {
@@ -41,6 +49,8 @@
     pointer-events: none;
     animation: pitch-drift 20s ease-in-out infinite;
     opacity: 0.7;
+    /* Clip mesh to section bounds even though section overflows */
+    overflow: hidden;
   }
 
   @keyframes pitch-drift {
@@ -78,15 +88,21 @@
     margin: 0 0 2.5rem;
   }
 
+  /* Transition-based clip-path (reversible in/out) */
   .pitch-line {
     display: block;
     clip-path: inset(0 0 100% 0);
-    animation: pitch-line-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    animation-play-state: paused;
+    transition: clip-path 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .pitch-line:nth-child(2) {
-    animation-delay: 150ms;
+  .pitch.is-visible .pitch-line:nth-child(1) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 0ms;
+  }
+
+  .pitch.is-visible .pitch-line:nth-child(2) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 150ms;
   }
 
   .pitch-title em {
@@ -94,15 +110,10 @@
     font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
   }
 
-  @keyframes pitch-line-in {
-    from { clip-path: inset(0 0 100% 0); }
-    to   { clip-path: inset(0 0 0% 0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .pitch-line {
-      clip-path: none;
-      animation: none;
+      clip-path: none !important;
+      transition: none !important;
     }
   }
 
@@ -117,31 +128,11 @@
     max-width: 38rem;
   }
 
-  @media (max-width: 640px) {
-    .pitch { padding: 5rem 1.5rem; }
+  @media (max-width: 899px) {
+    /* mirrors Hero mobile padding-bottom: clamp(14rem, 40vw, 18rem) */
+    /* mirrors Hero mobile padding-bottom (cyclerH/2 = 320px ≈ 20rem) */
+    .pitch { padding: clamp(22rem, 38vw, 26rem) 1.5rem 5rem; }
     .pitch-title { font-size: clamp(2.25rem, 12vw, 4rem); }
     .pitch-eyebrow { margin-bottom: 2rem; }
   }
 </style>
-
-<script>
-  // Trigger clip-path reveal when section enters viewport
-  const section = document.querySelector('.pitch');
-  const lines = section?.querySelectorAll('.pitch-line');
-  if (lines && lines.length > 0) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            lines.forEach((line) => {
-              (line as HTMLElement).style.animationPlayState = 'running';
-            });
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(section!);
-  }
-</script>

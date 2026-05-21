@@ -2,10 +2,10 @@
 /**
  * FeaturesGrid.astro
  * Home v2 — Type as Sky.
- * 4 features zig-zag: texto | mockup alternando por linha.
- * Paper limpo sem mesh — alternância rítmica com Pitch (que tem mesh).
- * Sem numerais romanos. Arabic 01-04 Inter 500 caps tracking.
- * Mockups AppMockup intercalados, tilt sutil por feature.
+ * polish-v2 changes:
+ *   - Peek div at bottom of each row (except last) shows top of next mockup
+ *   - Clip-path lines converted to transition (reversible on scroll)
+ *   - Observer: toggle is-visible (in/out), no unobserve
  */
 
 import AppMockup from '../mockups/AppMockup.astro';
@@ -63,29 +63,44 @@ const features = [
     </header>
 
     <!-- Feature rows zig-zag -->
-    {features.map((feature) => (
-      <div
-        class:list={['feature-row', feature.textLeft ? 'feature-row--text-left' : 'feature-row--text-right']}
-        data-reveal
-        style={`--delay: ${feature.delay};`}
-      >
-        <!-- Text column -->
-        <div class="feature-text">
-          <span class="feature-num">{feature.num}</span>
-          <h3 class="feature-title">{feature.title}</h3>
-          <p class="feature-copy">{feature.copy}</p>
-        </div>
+    {features.map((feature, i) => {
+      const isLast = i === features.length - 1;
+      const nextFeature = !isLast ? features[i + 1] : null;
+      return (
+        <div
+          class:list={['feature-row', feature.textLeft ? 'feature-row--text-left' : 'feature-row--text-right']}
+          data-reveal
+          style={`--delay: ${feature.delay};`}
+        >
+          <!-- Text column -->
+          <div class="feature-text">
+            <span class="feature-num">{feature.num}</span>
+            <h3 class="feature-title">{feature.title}</h3>
+            <p class="feature-copy">{feature.copy}</p>
+          </div>
 
-        <!-- Mockup column -->
-        <div class="feature-mockup-wrap">
-          <AppMockup
-            screen={feature.screen}
-            tilt={feature.tilt}
-            size="md"
-          />
+          <!-- Mockup column -->
+          <div class="feature-mockup-wrap">
+            <AppMockup
+              screen={feature.screen}
+              tilt={feature.tilt}
+              size="md"
+            />
+          </div>
+
+          <!-- Peek div: shows top of next row's mockup -->
+          {nextFeature && (
+            <div class="feature-peek" aria-hidden="true">
+              <AppMockup
+                screen={nextFeature.screen}
+                tilt={nextFeature.tilt * 0.4}
+                size="md"
+              />
+            </div>
+          )}
         </div>
-      </div>
-    ))}
+      );
+    })}
 
   </div>
 </section>
@@ -135,15 +150,21 @@ const features = [
     margin: 0;
   }
 
+  /* Transition-based clip-path for header lines (reversible) */
   .features-line {
     display: block;
     clip-path: inset(0 0 100% 0);
-    animation: feature-line-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    animation-play-state: paused;
+    transition: clip-path 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .features-line:nth-child(2) {
-    animation-delay: 120ms;
+  .features-header.is-visible .features-line:nth-child(1) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 0ms;
+  }
+
+  .features-header.is-visible .features-line:nth-child(2) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 120ms;
   }
 
   .features-title em {
@@ -151,30 +172,27 @@ const features = [
     font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
   }
 
-  @keyframes feature-line-in {
-    from { clip-path: inset(0 0 100% 0); }
-    to   { clip-path: inset(0 0 0% 0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .features-line {
-      clip-path: none;
-      animation: none;
+      clip-path: none !important;
+      transition: none !important;
     }
   }
 
   /* Feature rows */
   .feature-row {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr;
     gap: 3rem;
     align-items: center;
-    padding: clamp(3rem, 6vw, 5rem) 0;
+    padding: clamp(3rem, 6vw, 5rem) 0 0;
     border-top: 1px solid rgba(26, 24, 20, 0.06);
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 700ms ease-out, transform 700ms ease-out;
     transition-delay: var(--delay, 0ms);
+    overflow: visible;
   }
 
   .feature-row.is-visible {
@@ -199,12 +217,19 @@ const features = [
     }
 
     /* text-left: text col 1, mockup col 2 */
-    .feature-row--text-left .feature-text   { order: 1; }
-    .feature-row--text-left .feature-mockup-wrap  { order: 2; }
+    .feature-row--text-left .feature-text        { order: 1; }
+    .feature-row--text-left .feature-mockup-wrap { order: 2; }
+    .feature-row--text-left .feature-peek        { order: 3; }
 
     /* text-right: mockup col 1, text col 2 */
     .feature-row--text-right .feature-mockup-wrap { order: 1; }
-    .feature-row--text-right .feature-text  { order: 2; }
+    .feature-row--text-right .feature-text        { order: 2; }
+    .feature-row--text-right .feature-peek        { order: 3; }
+
+    /* Peek: spans full width below the grid columns */
+    .feature-peek {
+      grid-column: 1 / -1;
+    }
   }
 
   /* Text column */
@@ -254,39 +279,34 @@ const features = [
     align-items: center;
   }
 
-  /* Mobile: mockup full-width centered, no tilt */
+  /* Peek: show top 6rem of the next mockup — reveals statusbar + screen content */
+  .feature-peek {
+    height: 6rem;
+    overflow: hidden;
+    margin-top: 2.5rem;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .feature-peek :global(.app-mockup) {
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 12px rgba(26, 24, 20, 0.08)) !important;
+  }
+
+  /* Mobile: mockup no tilt; peek narrower */
   @media (max-width: 767px) {
     .feature-mockup-wrap :global(.app-mockup) {
       transform: none !important;
       width: 220px !important;
     }
+    .feature-peek {
+      height: 5rem;
+    }
+    .feature-peek :global(.app-mockup) {
+      transform: none !important;
+      width: 200px !important;
+    }
   }
 </style>
-
-<script>
-  // Reveal-on-enter: section header lines + feature rows
-  const header = document.querySelector('.features-header');
-  const lines = header?.querySelectorAll('.features-line');
-  const rows = document.querySelectorAll('.feature-row');
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          // Trigger clip-path lines when header enters
-          if (entry.target === header && lines) {
-            lines.forEach((line) => {
-              (line as HTMLElement).style.animationPlayState = 'running';
-            });
-          }
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  if (header) observer.observe(header);
-  rows.forEach((row) => observer.observe(row));
-</script>
