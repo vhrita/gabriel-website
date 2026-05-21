@@ -679,3 +679,59 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* ========================
+   Panel system overrides for FeatureShowcase (desktop ≥1024px)
+   These global rules pierce Panel.astro's scoped styles.
+   ======================== */
+@media (min-width: 1024px) {
+  /* Each panel becomes a scroll-snap card */
+  .feature-showcase .panel {
+    /* Width: clamp so cards scale across 1024–1920 range.
+       At 1024: ~360px (≈2.8 cards visible + peek)
+       At 1920: ~480px (≈3 cards visible + peek) */
+    flex: 0 0 auto;
+    width: clamp(360px, 28vw, 480px);
+    scroll-snap-align: center;
+    /* Remove own overflow:hidden that clips box-shadow */
+    overflow: visible;
+    /* Card elevation — Play Store style */
+    filter: drop-shadow(0 24px 48px rgba(14, 29, 51, 0.7));
+    border-radius: 24px;
+  }
+
+  /* Hide the per-panel background — showcase wrapper provides unified navy bg */
+  .feature-showcase .panel-bg {
+    display: none;
+  }
+
+  /* Remove inherited background from panel itself */
+  .feature-showcase .panel {
+    background: transparent;
+  }
+
+  /* Inner container: no max-width cap, no padding (card width IS the constraint) */
+  .feature-showcase .panel-inner {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* Image: fill card width, maintain aspect ratio, rounded card corners */
+  .feature-showcase .panel-image img {
+    max-width: none;
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    display: block;
+    /* Remove any margin constraints */
+    margin-inline: 0;
+  }
+
+  /* Picture element: block, fills card */
+  .feature-showcase .panel-image {
+    display: block;
+    line-height: 0;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+}

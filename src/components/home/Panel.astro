@@ -134,4 +134,15 @@ const {
       max-width: 640px;
     }
   }
+
+  /*
+   * When Panel is rendered inside FeatureShowcase (.feature-showcase) on desktop,
+   * the showcase track already provides padding + background.
+   * These rules override Panel's own desktop layout so each panel becomes
+   * a scroll-snap card with correct portrait dimensions.
+   *
+   * NOTE: Panel's <style> is scoped but .feature-showcase context overrides
+   * are also declared in global.css — see "Panel system overrides for showcase" block.
+   * These :global() rules ensure the overrides apply from this component's context.
+   */
 </style>
