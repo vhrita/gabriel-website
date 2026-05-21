@@ -1,43 +1,61 @@
-# Astro Starter Kit: Minimal
+# gabriel-website
 
-```sh
-npm create astro@latest -- --template minimal
+Landing publica do app Gabriel — Biblia e Devocional.
+
+## Stack
+
+- Astro 5 (SSG)
+- Tailwind 4
+- Self-hosted fonts (Inter + Lora via @fontsource)
+- Vanilla TS island para reveal das asas (sem dependencias externas de animacao)
+- Deploy: Docker multi-stage nginx-alpine CapRover
+
+## Desenvolvimento
+
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # gera dist/
+npm run preview   # serve dist/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Deploy
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+docker build -t gabriel-website .
+docker run -p 8080:80 gabriel-website
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Producao em https://gabriel.vhxco.com via CapRover (`.github/workflows/deploy.yml`).
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Estrutura
 
-Any static assets, like images, can be placed in the `public/` directory.
+```
+src/
+├── components/
+│   ├── hero/         # HeroSection + WingsTransition + WingsReveal client
+│   ├── home/         # PitchSection, FeaturesGrid, Showcase
+│   ├── seo/          # JsonLd utility
+│   └── ui/           # Container, Section, Button, Card, TOC, etc.
+├── layouts/          # BaseLayout (head completo: OG, Twitter, canonical, JsonLd)
+├── pages/            # index, privacy, terms, delete-account, 404
+├── scripts/          # reveal-on-enter.ts (IntersectionObserver universal)
+└── styles/           # global.css com @theme tokens Tailwind 4
+public/               # robots.txt, llms.txt, og-image.png, favicon
+docs/PLAN.md          # plano operacional das sub-tasks
+```
 
-## 🧞 Commands
+## Acessibilidade
 
-All commands are run from the root of the project, from a terminal:
+- WCAG AA: contraste validado em todas combinacoes texto/fundo
+- Skip-to-content link no inicio do body
+- Focus-visible rings (divine-500) em todos elementos interativos
+- prefers-reduced-motion: animacoes desligadas globalmente + por componente
+- SVGs decorativos com aria-hidden; asas hero com role=img + aria-label
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## ADRs
 
-## 👀 Want to learn more?
+- ADR-0013 — Stack (Astro 5 + Tailwind 4 + vanilla TS islands)
+- ADR-0014 — Visao criativa (paleta celestial/divine, tipografia Lora/Inter)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+ADRs em agentic/docs/decisions/ (repositorio separado).

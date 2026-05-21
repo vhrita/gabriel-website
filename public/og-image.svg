@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3A5F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2D5A8E;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="wing-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C8A96A;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#E8D5A0;stop-opacity:0.5" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Subtle radial glow center-left -->
+  <radialGradient id="glow" cx="38%" cy="50%" r="40%">
+    <stop offset="0%" style="stop-color:#4A7AB5;stop-opacity:0.4" />
+    <stop offset="100%" style="stop-color:#1E3A5F;stop-opacity:0" />
+  </radialGradient>
+  <rect width="1200" height="630" fill="url(#glow)" />
+
+  <!-- Wing shape (right side, simplified feather) -->
+  <g transform="translate(820, 80)" opacity="0.55">
+    <!-- Main wing arc -->
+    <path d="M 0 240 Q 80 60 200 0 Q 320 -30 380 80 Q 320 100 200 180 Q 100 240 0 240 Z"
+          fill="url(#wing-grad)" />
+    <!-- Secondary feather layer -->
+    <path d="M 30 300 Q 100 160 240 80 Q 320 40 360 120 Q 300 160 200 240 Q 100 310 30 300 Z"
+          fill="url(#wing-grad)" opacity="0.6" />
+    <!-- Tertiary feather -->
+    <path d="M 60 360 Q 130 240 260 170 Q 340 130 370 200 Q 310 240 200 310 Q 110 370 60 360 Z"
+          fill="url(#wing-grad)" opacity="0.35" />
+    <!-- Feather detail lines -->
+    <path d="M 0 240 Q 100 140 200 80" stroke="#E8D5A0" stroke-width="1.5" fill="none" opacity="0.4" />
+    <path d="M 30 300 Q 130 200 240 130" stroke="#E8D5A0" stroke-width="1.5" fill="none" opacity="0.3" />
+    <path d="M 60 360 Q 160 260 260 200" stroke="#E8D5A0" stroke-width="1" fill="none" opacity="0.2" />
+  </g>
+
+  <!-- Wordmark "Gabriel" — serif bold, centered left area -->
+  <text
+    x="140"
+    y="345"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="148"
+    font-weight="700"
+    fill="#FFFFFF"
+    letter-spacing="-2"
+    dominant-baseline="middle"
+  >Gabriel</text>
+
+  <!-- Tagline -->
+  <text
+    x="143"
+    y="415"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="28"
+    font-weight="400"
+    fill="#C8D8EC"
+    letter-spacing="1"
+    dominant-baseline="middle"
+  >Bíblia e Devocional</text>
+
+  <!-- VHXCO label bottom right -->
+  <text
+    x="1060"
+    y="590"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="20"
+    font-weight="400"
+    fill="#6A8FB5"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >VHXCO</text>
+</svg>

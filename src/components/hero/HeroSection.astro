@@ -1,0 +1,171 @@
+---
+/**
+ * HeroSection.astro
+ * Hero v2 — Direção B "Type as Sky" (typography ambient + gradient mesh).
+ * HERO-ITERATION-V2.md §3, decisões Vitor 2026-05-14.
+ *
+ * Zero ornamento. Gradient mesh CSS puro (celestial-100 + divine-100).
+ * Fraunces opsz 144 wght 880, italic em "você" via WONK axis.
+ * Clip-path reveal por linha, drift 18s imperceptível no mesh.
+ * prefers-reduced-motion: mesh estático, lines aparecem sem clip-path.
+ *
+ * Componentes do Hero antigo (DropCap, FloralDivider, PullQuote,
+ * MarginaliaCorner, CornerFleuron, SectionKickerBanner) não são mais
+ * importados aqui — ficam órfãos mas não deletados (Vitor decide cleanup).
+ */
+
+import Button from '../ui/Button.astro';
+---
+
+<section class="hero" aria-label="Hero — Gabriel">
+  <div class="hero-mesh" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="eyebrow">d e v o c i o n a i s</p>
+    <h1 class="headline">
+      <span class="line">Que crescem</span>
+      <span class="line">com <em>você</em>.</span>
+    </h1>
+    <p class="sub">
+      Gerados por IA, escritos pra sua jornada.<br/>
+      Bíblia em português, inglês e espanhol.
+    </p>
+    <div class="cta-wrapper">
+      <Button variant="primary" href="https://play.google.com/store/apps/details?id=com.gabriel.biblia" external>
+        Baixar no Android →
+      </Button>
+    </div>
+    <p class="verse">
+      <span class="verse-ref">Sl 119:105</span> — A tua palavra é lâmpada que ilumina os meus passos.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: var(--color-paper);
+    display: flex;
+    align-items: center;
+    padding: 6vw 6vw 4vw;
+    overflow: hidden;
+  }
+
+  /* Gradient mesh — duas elipses radiais + base paper */
+  .hero-mesh {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60vw 50vh at 25% 20%, var(--color-celestial-100), transparent 70%),
+      radial-gradient(55vw 50vh at 75% 75%, var(--color-divine-100), transparent 70%);
+    filter: blur(8px);
+    pointer-events: none;
+    animation: mesh-drift 18s ease-in-out infinite;
+  }
+
+  @keyframes mesh-drift {
+    0%, 100% { background-position: 0% 0%, 0% 0%; }
+    50% { background-position: 4% 2%, -2% -3%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mesh { animation: none; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 64rem;
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-family: var(--font-family-sans);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    margin: 0 0 4rem;
+  }
+
+  .headline {
+    font-family: var(--font-family-display); /* Fraunces */
+    font-variation-settings: 'opsz' 144, 'wght' 880, 'SOFT' 50, 'WONK' 0;
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    margin: 0 0 2.5rem;
+  }
+
+  .headline .line {
+    display: block;
+    clip-path: inset(0 0 100% 0);
+    animation: line-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .headline .line:nth-child(2) {
+    animation-delay: 150ms;
+  }
+
+  .headline em {
+    /* italic em "você" via Fraunces WONK axis */
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+  }
+
+  @keyframes line-in {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0 0 0% 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .headline .line {
+      clip-path: none;
+      animation: none;
+    }
+  }
+
+  .sub {
+    font-family: var(--font-family-serif); /* Newsreader */
+    font-variation-settings: 'opsz' 28;
+    font-weight: 400;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    margin: 0 0 3rem;
+    max-width: 32rem;
+  }
+
+  .cta-wrapper {
+    margin-bottom: 4rem;
+  }
+
+  .verse {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 14;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-ink-muted);
+    margin: 0;
+    max-width: 32rem;
+  }
+
+  .verse-ref {
+    font-style: normal;
+    font-family: var(--font-family-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .hero { padding: 8rem 1.5rem 4rem; min-height: 90vh; }
+    .headline { font-size: clamp(3rem, 14vw, 5rem); }
+    .eyebrow { margin-bottom: 2.5rem; }
+  }
+</style>

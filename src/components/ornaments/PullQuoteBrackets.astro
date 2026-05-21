@@ -1,0 +1,47 @@
+---
+/**
+ * PullQuoteBrackets.astro
+ * Aspas ornamentadas « » para pull quotes editoriais.
+ *
+ * Fonte SVG: Iconify ph:quotes (MIT License)
+ * Referência: https://icon-sets.iconify.design/ph/quotes/
+ * Path derivado do Phosphor Icons (MIT), adaptado com currentColor.
+ *
+ * Fallback: aspas tipográficas unicode «» em Fraunces caso SVG não renderize.
+ * WCAG: aria-hidden="true" — decorativo, conteúdo textual real está no slot.
+ */
+
+interface Props {
+  class?: string;
+  size?: number;
+}
+
+const { class: className, size = 28 } = Astro.props;
+---
+
+<!-- Aspas de abertura -->
+<span class:list={['pull-quote-brackets', className]} aria-hidden="true">
+  <svg
+    viewBox="0 0 256 256"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    aria-hidden="true"
+    style={`width: ${size}px; height: ${size}px; display: inline-block; opacity: 0.85;`}
+  >
+    <!--
+      Phosphor Icons — ph:quotes (MIT License)
+      Source: https://icon-sets.iconify.design/ph/quotes/
+      Phosphor Icons © 2023 Phosphor Icons (MIT)
+      Paths: dois blocos de aspas tipográficas curvadas
+    -->
+    <path d="M100,56 C60,56 28,88 28,128 C28,160 52,184 80,184 C108,184 128,164 128,136 C128,112 112,96 92,92 C96,72 116,60 136,60 L100,56 Z M196,56 C156,56 124,88 124,128 C124,160 148,184 176,184 C204,184 224,164 224,136 C224,112 208,96 188,92 C192,72 212,60 232,60 L196,56 Z" />
+  </svg>
+</span>
+
+<style>
+  .pull-quote-brackets {
+    color: var(--color-divine-500);
+    display: inline-block;
+    vertical-align: top;
+  }
+</style>

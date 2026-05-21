@@ -1,0 +1,93 @@
+---
+/**
+ * Button.astro
+ * CTA reutilizável com 3 variantes: primary (divine), secondary (outline), disabled.
+ * v1.5: text-ink (era celestial-900), rounded-editorial-md 8px (era 2xl 24px),
+ *       sem hover lift (manuscrito não pula — só shadow change).
+ *
+ * Props:
+ *   variant: 'primary' | 'secondary' | 'disabled'
+ *   href?: string — se fornecido, renderiza <a>; senão <button>
+ *   as?: 'a' | 'button' — override explícito da tag
+ *   class?: string — classes extras
+ *   external?: boolean — abre em nova aba + ícone de link externo (SVG inline 14px)
+ *   slot — label / conteúdo do botão
+ *
+ * IMPORTANTE: classes Tailwind são literais (não interpoladas) pra garantir
+ * tree-shaking correto no Tailwind 4.
+ */
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'disabled';
+  href?: string;
+  as?: 'a' | 'button';
+  class?: string;
+  external?: boolean;
+}
+
+const {
+  variant = 'primary',
+  href,
+  as: Tag = href ? 'a' : 'button',
+  class: className,
+  external = false,
+} = Astro.props;
+
+// v1.5: text-ink em primary (AAA sobre divine-500: 6.4:1), rounded-editorial-md (8px)
+// Sem hover:-translate-y — manuscrito é quieto, shadow-divine-glow basta
+const variantClass =
+  variant === 'primary'
+    ? 'transition-all duration-200 hover:shadow-divine-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-2'
+    : variant === 'secondary'
+      ? 'transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
+      : 'cursor-not-allowed opacity-60';
+
+const variantStyle =
+  variant === 'primary'
+    ? `background-color: var(--color-divine-500); color: var(--color-ink); border-radius: var(--radius-editorial-md); padding: 0.875rem 2rem; font-family: var(--font-family-sans); font-weight: 600; font-size: 0.9375rem;`
+    : variant === 'secondary'
+      ? `background-color: transparent; color: var(--color-ink); border: 2px solid var(--color-ink); border-radius: var(--radius-editorial-md); padding: 0.875rem 2rem; font-family: var(--font-family-sans); font-weight: 600; font-size: 0.9375rem;`
+      : `background-color: #e2e8f0; color: #94a3b8; border-radius: var(--radius-editorial-md); padding: 0.875rem 2rem; font-family: var(--font-family-sans); font-weight: 600; font-size: 0.9375rem;`;
+
+const externalProps =
+  external && Tag === 'a'
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
+
+const disabledProps =
+  variant === 'disabled' && Tag === 'button'
+    ? { disabled: true, 'aria-disabled': 'true' }
+    : {};
+---
+
+<Tag
+  href={Tag === 'a' ? href : undefined}
+  class:list={[
+    'inline-flex items-center gap-2',
+    variantClass,
+    className,
+  ]}
+  style={variantStyle}
+  {...externalProps}
+  {...disabledProps}
+>
+  <slot />
+  {external && (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  )}
+</Tag>

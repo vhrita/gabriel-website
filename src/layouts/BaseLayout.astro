@@ -1,10 +1,28 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  pathname?: string;
+  type?: 'website' | 'article';
+  headerVariant?: 'transparent' | 'solid';
 }
 
-const { title, description = 'Gabriel — Seu guia espiritual diário.' } = Astro.props;
+const {
+  title,
+  description = 'Gabriel: Bíblia e Devocional — Sua jornada espiritual, todos os dias.',
+  image = '/og-image.png',
+  pathname,
+  type = 'website',
+  headerVariant = 'solid',
+} = Astro.props;
+
+const resolvedPathname = pathname ?? Astro.url.pathname;
+const canonicalURL = new URL(resolvedPathname, Astro.site ?? 'https://gabriel.vhxco.com');
+const ogImageURL = new URL(image, Astro.site ?? 'https://gabriel.vhxco.com');
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -13,135 +31,279 @@ const { title, description = 'Gabriel — Seu guia espiritual diário.' } = Astr
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Theme color — paper (ADR-0015 §5.1) -->
+    <meta name="theme-color" content="#FAF7F0" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Gabriel" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Preload critical fonts: Fraunces (display critical — wordmark FCP) + Inter 400 -->
+    <!-- Lora removida (ADR-0015 §11 Q8) -->
+    <!-- Newsreader NÃO preloaded — carrega lazy, pull quotes não são above-the-fold -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/inter-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
 
     <title>{title}</title>
   </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a href="/" class="logo">Gabriel</a>
-        <nav>
-          <ul class="nav-links">
-            <li><a href="/privacy">Privacidade</a></li>
-            <li><a href="/terms">Termos de Uso</a></li>
-            <li><a href="/delete-account">Excluir Conta</a></li>
-          </ul>
-        </nav>
+
+  <body class="font-sans min-h-dvh flex flex-col antialiased paper-grain" style="background-color: var(--color-paper); color: var(--color-ink);">
+
+    <!-- Skip to content (a11y) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded focus:text-sm focus:font-medium focus:shadow-soft"
+      style="background-color: var(--color-celestial-700); color: white;"
+    >
+      Ir para o conteúdo
+    </a>
+
+    <!-- Header -->
+    <header
+      id="site-header"
+      data-variant={headerVariant}
+      class:list={[
+        'sticky top-0 z-40 transition-all duration-300',
+        headerVariant === 'solid'
+          ? 'shadow-paper-lift'
+          : 'bg-transparent',
+      ]}
+      style={headerVariant === 'solid' ? `background-color: var(--color-paper-deep);` : ''}
+    >
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-14">
+          <!-- Logo wordmark — Fraunces 700 opsz 24 ink (ADR-0015 §2.1) -->
+          <a
+            href="/"
+            class="fraunces-h2 font-bold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded"
+            style="color: var(--color-ink); font-variation-settings: 'opsz' 24, 'wght' 700; font-size: 1.25rem;"
+            aria-label="Gabriel — Página inicial"
+          >
+            <span
+              class="header-logo-sigil"
+              style="font-variation-settings: 'opsz' 32, 'wght' 800; font-style: italic; color: var(--color-divine-700); margin-right: 0.1em;"
+              aria-hidden="true"
+            >G·</span>Gabriel
+          </a>
+
+          <!-- Nav legal links — Inter 500 caps tracked (ADR-0015 §2.1) -->
+          <nav aria-label="Links legais">
+            <ul class="flex items-center gap-1 sm:gap-2">
+              <li>
+                <a
+                  href="/privacy"
+                  class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
+                  style="letter-spacing: 0.04em; color: var(--color-ink-muted);"
+                >
+                  Privacidade
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
+                  style="letter-spacing: 0.04em; color: var(--color-ink-muted);"
+                >
+                  Termos
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/delete-account"
+                  class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
+                  style="letter-spacing: 0.04em; color: var(--color-ink-muted);"
+                >
+                  Excluir Conta
+                </a>
+              </li>
+              <!-- CornerFleuron sutil no nav -->
+              <li aria-hidden="true" class="hidden sm:block pl-2" style="color: var(--color-divine-700); font-family: var(--font-family-display); font-size: 0.875rem; opacity: 0.7;">❧</li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
 
-    <main>
+    <!-- Main content -->
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>&copy; {new Date().getFullYear()} <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer" class="footer-company">VHXCO</a>. Todos os direitos reservados.</p>
-        <nav class="footer-links">
-          <a href="/privacy">Privacidade</a>
-          <a href="/terms">Termos de Uso</a>
-          <a href="/delete-account">Excluir Conta</a>
-        </nav>
+    <!-- Footer v2 — Type as Sky. Sem ornamentos. Layout wordmark + 2 col links. -->
+    <footer style="background-color: var(--color-ink); color: var(--color-paper);">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div class="footer-grid">
+
+          <!-- Wordmark + tagline -->
+          <div class="footer-brand">
+            <p
+              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 700; font-size: 1.75rem; color: var(--color-paper); margin: 0 0 0.5rem; letter-spacing: -0.025em; -webkit-font-smoothing: antialiased;"
+            >
+              Gabriel
+            </p>
+            <p
+              style="font-family: var(--font-family-serif); font-variation-settings: 'opsz' 14; font-style: italic; font-size: 0.875rem; color: rgba(250, 247, 240, 0.55); margin: 0; line-height: 1.5;"
+            >
+              Sua jornada espiritual, todos os dias.
+            </p>
+          </div>
+
+          <!-- Links coluna App -->
+          <nav aria-label="Links do app" class="footer-col">
+            <p
+              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.4); margin: 0 0 0.75rem;"
+            >
+              App
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
+                >
+                  Google Play
+                </a>
+              </li>
+              <li>
+                <span
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.3); letter-spacing: 0.02em;"
+                >
+                  App Store · Em breve
+                </span>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Links coluna Legal -->
+          <nav aria-label="Links legais do rodapé" class="footer-col">
+            <p
+              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.4); margin: 0 0 0.75rem;"
+            >
+              Legal
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li>
+                <a
+                  href="/privacy"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
+                >
+                  Privacidade
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
+                >
+                  Termos
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/delete-account"
+                  style="font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.75); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+                  class="footer-link"
+                >
+                  Excluir Conta
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+        </div>
+
+        <!-- Bottom bar -->
+        <div
+          style="border-top: 1px solid rgba(170, 141, 44, 0.2); margin-top: 3rem; padding-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;"
+        >
+          <p
+            style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.35); margin: 0; letter-spacing: 0.02em;"
+          >
+            &copy; {year} VHXCO · CNPJ 62.874.893/0001-51
+          </p>
+          <a
+            href="https://vhxco.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.35); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
+            class="footer-link"
+          >
+            vhxco.com
+          </a>
+        </div>
       </div>
+
+      <style>
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        @media (min-width: 640px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+          }
+        }
+        .footer-link:hover {
+          color: rgba(250, 247, 240, 0.95) !important;
+        }
+      </style>
     </footer>
+
+    <!-- Header scroll behavior: transparent → paper-deep (headerVariant='transparent') -->
+    <script>
+      const header = document.getElementById('site-header');
+      if (header && header.dataset.variant === 'transparent') {
+        const logoEl = header.querySelector('.header-logo-sigil');
+        const navLinks = header.querySelectorAll('.header-nav-link');
+
+        function applyScrollState() {
+          const scrolled = window.scrollY > 20;
+          if (scrolled) {
+            header!.style.backgroundColor = 'var(--color-paper-deep)';
+            header!.style.backdropFilter = 'blur(8px)';
+            header!.style.boxShadow = 'var(--shadow-paper-lift)';
+          } else {
+            header!.style.backgroundColor = 'transparent';
+            header!.style.backdropFilter = '';
+            header!.style.boxShadow = '';
+          }
+        }
+
+        window.addEventListener('scroll', applyScrollState, { passive: true });
+        applyScrollState();
+      }
+    </script>
   </body>
 </html>
-
-<style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(15, 15, 19, 0.8);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-
-  .logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    letter-spacing: -0.02em;
-  }
-
-  .logo:hover {
-    color: var(--color-accent);
-  }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: var(--space-lg);
-  }
-
-  .nav-links a {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-  }
-
-  .nav-links a:hover {
-    color: var(--color-accent-hover);
-  }
-
-  .site-footer {
-    margin-top: auto;
-    border-top: 1px solid var(--color-border);
-    padding: var(--space-xl) 0;
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-  }
-
-  .footer-inner p {
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: var(--space-lg);
-  }
-
-  .footer-inner a {
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-  }
-
-  .footer-inner a:hover {
-    color: var(--color-accent);
-  }
-
-  .footer-company {
-    color: var(--color-text-muted);
-    font-weight: 500;
-  }
-
-  .footer-company:hover {
-    color: var(--color-accent);
-  }
-</style>

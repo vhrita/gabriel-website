@@ -1,0 +1,24 @@
+---
+/**
+ * Card.astro
+ * Card de feature com fundo heavenly, borda celestial-200, cantos arredondados
+ * e microinteração de hover (eleva + sombra).
+ *
+ * Props:
+ *   class?: string — classes extras pra extensão (ex: altura mínima, col-span)
+ *   slot — conteúdo do card
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={[
+  'bg-heavenly border border-celestial-200 rounded-2xl p-6 hover:-translate-y-1 hover:shadow-soft transition-all duration-300 motion-reduce:hover:translate-y-0',
+  className,
+]}>
+  <slot />
+</div>

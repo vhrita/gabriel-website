@@ -1,159 +1,209 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '../styles/global.css';
+import JsonLd from '../components/seo/JsonLd.astro';
+import Container from '../components/ui/Container.astro';
+import LegalSection from '../components/ui/LegalSection.astro';
+import InfoBox from '../components/ui/InfoBox.astro';
+import HighlightBox from '../components/ui/HighlightBox.astro';
+import TOC from '../components/ui/TOC.astro';
+
+const sections = [
+  { id: 'como-solicitar', title: 'Como Solicitar a Exclusão da Sua Conta' },
+  { id: 'dados-excluidos', title: 'Dados que Serão Excluídos' },
+  { id: 'dados-retidos', title: 'Dados que Podem Ser Retidos' },
+  { id: 'informacoes-adicionais', title: 'Informações Adicionais' },
+];
+
+const jsonLdData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Excluir Conta — Gabriel: Bíblia e Devocional",
+  "description": "Solicite a exclusão da sua conta e dados pessoais do aplicativo Gabriel: Bíblia e Devocional.",
+  "url": "https://gabriel.vhxco.com/delete-account",
+  "inLanguage": "pt-BR",
+  "lastReviewed": "2026-02-28",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Gabriel",
+    "url": "https://gabriel.vhxco.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "VHXCO",
+    "url": "https://vhxco.com.br"
+  }
+};
 ---
 
-<BaseLayout title="Excluir Conta — Gabriel: Bíblia e Devocional" description="Solicite a exclusão da sua conta e dados pessoais do aplicativo Gabriel: Bíblia e Devocional.">
-  <section class="legal">
-    <div class="container">
-      <h1>Excluir Minha Conta</h1>
-      <p class="subtitle">Gabriel: Bíblia e Devocional</p>
-      <p class="last-updated">Desenvolvido por <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer">VHXCO (VHX Company)</a></p>
+<BaseLayout
+  title="Excluir Conta — Gabriel: Bíblia e Devocional"
+  description="Solicite a exclusão da sua conta e dados pessoais do aplicativo Gabriel: Bíblia e Devocional."
+  headerVariant="solid"
+>
+  <JsonLd data={jsonLdData} />
 
-      <div class="content">
+  <Container class="py-12">
+    <!-- Cabeçalho da página -->
+    <div class="mb-8">
+      <h1 class="font-serif font-bold text-3xl sm:text-4xl text-celestial-700 mb-1 tracking-tight">
+        Excluir Minha Conta
+      </h1>
+      <p class="text-celestial-500 text-base mb-1">Gabriel: Bíblia e Devocional</p>
+      <p class="text-celestial-400 text-sm pb-6 border-b border-celestial-100">
+        Desenvolvido por <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-celestial-600 transition-colors">VHXCO (VHX Company)</a>
+      </p>
+    </div>
 
-        <!-- INTRODUÇÃO -->
-        <div class="highlight-box">
+    <!-- Layout: TOC mobile (topo) + conteúdo principal / TOC desktop (sidebar) -->
+    <div class="lg:flex lg:gap-12">
+
+      <TOC sections={sections} />
+
+      <!-- Conteúdo principal -->
+      <div class="flex-1 min-w-0">
+
+        <!-- Aviso importante no topo (fora de LegalSection, sem id) -->
+        <HighlightBox class="mb-8">
           <p><strong>IMPORTANTE:</strong> A exclusão da conta é permanente e irreversível. Todos os seus dados pessoais serão removidos conforme descrito abaixo. Certifique-se de que deseja prosseguir antes de solicitar a exclusão.</p>
-        </div>
+        </HighlightBox>
 
-        <!-- COMO SOLICITAR -->
-        <h2 id="como-solicitar">Como Solicitar a Exclusão da Sua Conta</h2>
-        <p>Para solicitar a exclusão completa da sua conta e dados pessoais, siga os passos abaixo:</p>
+        <LegalSection id="como-solicitar" title="Como Solicitar a Exclusão da Sua Conta">
+          <p>Para solicitar a exclusão completa da sua conta e dados pessoais, siga os passos abaixo:</p>
 
-        <div class="steps">
-          <div class="step">
-            <span class="step-number">1</span>
-            <div class="step-content">
-              <h3>Envie um e-mail</h3>
-              <p>Escreva para <a href="mailto:vitor@vhxco.com?subject=%5BExclusão%20de%20Conta%20Gabriel%5D%20Solicitar%20exclusão&body=Olá%2C%0A%0AGostaria%20de%20solicitar%20a%20exclusão%20completa%20da%20minha%20conta%20e%20dados%20pessoais%20do%20aplicativo%20Gabriel.%0A%0AE-mail%20da%20conta%3A%20%0A%0AObrigado.">vitor@vhxco.com</a></p>
+          <div class="steps">
+            <div class="step">
+              <span class="step-number">1</span>
+              <div class="step-content">
+                <h3>Envie um e-mail</h3>
+                <p>Escreva para <a href="mailto:vitor@vhxco.com?subject=%5BExclusão%20de%20Conta%20Gabriel%5D%20Solicitar%20exclusão&body=Olá%2C%0A%0AGostaria%20de%20solicitar%20a%20exclusão%20completa%20da%20minha%20conta%20e%20dados%20pessoais%20do%20aplicativo%20Gabriel.%0A%0AE-mail%20da%20conta%3A%20%0A%0AObrigado.">vitor@vhxco.com</a></p>
+              </div>
+            </div>
+
+            <div class="step">
+              <span class="step-number">2</span>
+              <div class="step-content">
+                <h3>Use o assunto correto</h3>
+                <p>No campo "Assunto" do e-mail, escreva:<br>
+                <code>[Exclusão de Conta Gabriel] Solicitar exclusão</code></p>
+              </div>
+            </div>
+
+            <div class="step">
+              <span class="step-number">3</span>
+              <div class="step-content">
+                <h3>Informe o e-mail da conta</h3>
+                <p>No corpo do e-mail, informe o endereço de e-mail vinculado à sua conta no Gabriel (Google ou Apple).</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <span class="step-number">4</span>
+              <div class="step-content">
+                <h3>Aguarde a confirmação</h3>
+                <p>Você receberá uma confirmação por e-mail em até <strong>15 dias úteis</strong>. Seus dados serão excluídos conforme os prazos descritos abaixo.</p>
+              </div>
             </div>
           </div>
 
-          <div class="step">
-            <span class="step-number">2</span>
-            <div class="step-content">
-              <h3>Use o assunto correto</h3>
-              <p>No campo "Assunto" do e-mail, escreva:<br>
-              <code>[Exclusão de Conta Gabriel] Solicitar exclusão</code></p>
-            </div>
+          <InfoBox>
+            <p><strong>Atalho:</strong> Clique no botão abaixo para abrir seu aplicativo de e-mail com o assunto já preenchido:</p>
+            <a href="mailto:vitor@vhxco.com?subject=%5BExclusão%20de%20Conta%20Gabriel%5D%20Solicitar%20exclusão&body=Olá%2C%0A%0AGostaria%20de%20solicitar%20a%20exclusão%20completa%20da%20minha%20conta%20e%20dados%20pessoais%20do%20aplicativo%20Gabriel.%0A%0AE-mail%20da%20conta%3A%20%0A%0AObrigado." class="cta-button">Solicitar Exclusão por E-mail</a>
+          </InfoBox>
+        </LegalSection>
+
+        <LegalSection id="dados-excluidos" title="Dados que Serão Excluídos">
+          <p>Ao solicitar a exclusão da conta, os seguintes dados serão <strong>permanentemente removidos</strong>:</p>
+
+          <div class="data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo de Dado</th>
+                  <th>Prazo de Exclusão</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Dados de conta (nome, e-mail, avatar)</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Perfil espiritual (religião, objetivos, carta a Deus)</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Histórico de conversas com a IA</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Devocionais gerados</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Versículos favoritados</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Progresso de leitura e streak</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Preferências e configurações</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Foto de perfil (avatar)</td>
+                  <td>Até 30 dias</td>
+                </tr>
+                <tr>
+                  <td>Backups contendo seus dados</td>
+                  <td>Até 90 dias</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </LegalSection>
+
+        <LegalSection id="dados-retidos" title="Dados que Podem Ser Retidos">
+          <p>De acordo com obrigações legais e fiscais, alguns dados podem ser retidos por um período adicional:</p>
+
+          <div class="data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo de Dado</th>
+                  <th>Motivo da Retenção</th>
+                  <th>Prazo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Metadados de assinatura</td>
+                  <td>Obrigação fiscal/legal</td>
+                  <td>Até 5 anos</td>
+                </tr>
+                <tr>
+                  <td>Logs administrativos (apenas UUID)</td>
+                  <td>Auditoria e segurança</td>
+                  <td>Até 12 meses</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <div class="step">
-            <span class="step-number">3</span>
-            <div class="step-content">
-              <h3>Informe o e-mail da conta</h3>
-              <p>No corpo do e-mail, informe o endereço de e-mail vinculado à sua conta no Gabriel (Google ou Apple).</p>
-            </div>
-          </div>
+          <InfoBox>
+            <p><strong>Observação:</strong> Os dados retidos não contêm informações pessoais identificáveis além do UUID interno do sistema. Dados de pagamento são gerenciados pela Google Play Store / Apple App Store e pelo RevenueCat, e estão sujeitos às suas respectivas políticas de retenção.</p>
+          </InfoBox>
+        </LegalSection>
 
-          <div class="step">
-            <span class="step-number">4</span>
-            <div class="step-content">
-              <h3>Aguarde a confirmação</h3>
-              <p>Você receberá uma confirmação por e-mail em até <strong>15 dias úteis</strong>. Seus dados serão excluídos conforme os prazos descritos abaixo.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="info-box">
-          <p><strong>Atalho:</strong> Clique no botão abaixo para abrir seu aplicativo de e-mail com o assunto já preenchido:</p>
-          <a href="mailto:vitor@vhxco.com?subject=%5BExclusão%20de%20Conta%20Gabriel%5D%20Solicitar%20exclusão&body=Olá%2C%0A%0AGostaria%20de%20solicitar%20a%20exclusão%20completa%20da%20minha%20conta%20e%20dados%20pessoais%20do%20aplicativo%20Gabriel.%0A%0AE-mail%20da%20conta%3A%20%0A%0AObrigado." class="cta-button">Solicitar Exclusão por E-mail</a>
-        </div>
-
-        <!-- DADOS EXCLUÍDOS -->
-        <h2 id="dados-excluidos">Dados que Serão Excluídos</h2>
-        <p>Ao solicitar a exclusão da conta, os seguintes dados serão <strong>permanentemente removidos</strong>:</p>
-
-        <div class="data-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Tipo de Dado</th>
-                <th>Prazo de Exclusão</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Dados de conta (nome, e-mail, avatar)</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Perfil espiritual (religião, objetivos, carta a Deus)</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Histórico de conversas com a IA</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Devocionais gerados</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Versículos favoritados</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Progresso de leitura e streak</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Preferências e configurações</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Foto de perfil (avatar)</td>
-                <td>Até 30 dias</td>
-              </tr>
-              <tr>
-                <td>Backups contendo seus dados</td>
-                <td>Até 90 dias</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- DADOS RETIDOS -->
-        <h2 id="dados-retidos">Dados que Podem Ser Retidos</h2>
-        <p>De acordo com obrigações legais e fiscais, alguns dados podem ser retidos por um período adicional:</p>
-
-        <div class="data-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Tipo de Dado</th>
-                <th>Motivo da Retenção</th>
-                <th>Prazo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Metadados de assinatura</td>
-                <td>Obrigação fiscal/legal</td>
-                <td>Até 5 anos</td>
-              </tr>
-              <tr>
-                <td>Logs administrativos (apenas UUID)</td>
-                <td>Auditoria e segurança</td>
-                <td>Até 12 meses</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="info-box">
-          <p><strong>Observação:</strong> Os dados retidos não contêm informações pessoais identificáveis além do UUID interno do sistema. Dados de pagamento são gerenciados pela Google Play Store / Apple App Store e pelo RevenueCat, e estão sujeitos às suas respectivas políticas de retenção.</p>
-        </div>
-
-        <!-- INFORMAÇÕES ADICIONAIS -->
-        <h2 id="informacoes-adicionais">Informações Adicionais</h2>
-        <ul>
-          <li>A exclusão é <strong>permanente e irreversível</strong> — não é possível recuperar a conta após a exclusão</li>
-          <li>Se você possui uma assinatura ativa, <strong>cancele-a antes</strong> pela Google Play Store ou Apple App Store para evitar cobranças futuras</li>
-          <li>Contas anônimas (sem e-mail vinculado) podem ser excluídas desinstalando o aplicativo e limpando os dados do app</li>
-          <li>Para exercer outros direitos sobre seus dados (acesso, portabilidade, correção), consulte nossa <a href="/privacy">Política de Privacidade</a></li>
-        </ul>
+        <LegalSection id="informacoes-adicionais" title="Informações Adicionais">
+          <ul>
+            <li>A exclusão é <strong>permanente e irreversível</strong> — não é possível recuperar a conta após a exclusão</li>
+            <li>Se você possui uma assinatura ativa, <strong>cancele-a antes</strong> pela Google Play Store ou Apple App Store para evitar cobranças futuras</li>
+            <li>Contas anônimas (sem e-mail vinculado) podem ser excluídas desinstalando o aplicativo e limpando os dados do app</li>
+            <li>Para exercer outros direitos sobre seus dados (acesso, portabilidade, correção), consulte nossa <a href="/privacy">Política de Privacidade</a></li>
+          </ul>
+        </LegalSection>
 
         <div class="document-footer">
           <p>Gabriel: Bíblia e Devocional</p>
@@ -162,215 +212,5 @@ import '../styles/global.css';
 
       </div>
     </div>
-  </section>
+  </Container>
 </BaseLayout>
-
-<style>
-  .legal {
-    padding: var(--space-3xl) 0;
-  }
-
-  .legal h1 {
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-xs);
-  }
-
-  .subtitle {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-xs);
-  }
-
-  .last-updated {
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-2xl);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .content h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-top: var(--space-2xl);
-    margin-bottom: var(--space-sm);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .content h2:first-child {
-    border-top: none;
-    padding-top: 0;
-  }
-
-  .content p {
-    color: var(--color-text-secondary);
-    line-height: 1.75;
-    margin-bottom: var(--space-md);
-  }
-
-  .content ul {
-    color: var(--color-text-secondary);
-    line-height: 1.75;
-    margin-bottom: var(--space-md);
-    padding-left: var(--space-lg);
-  }
-
-  .content li {
-    margin-bottom: var(--space-xs);
-  }
-
-  /* Steps */
-  .steps {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    margin: var(--space-lg) 0;
-  }
-
-  .step {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-md);
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-  }
-
-  .step-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.875rem;
-    flex-shrink: 0;
-  }
-
-  .step-content h3 {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-xs);
-  }
-
-  .step-content p {
-    font-size: 0.875rem;
-    margin-bottom: 0;
-  }
-
-  .step-content code {
-    display: inline-block;
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 0.15em 0.5em;
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    color: var(--color-accent);
-    margin-top: var(--space-xs);
-  }
-
-  /* CTA Button */
-  .cta-button {
-    display: inline-block;
-    margin-top: var(--space-sm);
-    padding: 0.75rem 1.5rem;
-    background: var(--color-accent);
-    color: #fff !important;
-    border-radius: var(--radius-md);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-align: center;
-    transition: background var(--transition-fast), transform var(--transition-fast);
-  }
-
-  .cta-button:hover {
-    background: var(--color-accent-hover);
-    transform: translateY(-1px);
-  }
-
-  /* Tables */
-  .data-table {
-    overflow-x: auto;
-    margin: var(--space-lg) 0;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  thead {
-    background: var(--color-bg-surface);
-  }
-
-  th {
-    text-align: left;
-    padding: 0.75rem 1rem;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    border-bottom: 1px solid var(--color-border);
-    white-space: nowrap;
-  }
-
-  td {
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  tr:last-child td {
-    border-bottom: none;
-  }
-
-  /* Shared from legal pages */
-  .info-box {
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-    margin: var(--space-lg) 0;
-  }
-
-  .info-box p {
-    margin-bottom: var(--space-sm);
-  }
-
-  .highlight-box {
-    background: var(--color-accent-glow);
-    border: 1px solid rgba(124, 92, 252, 0.25);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-    margin: var(--space-lg) 0;
-  }
-
-  .highlight-box p {
-    margin-bottom: 0;
-  }
-
-  .document-footer {
-    text-align: center;
-    margin-top: var(--space-3xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .document-footer p {
-    color: var(--color-text-muted);
-    font-size: 0.8125rem;
-    margin-bottom: var(--space-xs);
-  }
-</style>

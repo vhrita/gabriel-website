@@ -1,0 +1,280 @@
+---
+/**
+ * Showcase.astro
+ * Home v2 — Type as Sky.
+ * Carrossel horizontal scroll-snap CSS puro, sem JS, sem libs.
+ * Bg paper + mesh warm (divine-100 + celestial-50) — contrasta com Features (paper limpo).
+ * 5 slides: devocional, biblia, streak, chat (reutiliza screens) + biblia como "jardim".
+ * Cada slide: mockup + caption Newsreader italic ink-muted.
+ * CTAs duplos no bottom: Android primary + App Store disabled.
+ */
+
+import AppMockup from '../mockups/AppMockup.astro';
+import Button from '../ui/Button.astro';
+
+const slides = [
+  { screen: 'devocional' as const, caption: 'Devocional do dia' },
+  { screen: 'biblia' as const,     caption: 'Sua Bíblia no bolso' },
+  { screen: 'streak' as const,     caption: 'O streak que respeita seu ritmo' },
+  { screen: 'chat' as const,       caption: 'Conversas com profundidade' },
+  { screen: 'biblia' as const,     caption: 'O jardim que cresce contigo' },
+] as const;
+---
+
+<section class="showcase" aria-label="Telas do app Gabriel">
+  <div class="showcase-mesh" aria-hidden="true"></div>
+
+  <div class="showcase-header" data-showcase-reveal>
+    <p class="showcase-eyebrow">5 &nbsp; r o t i n a s &nbsp; d i á r i a s</p>
+    <h2 class="showcase-title">
+      <span class="showcase-line">Veja por</span>
+      <span class="showcase-line"><em>dentro</em>.</span>
+    </h2>
+    <p class="showcase-sub">
+      Devocional, Bíblia, Jardim, Streak, Chat.<br/>
+      Todos num só lugar.
+    </p>
+  </div>
+
+  <!-- Carrossel CSS scroll-snap -->
+  <div
+    class="showcase-carousel"
+    role="region"
+    aria-label="Carrossel de telas do app Gabriel"
+    tabindex="0"
+  >
+    {slides.map((slide, i) => (
+      <div
+        class="showcase-slide"
+        aria-label={`Tela ${i + 1} de ${slides.length}: ${slide.caption}`}
+      >
+        <AppMockup screen={slide.screen} size="md" />
+        <p class="showcase-caption">{slide.caption}</p>
+      </div>
+    ))}
+  </div>
+
+  <!-- CTAs -->
+  <div class="showcase-ctas" data-showcase-reveal>
+    <Button
+      variant="primary"
+      href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+      external
+    >
+      Baixar no Android →
+    </Button>
+    <Button variant="disabled">
+      App Store · Em breve
+    </Button>
+  </div>
+</section>
+
+<style>
+  .showcase {
+    position: relative;
+    background: var(--color-paper);
+    padding: clamp(5rem, 10vw, 9rem) 0 clamp(4rem, 7vw, 7rem);
+    overflow: hidden;
+  }
+
+  .showcase-mesh {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60vw 50vh at 20% 30%, var(--color-divine-100), transparent 65%),
+      radial-gradient(55vw 45vh at 85% 70%, var(--color-celestial-50), transparent 60%);
+    filter: blur(8px);
+    pointer-events: none;
+    animation: showcase-drift 22s ease-in-out infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes showcase-drift {
+    0%, 100% { background-position: 0% 0%, 0% 0%; }
+    50% { background-position: 3% -3%, -4% 2%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-mesh { animation: none; }
+  }
+
+  /* Header */
+  .showcase-header {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 6vw;
+    margin-bottom: clamp(3.5rem, 6vw, 5rem);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  .showcase-header.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .showcase-eyebrow {
+    font-family: var(--font-family-sans);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    margin: 0 0 3rem;
+  }
+
+  .showcase-title {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 144, 'wght' 880, 'SOFT' 50, 'WONK' 0;
+    font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    margin: 0 0 2rem;
+  }
+
+  .showcase-line {
+    display: block;
+    clip-path: inset(0 0 100% 0);
+    animation: showcase-line-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-play-state: paused;
+  }
+
+  .showcase-line:nth-child(2) {
+    animation-delay: 130ms;
+  }
+
+  .showcase-title em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+  }
+
+  @keyframes showcase-line-in {
+    from { clip-path: inset(0 0 100% 0); }
+    to   { clip-path: inset(0 0 0% 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-line {
+      clip-path: none;
+      animation: none;
+    }
+  }
+
+  .showcase-sub {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 28;
+    font-weight: 400;
+    font-size: clamp(1rem, 1.3vw, 1.1875rem);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+
+  /* Carrossel */
+  .showcase-carousel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 2.5rem;
+    padding-inline: 6vw;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    /* Oculta scrollbar mas mantém funcionalidade */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* Smooth scroll */
+    scroll-behavior: smooth;
+    /* Keyboard scroll */
+    outline: none;
+  }
+
+  .showcase-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-carousel {
+      scroll-behavior: auto;
+    }
+  }
+
+  .showcase-slide {
+    scroll-snap-align: center;
+    flex: 0 0 auto;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .showcase-caption {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 14;
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--color-ink-muted);
+    text-align: center;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* CTAs */
+  .showcase-ctas {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0 6vw;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 600ms ease-out 200ms, transform 600ms ease-out 200ms;
+  }
+
+  .showcase-ctas.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-header,
+    .showcase-ctas {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Reveal header + CTAs on enter
+  const revealEls = document.querySelectorAll('[data-showcase-reveal]');
+  const lines = document.querySelectorAll('.showcase-line');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          if (entry.target.classList.contains('showcase-header') && lines) {
+            lines.forEach((line) => {
+              (line as HTMLElement).style.animationPlayState = 'running';
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealEls.forEach((el) => observer.observe(el));
+</script>

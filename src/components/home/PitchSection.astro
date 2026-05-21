@@ -1,0 +1,147 @@
+---
+/**
+ * PitchSection.astro
+ * Home v2 — Type as Sky.
+ * Gradient mesh variação tonal (celestial-200 + divine-50) — mais frio que o Hero.
+ * Fraunces oversize "Um lugar pra parar." italic WONK em "parar".
+ * Sem kicker numeral romano, sem ornamentos. Espaço branco é a intenção.
+ */
+---
+
+<section class="pitch" aria-label="Sobre o Gabriel">
+  <div class="pitch-mesh" aria-hidden="true"></div>
+  <div class="pitch-content">
+    <p class="pitch-eyebrow">s o b r e &nbsp; o &nbsp; G a b r i e l</p>
+    <h2 class="pitch-title">
+      <span class="pitch-line">Um lugar</span>
+      <span class="pitch-line">pra <em>parar</em>.</span>
+    </h2>
+    <p class="pitch-sub">
+      Devocional curto, leitura bíblica que cresce contigo,<br/>
+      um assistente que te conhece. Tudo num só app.
+    </p>
+  </div>
+</section>
+
+<style>
+  .pitch {
+    position: relative;
+    background: var(--color-paper);
+    padding: clamp(6rem, 12vw, 10rem) 6vw;
+    overflow: hidden;
+  }
+
+  .pitch-mesh {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(65vw 55vh at 80% 15%, var(--color-celestial-200), transparent 65%),
+      radial-gradient(50vw 45vh at 15% 85%, var(--color-divine-50), transparent 65%);
+    filter: blur(8px);
+    pointer-events: none;
+    animation: pitch-drift 20s ease-in-out infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes pitch-drift {
+    0%, 100% { background-position: 0% 0%, 0% 0%; }
+    50% { background-position: -3% 4%, 5% -2%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pitch-mesh { animation: none; }
+  }
+
+  .pitch-content {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+  }
+
+  .pitch-eyebrow {
+    font-family: var(--font-family-sans);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    margin: 0 0 3.5rem;
+  }
+
+  .pitch-title {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 144, 'wght' 880, 'SOFT' 50, 'WONK' 0;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    margin: 0 0 2.5rem;
+  }
+
+  .pitch-line {
+    display: block;
+    clip-path: inset(0 0 100% 0);
+    animation: pitch-line-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-play-state: paused;
+  }
+
+  .pitch-line:nth-child(2) {
+    animation-delay: 150ms;
+  }
+
+  .pitch-title em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+  }
+
+  @keyframes pitch-line-in {
+    from { clip-path: inset(0 0 100% 0); }
+    to   { clip-path: inset(0 0 0% 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pitch-line {
+      clip-path: none;
+      animation: none;
+    }
+  }
+
+  .pitch-sub {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 28;
+    font-weight: 400;
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    margin: 0;
+    max-width: 38rem;
+  }
+
+  @media (max-width: 640px) {
+    .pitch { padding: 5rem 1.5rem; }
+    .pitch-title { font-size: clamp(2.25rem, 12vw, 4rem); }
+    .pitch-eyebrow { margin-bottom: 2rem; }
+  }
+</style>
+
+<script>
+  // Trigger clip-path reveal when section enters viewport
+  const section = document.querySelector('.pitch');
+  const lines = section?.querySelectorAll('.pitch-line');
+  if (lines && lines.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            lines.forEach((line) => {
+              (line as HTMLElement).style.animationPlayState = 'running';
+            });
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(section!);
+  }
+</script>

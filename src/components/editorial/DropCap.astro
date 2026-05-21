@@ -1,0 +1,87 @@
+---
+/**
+ * DropCap.astro
+ * Letra capitular com frame ornamental opcional.
+ * Fraunces 900 opsz 96 + DropCapFrame SVG envolvente.
+ *
+ * ADR-0015 §11 Q3: drop cap em U de "Um devocional..."
+ * Não usar no wordmark "Gabriel" — só no lead paragraph.
+ *
+ * Props:
+ *   letter: string — a letra a destacar
+ *   frame: boolean (default true) — exibe DropCapFrame ao redor
+ *   tone: 'on-paper' (default) | 'on-ink'
+ */
+
+import DropCapFrame from '../ornaments/DropCapFrame.astro';
+
+interface Props {
+  letter: string;
+  frame?: boolean;
+  tone?: 'on-paper' | 'on-ink';
+}
+
+const { letter, frame = true, tone = 'on-paper' } = Astro.props;
+
+const letterColor = tone === 'on-ink' ? 'var(--color-paper)' : 'var(--color-ink)';
+const frameColor = tone === 'on-ink' ? 'var(--color-divine-300)' : 'var(--color-divine-500)';
+---
+
+<span class="drop-cap-wrapper" aria-hidden="false">
+  {frame && (
+    <span
+      class="drop-cap-frame-container"
+      style={`color: ${frameColor};`}
+    >
+      <DropCapFrame size={80} />
+    </span>
+  )}
+  <span
+    class="drop-cap-letter"
+    style={`
+      font-family: var(--font-family-display);
+      font-variation-settings: 'opsz' 96, 'wght' 900;
+      font-size: clamp(4.5rem, 10vw, 7rem);
+      line-height: 0.85;
+      color: ${letterColor};
+      display: block;
+      -webkit-font-smoothing: antialiased;
+      animation: drop-cap-in 500ms ease-out both;
+      animation-delay: 800ms;
+    `}
+  >{letter}</span>
+</span>
+
+<style>
+  .drop-cap-wrapper {
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+    position: relative;
+  }
+
+  .drop-cap-frame-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .drop-cap-letter {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drop-cap-letter {
+      animation: none !important;
+      opacity: 1;
+    }
+  }
+</style>
