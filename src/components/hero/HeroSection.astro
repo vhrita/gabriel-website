@@ -1,0 +1,292 @@
+---
+/**
+ * HeroSection.astro
+ * Hero v2 polish — "Type as Sky" direction.
+ * Changes (post-qa-v2):
+ *   - Single-col layout: dropped 2-col grid, text in constrained container
+ *   - AppMockupCycler: position: absolute relative to .hero (not .hero-inner)
+ *     bottom: -(cyclerH / 2) anchors cycler center exactly at Hero/Pitch boundary
+ *   - StoreBadge uses official assets (no more hand-drawn SVG)
+ *   - cta-hint label extracted from StoreBadge, placed below cta-wrapper
+ *   - eyebrow margin reduced 4rem → 2rem
+ *   - tilt removed from cycler (visual precision for 50/50 reading)
+ */
+
+import StoreBadge from '../ui/StoreBadge.astro';
+import AppMockupCycler from '../mockups/AppMockupCycler.astro';
+---
+
+<section class="hero" aria-label="Hero — Gabriel">
+  <div class="hero-mesh" aria-hidden="true"></div>
+  <div class="hero-inner">
+
+    <!-- Text + badges — single column -->
+    <div class="hero-text" data-reveal>
+      <p class="eyebrow">d e v o c i o n a i s</p>
+      <h1 class="headline">
+        <span class="line">Que crescem</span>
+        <span class="line">com <em>você</em>.</span>
+      </h1>
+      <p class="sub">
+        Gerados por IA, escritos pra sua jornada.<br/>
+        Bíblia em português, inglês e espanhol.
+      </p>
+      <div class="cta-wrapper">
+        <StoreBadge
+          variant="google-play"
+          href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+          size="md"
+        />
+        <StoreBadge
+          variant="app-store"
+          disabled
+          size="md"
+        />
+      </div>
+      <p class="cta-hint" aria-hidden="true">iOS em breve.</p>
+      <p class="verse">
+        <span class="verse-ref">Sl 119:105</span> — A tua palavra é lâmpada que ilumina os meus passos.
+      </p>
+    </div>
+
+  </div>
+
+  <!--
+    Cycler is a direct child of .hero (position: relative) so that
+    bottom: -(cyclerH/2) is computed relative to .hero's bottom edge.
+    This places the cycler's vertical center exactly at the Hero/Pitch boundary.
+  -->
+  <div class="hero-cycler-wrap" aria-hidden="true">
+    <AppMockupCycler size="lg" class="hero-cycler" />
+  </div>
+
+</section>
+
+<style>
+  /*
+   * Cycler dimensions (AppMockupCycler):
+   *   size=lg: width=320px, height = 320 * (560/280) = 640px
+   *   size=md (mobile, width=240px): height = 240 * 2 = 480px
+   *
+   * Hero padding-bottom must be >= cyclerH/2 so layout isn't pushed.
+   * We use exactly cyclerH/2 = 320px (desktop) / 240px (mobile).
+   * Adding ~2rem of breathing room: 320+32=352px ≈ 22rem.
+   */
+  :root {
+    --cycler-h-desktop: 640px;
+    /* Mobile also uses size=lg (640px height) — same variable */
+    --cycler-h-mobile: 640px;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: var(--color-paper);
+    overflow: visible;
+    /* padding-bottom = cyclerH/2 so bottom half of cycler falls into Pitch */
+    padding: clamp(6rem, 12vw, 9rem) 6vw clamp(22rem, 30vw, 26rem);
+  }
+
+  /* Gradient mesh */
+  .hero-mesh {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60vw 50vh at 25% 20%, var(--color-celestial-100), transparent 70%),
+      radial-gradient(55vw 50vh at 75% 75%, var(--color-divine-100), transparent 70%);
+    filter: blur(8px);
+    pointer-events: none;
+    animation: mesh-drift 18s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  @keyframes mesh-drift {
+    0%, 100% { background-position: 0% 0%, 0% 0%; }
+    50% { background-position: 4% 2%, -2% -3%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mesh { animation: none; }
+  }
+
+  /* Inner: single column, constrained width */
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  /* Text column */
+  .hero-text {
+    max-width: 38rem;
+    /* reveal-on-enter: transition-based so it reverses on scroll out */
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  .hero-text.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-text { opacity: 1; transform: none; transition: none; }
+  }
+
+  .eyebrow {
+    font-family: var(--font-family-sans);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    margin: 0 0 2rem;
+  }
+
+  .headline {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 144, 'wght' 880, 'SOFT' 50, 'WONK' 0;
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    margin: 0 0 2.5rem;
+  }
+
+  /* Headline lines: transition-based clip-path (reversible on scroll) */
+  .headline .line {
+    display: block;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .hero-text.is-visible .headline .line:nth-child(1) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 0ms;
+  }
+
+  .hero-text.is-visible .headline .line:nth-child(2) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 150ms;
+  }
+
+  .headline em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .headline .line {
+      clip-path: none !important;
+      transition: none !important;
+    }
+  }
+
+  .sub {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 28;
+    font-weight: 400;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    margin: 0 0 2.5rem;
+    max-width: 32rem;
+  }
+
+  .cta-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .cta-hint {
+    font-size: 0.75rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 2.5rem;
+    font-style: italic;
+    font-family: var(--font-family-sans);
+  }
+
+  .verse {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 14;
+    font-style: italic;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--color-ink-muted);
+    margin: 0;
+    max-width: 32rem;
+  }
+
+  .verse-ref {
+    font-style: normal;
+    font-family: var(--font-family-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  /*
+   * Cycler: absolute relative to .hero.
+   * bottom: -(cyclerH/2) = -320px positions the cycler so its vertical midpoint
+   * is exactly at .hero's bottom edge = Hero/Pitch boundary.
+   * left: 50% + translateX(-50%) centers it horizontally.
+   */
+  .hero-cycler-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: calc(-1 * var(--cycler-h-desktop) / 2);
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 320px;
+  }
+
+  .hero-cycler-wrap :global(.mockup-cycler) {
+    filter: drop-shadow(0 20px 48px rgba(26, 24, 20, 0.18));
+  }
+
+  /* Desktop: center all Hero content (≥900px) */
+  @media (min-width: 900px) {
+    .hero-inner {
+      text-align: center;
+    }
+    .hero-text {
+      margin-inline: auto;
+    }
+    .sub {
+      margin-inline: auto;
+    }
+    .verse {
+      margin-inline: auto;
+    }
+    .cta-wrapper {
+      justify-content: center;
+    }
+    .cta-hint {
+      text-align: center;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 899px) {
+    .hero {
+      /*
+       * cyclerH/2 = 320px + buffer; 20rem ≈ 320px at 16px base.
+       * Using clamp to handle narrow screens gracefully.
+       */
+      padding: 8rem 1.5rem clamp(22rem, 38vw, 26rem);
+    }
+    .hero-cycler-wrap {
+      /* cycler still size=lg on mobile, same 640px height */
+      bottom: calc(-1 * var(--cycler-h-mobile) / 2);
+      width: 240px;
+    }
+    .headline { font-size: clamp(3rem, 14vw, 5rem); }
+    .eyebrow { margin-bottom: 1.5rem; }
+  }
+</style>

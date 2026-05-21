@@ -1,0 +1,312 @@
+---
+/**
+ * FeaturesGrid.astro
+ * Home v2 — Type as Sky.
+ * polish-v2 changes:
+ *   - Peek div at bottom of each row (except last) shows top of next mockup
+ *   - Clip-path lines converted to transition (reversible on scroll)
+ *   - Observer: toggle is-visible (in/out), no unobserve
+ */
+
+import AppMockup from '../mockups/AppMockup.astro';
+
+const features = [
+  {
+    num: '01',
+    title: 'Devocional do dia',
+    copy: 'Uma reflexão escrita pra você esta manhã. Pequena, certeira, contextualizada pelo que você está vivendo. Cada dia é diferente, cada dia te encontra.',
+    screen: 'devocional' as const,
+    tilt: -2,
+    textLeft: true,
+    delay: '0ms',
+  },
+  {
+    num: '02',
+    title: 'Bíblia que cresce com você',
+    copy: 'Os 66 livros em português, inglês e espanhol. À medida que você lê, seu Jardim da Fé floresce — visualização do seu caminho de leitura.',
+    screen: 'biblia' as const,
+    tilt: 3,
+    textLeft: false,
+    delay: '100ms',
+  },
+  {
+    num: '03',
+    title: 'Constância no seu ritmo',
+    copy: 'Diário, três vezes, cinco vezes na semana. Você escolhe. O streak respeita seu tempo e celebra cada retorno, sem culpa por pausas.',
+    screen: 'streak' as const,
+    tilt: -1.5,
+    textLeft: true,
+    delay: '100ms',
+  },
+  {
+    num: '04',
+    title: 'Conversas com Gabriel',
+    copy: 'Pergunte qualquer coisa sobre fé, Bíblia, dúvidas teológicas. IA contextualizada pela sua religião — sem julgamento, com profundidade.',
+    screen: 'chat' as const,
+    tilt: 2.5,
+    textLeft: false,
+    delay: '100ms',
+  },
+] as const;
+---
+
+<section class="features" id="features" aria-label="O que o Gabriel entrega">
+  <div class="features-inner">
+
+    <!-- Section header -->
+    <header class="features-header" data-reveal>
+      <p class="features-eyebrow">q u a t r o &nbsp; r o t i n a s</p>
+      <h2 class="features-title">
+        <span class="features-line">Tudo pra</span>
+        <span class="features-line"><em>durar</em>.</span>
+      </h2>
+    </header>
+
+    <!-- Feature rows zig-zag -->
+    {features.map((feature, i) => {
+      const isLast = i === features.length - 1;
+      const nextFeature = !isLast ? features[i + 1] : null;
+      return (
+        <div
+          class:list={['feature-row', feature.textLeft ? 'feature-row--text-left' : 'feature-row--text-right']}
+          data-reveal
+          style={`--delay: ${feature.delay};`}
+        >
+          <!-- Text column -->
+          <div class="feature-text">
+            <span class="feature-num">{feature.num}</span>
+            <h3 class="feature-title">{feature.title}</h3>
+            <p class="feature-copy">{feature.copy}</p>
+          </div>
+
+          <!-- Mockup column -->
+          <div class="feature-mockup-wrap">
+            <AppMockup
+              screen={feature.screen}
+              tilt={feature.tilt}
+              size="md"
+            />
+          </div>
+
+          <!-- Peek div: shows top of next row's mockup -->
+          {nextFeature && (
+            <div class="feature-peek" aria-hidden="true">
+              <AppMockup
+                screen={nextFeature.screen}
+                tilt={nextFeature.tilt * 0.4}
+                size="md"
+              />
+            </div>
+          )}
+        </div>
+      );
+    })}
+
+  </div>
+</section>
+
+<style>
+  .features {
+    background: var(--color-paper);
+    padding: clamp(5rem, 10vw, 9rem) 0;
+  }
+
+  .features-inner {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 0 6vw;
+  }
+
+  /* Header */
+  .features-header {
+    margin-bottom: clamp(4rem, 8vw, 7rem);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  .features-header.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .features-eyebrow {
+    font-family: var(--font-family-sans);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    margin: 0 0 3rem;
+  }
+
+  .features-title {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 144, 'wght' 880, 'SOFT' 50, 'WONK' 0;
+    font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  /* Transition-based clip-path for header lines (reversible) */
+  .features-line {
+    display: block;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .features-header.is-visible .features-line:nth-child(1) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 0ms;
+  }
+
+  .features-header.is-visible .features-line:nth-child(2) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 120ms;
+  }
+
+  .features-title em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .features-line {
+      clip-path: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Feature rows */
+  .feature-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: clamp(3rem, 6vw, 5rem) 0 0;
+    border-top: 1px solid rgba(26, 24, 20, 0.06);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+    transition-delay: var(--delay, 0ms);
+    overflow: visible;
+  }
+
+  .feature-row.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature-row,
+    .features-header {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Desktop: 2 col zig-zag */
+  @media (min-width: 768px) {
+    .feature-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    /* text-left: text col 1, mockup col 2 */
+    .feature-row--text-left .feature-text        { order: 1; }
+    .feature-row--text-left .feature-mockup-wrap { order: 2; }
+    .feature-row--text-left .feature-peek        { order: 3; }
+
+    /* text-right: mockup col 1, text col 2 */
+    .feature-row--text-right .feature-mockup-wrap { order: 1; }
+    .feature-row--text-right .feature-text        { order: 2; }
+    .feature-row--text-right .feature-peek        { order: 3; }
+
+    /* Peek: spans full width below the grid columns */
+    .feature-peek {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Text column */
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .feature-num {
+    font-family: var(--font-family-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 72, 'wght' 600;
+    font-size: clamp(1.625rem, 3.2vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 1.25rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .feature-copy {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 24;
+    font-weight: 400;
+    font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  /* Mockup column */
+  .feature-mockup-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Peek: show top 6rem of the next mockup — reveals statusbar + screen content */
+  .feature-peek {
+    height: 6rem;
+    overflow: hidden;
+    margin-top: 2.5rem;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .feature-peek :global(.app-mockup) {
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 12px rgba(26, 24, 20, 0.08)) !important;
+  }
+
+  /* Mobile: mockup no tilt; peek narrower */
+  @media (max-width: 767px) {
+    .feature-mockup-wrap :global(.app-mockup) {
+      transform: none !important;
+      width: 220px !important;
+    }
+    .feature-peek {
+      height: 5rem;
+    }
+    .feature-peek :global(.app-mockup) {
+      transform: none !important;
+      width: 200px !important;
+    }
+  }
+</style>

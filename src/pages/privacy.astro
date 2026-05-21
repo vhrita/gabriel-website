@@ -1,567 +1,625 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '../styles/global.css';
+import JsonLd from '../components/seo/JsonLd.astro';
+import Container from '../components/ui/Container.astro';
+import LegalSection from '../components/ui/LegalSection.astro';
+import InfoBox from '../components/ui/InfoBox.astro';
+import HighlightBox from '../components/ui/HighlightBox.astro';
+import TOC from '../components/ui/TOC.astro';
+
+const sections = [
+  { id: 'introducao', title: '1. Introdução' },
+  { id: 'dados-coletados', title: '2. Dados que Coletamos' },
+  { id: 'uso-dos-dados', title: '3. Como Utilizamos Seus Dados' },
+  { id: 'base-legal', title: '4. Base Legal para o Tratamento (LGPD / GDPR)' },
+  { id: 'compartilhamento', title: '5. Compartilhamento de Dados com Terceiros' },
+  { id: 'inteligencia-artificial', title: '6. Inteligência Artificial e Processamento Automatizado' },
+  { id: 'armazenamento-seguranca', title: '7. Armazenamento e Segurança dos Dados' },
+  { id: 'retencao', title: '8. Retenção de Dados' },
+  { id: 'seus-direitos', title: '9. Seus Direitos como Titular dos Dados' },
+  { id: 'menores', title: '10. Proteção de Dados de Menores' },
+  { id: 'permissoes', title: '11. Permissões do Dispositivo' },
+  { id: 'conformidade-lojas', title: '12. Conformidade com Políticas das Lojas de Aplicativos' },
+  { id: 'cookies', title: '13. Cookies e Tecnologias de Rastreamento' },
+  { id: 'alteracoes', title: '14. Alterações nesta Política' },
+  { id: 'disposicoes-finais', title: '15. Disposições Finais' },
+];
+
+const jsonLdData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Política de Privacidade — Gabriel: Bíblia e Devocional",
+  "description": "Política de Privacidade do aplicativo Gabriel: Bíblia e Devocional. Saiba como coletamos, usamos e protegemos seus dados.",
+  "url": "https://gabriel.vhxco.com/privacy",
+  "inLanguage": "pt-BR",
+  "lastReviewed": "2026-02-28",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Gabriel",
+    "url": "https://gabriel.vhxco.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "VHXCO",
+    "url": "https://vhxco.com.br"
+  }
+};
 ---
 
-<BaseLayout title="Política de Privacidade — Gabriel: Bíblia e Devocional" description="Política de Privacidade do aplicativo Gabriel: Bíblia e Devocional. Saiba como coletamos, usamos e protegemos seus dados.">
-  <section class="legal">
-    <div class="container">
-      <h1>Política de Privacidade</h1>
-      <p class="subtitle">Gabriel: Bíblia e Devocional</p>
-      <p class="last-updated">Última atualização: 28 de fevereiro de 2026 · Versão 1.0</p>
+<BaseLayout
+  title="Política de Privacidade — Gabriel: Bíblia e Devocional"
+  description="Política de Privacidade do aplicativo Gabriel: Bíblia e Devocional. Saiba como coletamos, usamos e protegemos seus dados."
+  headerVariant="solid"
+>
+  <JsonLd data={jsonLdData} />
 
-      <div class="content">
+  <Container class="py-12">
+    <!-- Cabeçalho da página -->
+    <div class="mb-8">
+      <h1 class="font-serif font-bold text-3xl sm:text-4xl text-celestial-700 mb-1 tracking-tight">
+        Política de Privacidade
+      </h1>
+      <p class="text-celestial-500 text-base mb-1">Gabriel: Bíblia e Devocional</p>
+      <p class="text-celestial-400 text-sm pb-6 border-b border-celestial-100">
+        Última atualização: 28 de fevereiro de 2026 · Versão 1.0
+      </p>
+    </div>
 
-        <!-- 1. INTRODUÇÃO -->
-        <h2 id="introducao">1. Introdução</h2>
-        <p>
-          A VHXCO ("nós", "nosso" ou "Empresa"), desenvolvedora do aplicativo Gabriel: Bíblia e Devocional ("Gabriel", "App" ou "Aplicativo"), tem o compromisso de proteger a privacidade e os dados pessoais de seus usuários ("você", "usuário"). Esta Política de Privacidade descreve como coletamos, usamos, armazenamos, compartilhamos e protegemos suas informações pessoais quando você utiliza nosso aplicativo.
-        </p>
-        <p>
-          Ao utilizar o Gabriel, você concorda com as práticas descritas nesta Política de Privacidade. Caso não concorde com qualquer termo, por favor, não utilize o aplicativo.
-        </p>
-        <div class="info-box">
-          <p><strong>Responsável pelo tratamento de dados:</strong></p>
+    <!-- Layout: TOC mobile (topo) + conteúdo principal / TOC desktop (sidebar) -->
+    <div class="lg:flex lg:gap-12">
+
+      <!-- TOC desktop sidebar (rendered inside TOC component) + TOC mobile accordion -->
+      <TOC sections={sections} />
+
+      <!-- Conteúdo principal -->
+      <div class="flex-1 min-w-0">
+
+        <LegalSection id="introducao" title="1. Introdução">
+          <p>
+            A VHXCO ("nós", "nosso" ou "Empresa"), desenvolvedora do aplicativo Gabriel: Bíblia e Devocional ("Gabriel", "App" ou "Aplicativo"), tem o compromisso de proteger a privacidade e os dados pessoais de seus usuários ("você", "usuário"). Esta Política de Privacidade descreve como coletamos, usamos, armazenamos, compartilhamos e protegemos suas informações pessoais quando você utiliza nosso aplicativo.
+          </p>
+          <p>
+            Ao utilizar o Gabriel, você concorda com as práticas descritas nesta Política de Privacidade. Caso não concorde com qualquer termo, por favor, não utilize o aplicativo.
+          </p>
+          <InfoBox>
+            <p><strong>Responsável pelo tratamento de dados:</strong></p>
+            <ul>
+              <li>Empresa: <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer">VHXCO (VHX Company)</a></li>
+              <li>CNPJ: 62.874.893/0001-51</li>
+              <li>E-mail de contato: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
+              <li>Identificador do pacote: com.gabriel.biblia</li>
+            </ul>
+          </InfoBox>
+        </LegalSection>
+
+        <LegalSection id="dados-coletados" title="2. Dados que Coletamos">
+          <p>Coletamos os seguintes tipos de dados pessoais, organizados por categoria:</p>
+
+          <h3>2.1 Dados de Identificação e Conta</h3>
           <ul>
-            <li>Empresa: <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer">VHXCO (VHX Company)</a></li>
-            <li>CNPJ: 62.874.893/0001-51</li>
-            <li>E-mail de contato: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
-            <li>Identificador do pacote: com.gabriel.biblia</li>
+            <li>Nome de exibição (informado pelo usuário ou obtido do provedor de autenticação)</li>
+            <li>Endereço de e-mail (obtido do provedor de autenticação Google ou Apple)</li>
+            <li>Foto de perfil (URL do avatar, caso o usuário faça upload ou seja obtida do provedor de autenticação)</li>
+            <li>Identificador único do usuário (UUID gerado pelo sistema)</li>
+            <li>Tipo de conta (anônima, Google, Apple)</li>
           </ul>
-        </div>
 
-        <!-- 2. DADOS QUE COLETAMOS -->
-        <h2 id="dados-coletados">2. Dados que Coletamos</h2>
-        <p>Coletamos os seguintes tipos de dados pessoais, organizados por categoria:</p>
-
-        <h3>2.1 Dados de Identificação e Conta</h3>
-        <ul>
-          <li>Nome de exibição (informado pelo usuário ou obtido do provedor de autenticação)</li>
-          <li>Endereço de e-mail (obtido do provedor de autenticação Google ou Apple)</li>
-          <li>Foto de perfil (URL do avatar, caso o usuário faça upload ou seja obtida do provedor de autenticação)</li>
-          <li>Identificador único do usuário (UUID gerado pelo sistema)</li>
-          <li>Tipo de conta (anônima, Google, Apple)</li>
-        </ul>
-
-        <h3>2.2 Dados de Perfil Espiritual (Onboarding)</h3>
-        <p>Estes dados são fornecidos voluntariamente pelo usuário durante o processo de onboarding para personalização da experiência:</p>
-        <ul>
-          <li>Religião ou denominação (ex.: católico, evangélico, cristão não denominacional, espírita, outra cristã, nenhuma)</li>
-          <li>Religião personalizada (campo de texto livre, caso selecione "outra")</li>
-          <li>Objetivos espirituais (seleção entre opções predefinidas)</li>
-          <li>Carta a Deus (texto livre, compartilhando intenções pessoais)</li>
-          <li>Frequência desejada de uso (diária, semanal, etc.)</li>
-        </ul>
-
-        <h3>2.3 Dados de Uso e Atividade</h3>
-        <ul>
-          <li>Histórico de conversas com a inteligência artificial "Gabriel" (mensagens enviadas e respostas recebidas)</li>
-          <li>Devocional lidos e seu status (pendente, em geração, pronto, concluído)</li>
-          <li>Versículos bíblicos favoritados</li>
-          <li>Capítulos bíblicos lidos</li>
-          <li>Streak de atividades (sequência de dias consecutivos de uso)</li>
-          <li>Contagem semanal de atividades</li>
-          <li>Data e tipo de cada atividade registrada</li>
-          <li>Contagem de análises de onboarding realizadas</li>
-        </ul>
-
-        <h3>2.4 Dados de Preferências e Configurações</h3>
-        <ul>
-          <li>Tema visual (claro, escuro, sistema)</li>
-          <li>Tamanho da fonte preferido</li>
-          <li>Versão da Bíblia preferida (ARA, KJV, etc.)</li>
-          <li>Idioma do aplicativo</li>
-          <li>Configurações de notificação (ativadas/desativadas, horários dos lembretes para devocionais e leitura bíblica)</li>
-        </ul>
-
-        <h3>2.5 Dados de Assinatura e Pagamento</h3>
-        <ul>
-          <li>Status da assinatura (ativo, teste, cancelado, expirado)</li>
-          <li>Tipo de plano (mensal, anual)</li>
-          <li>Datas de início e fim do período de assinatura</li>
-          <li>Identificadores do RevenueCat (app_user_id)</li>
-          <li>Loja de origem da compra (Google Play Store ou Apple App Store)</li>
-        </ul>
-        <div class="highlight-box">
-          <p><strong>IMPORTANTE:</strong> Não coletamos, armazenamos ou temos acesso a dados de cartão de crédito, dados bancários ou qualquer informação financeira direta. Todo o processamento de pagamentos é realizado exclusivamente pelas plataformas Google Play (Google) e App Store (Apple), conforme suas respectivas políticas de privacidade. O serviço RevenueCat gerencia apenas os metadados da assinatura.</p>
-        </div>
-
-        <h3>2.6 Dados Técnicos</h3>
-        <ul>
-          <li>Tokens de autenticação (JWT) armazenados de forma segura no dispositivo</li>
-          <li>Dados de cache local (preferências, estado da sessão)</li>
-          <li>Logs de erros e depuração (apenas em ambiente de desenvolvimento)</li>
-        </ul>
-
-        <h3>2.7 Dados que NÃO Coletamos</h3>
-        <p>Para total transparência, informamos que <strong>NÃO</strong> coletamos:</p>
-        <ul>
-          <li>Localização geográfica (GPS) ou dados de geolocalização</li>
-          <li>Lista de contatos ou agenda telefônica</li>
-          <li>Mensagens SMS ou registros de chamadas</li>
-          <li>Microfone ou gravações de áudio</li>
-          <li>Dados de saúde ou biométricos</li>
-          <li>Histórico de navegação na web</li>
-          <li>Identificadores de publicidade (IDFA/GAID)</li>
-          <li>Dados de outros aplicativos instalados no dispositivo</li>
-          <li>Dados financeiros diretos (cartões, contas bancárias)</li>
-        </ul>
-
-        <!-- 3. COMO UTILIZAMOS SEUS DADOS -->
-        <h2 id="uso-dos-dados">3. Como Utilizamos Seus Dados</h2>
-        <p>Utilizamos seus dados pessoais para as seguintes finalidades:</p>
-
-        <h3>3.1 Personalização da Experiência Espiritual</h3>
-        <ul>
-          <li>Gerar devocionais personalizados com base em seu perfil espiritual (religião, objetivos, carta a Deus)</li>
-          <li>Selecionar capítulos bíblicos relevantes através de algoritmo de correspondência (matching) baseado em pesos de palavras-chave</li>
-          <li>Personalizar as respostas da inteligência artificial Gabriel durante as conversas</li>
-          <li>Adaptar o conteúdo de acordo com sua denominação religiosa</li>
-        </ul>
-
-        <h3>3.2 Funcionamento do Aplicativo</h3>
-        <ul>
-          <li>Autenticar sua identidade e manter sua sessão segura</li>
-          <li>Sincronizar seus dados entre dispositivos (quando conectado com conta Google ou Apple)</li>
-          <li>Exibir seu perfil (nome, avatar) dentro do aplicativo</li>
-          <li>Gerenciar suas preferências de notificação</li>
-          <li>Manter o registro de seu streak e progresso de leitura</li>
-        </ul>
-
-        <h3>3.3 Processamento por Inteligência Artificial</h3>
-        <ul>
-          <li>Suas mensagens no chat são enviadas ao Google Gemini 2.0 para geração de respostas teológicas contextualizadas</li>
-          <li>Seus dados de onboarding (religião, objetivos, carta) são analisados pelo Gemini para criar um perfil personalizado de pesos temáticos (68 categorias temáticas)</li>
-          <li>Devocionais são gerados pelo Gemini com base no capítulo bíblico e sua denominação religiosa</li>
-        </ul>
-
-        <h3>3.4 Gerenciamento de Assinatura</h3>
-        <ul>
-          <li>Verificar o status da sua assinatura ou período de teste</li>
-          <li>Processar eventos de compra, renovação e cancelamento</li>
-          <li>Garantir acesso aos recursos premium</li>
-        </ul>
-
-        <h3>3.5 Segurança e Prevenção de Abuso</h3>
-        <ul>
-          <li>Verificar autenticação via tokens JWT</li>
-          <li>Aplicar limites de uso (ex.: máximo de 5 análises de onboarding)</li>
-          <li>Proteger contra acesso não autorizado aos dados de outros usuários</li>
-          <li>Registrar operações sensíveis em logs administrativos</li>
-        </ul>
-
-        <h3>3.6 Melhorias do Serviço</h3>
-        <ul>
-          <li>Compreender como os usuários interagem com o aplicativo para melhorar funcionalidades</li>
-          <li>Identificar e corrigir problemas técnicos</li>
-        </ul>
-
-        <!-- 4. BASE LEGAL PARA O TRATAMENTO -->
-        <h2 id="base-legal">4. Base Legal para o Tratamento (LGPD / GDPR)</h2>
-        <p>O tratamento de seus dados pessoais é realizado com base nas seguintes bases legais:</p>
-
-        <h3>4.1 Consentimento (Art. 7, I - LGPD / Art. 6(1)(a) - GDPR)</h3>
-        <ul>
-          <li>Coleta de dados de perfil espiritual durante o onboarding</li>
-          <li>Envio de mensagens ao chat com IA</li>
-          <li>Upload de foto de perfil</li>
-          <li>Ativação de notificações push</li>
-        </ul>
-
-        <h3>4.2 Execução de Contrato (Art. 7, V - LGPD / Art. 6(1)(b) - GDPR)</h3>
-        <ul>
-          <li>Criação e manutenção da conta do usuário</li>
-          <li>Fornecimento dos serviços do aplicativo (devocionais, leitura bíblica, chat)</li>
-          <li>Gerenciamento de assinaturas e acesso a recursos premium</li>
-        </ul>
-
-        <h3>4.3 Interesse Legítimo (Art. 7, IX - LGPD / Art. 6(1)(f) - GDPR)</h3>
-        <ul>
-          <li>Segurança do aplicativo e prevenção de fraudes</li>
-          <li>Melhorias e otimizações do serviço</li>
-          <li>Logs administrativos para auditoria</li>
-        </ul>
-
-        <!-- 5. COMPARTILHAMENTO DE DADOS COM TERCEIROS -->
-        <h2 id="compartilhamento">5. Compartilhamento de Dados com Terceiros</h2>
-        <p>Compartilhamos dados pessoais com os seguintes prestadores de serviço, estritamente para a operação do aplicativo:</p>
-
-        <h3>5.1 Supabase (Backend e Banco de Dados)</h3>
-        <ul>
-          <li><strong>Função:</strong> Autenticação, armazenamento de dados, banco de dados, armazenamento de arquivos (avatares)</li>
-          <li><strong>Dados compartilhados:</strong> Todos os dados de conta, perfil, atividade e configurações</li>
-          <li><strong>Localização dos servidores:</strong> Estados Unidos (AWS)</li>
-          <li><strong>Política de privacidade:</strong> <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">supabase.com/privacy</a></li>
-          <li><strong>Medidas de segurança:</strong> Row Level Security (RLS), criptografia em trânsito (TLS), backups automáticos</li>
-        </ul>
-
-        <h3>5.2 Google (Gemini AI / Google Cloud)</h3>
-        <ul>
-          <li><strong>Função:</strong> Processamento de linguagem natural para o chat e geração de devocionais</li>
-          <li><strong>Dados compartilhados:</strong> Mensagens do chat, dados de onboarding (religião, objetivos, carta a Deus) para processamento pela IA</li>
-          <li><strong>Localização dos servidores:</strong> Estados Unidos</li>
-          <li><strong>Política de privacidade:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
-          <li><strong>Observação:</strong> Os dados são processados pela API do Google Gemini exclusivamente para gerar respostas. De acordo com a política da Google, dados enviados via API Gemini não são usados para treinar modelos de IA generativa.</li>
-        </ul>
-
-        <h3>5.3 RevenueCat (Gerenciamento de Assinaturas)</h3>
-        <ul>
-          <li><strong>Função:</strong> Gerenciamento de assinaturas in-app, verificação de entitlements</li>
-          <li><strong>Dados compartilhados:</strong> Identificador do usuário, status de assinatura, tipo de plano, datas de compra e expiração</li>
-          <li><strong>Localização dos servidores:</strong> Estados Unidos</li>
-          <li><strong>Política de privacidade:</strong> <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></li>
-        </ul>
-
-        <h3>5.4 Google Play Store / Apple App Store</h3>
-        <ul>
-          <li><strong>Função:</strong> Processamento de pagamentos para assinaturas</li>
-          <li><strong>Dados compartilhados:</strong> Dados de pagamento são processados exclusivamente pelas lojas; nós recebemos apenas confirmação e metadados da transação via RevenueCat</li>
-          <li><strong>Políticas de privacidade:</strong>
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a> ·
-            <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a>
-          </li>
-        </ul>
-
-        <h3>5.5 Expo (Framework de Desenvolvimento)</h3>
-        <ul>
-          <li><strong>Função:</strong> Framework para construção do aplicativo, serviços de atualização e notificações push</li>
-          <li><strong>Dados compartilhados:</strong> Tokens de push notification (quando ativadas)</li>
-          <li><strong>Política de privacidade:</strong> <a href="https://expo.dev/privacy" target="_blank" rel="noopener noreferrer">expo.dev/privacy</a></li>
-        </ul>
-
-        <div class="highlight-box">
-          <p><strong>NÃO</strong> compartilhamos, vendemos, alugamos ou negociamos seus dados pessoais com terceiros para fins de marketing, publicidade ou qualquer outra finalidade comercial não relacionada à operação do aplicativo.</p>
-        </div>
-
-        <!-- 6. INTELIGÊNCIA ARTIFICIAL -->
-        <h2 id="inteligencia-artificial">6. Inteligência Artificial e Processamento Automatizado</h2>
-        <p>O Gabriel utiliza inteligência artificial (Google Gemini 2.0) para as seguintes funcionalidades:</p>
-
-        <h3>6.1 Chat com Gabriel</h3>
-        <ul>
-          <li>Suas mensagens são enviadas ao Google Gemini para geração de respostas teológicas</li>
-          <li>O histórico da conversa é mantido em nosso banco de dados para continuidade do diálogo</li>
-          <li>Cada conversa possui um identificador único</li>
-          <li>As respostas são geradas automaticamente e <strong>NÃO</strong> constituem aconselhamento profissional (teológico, psicológico ou de qualquer outra natureza)</li>
-        </ul>
-
-        <h3>6.2 Análise de Onboarding</h3>
-        <ul>
-          <li>Seus dados de perfil espiritual (religião, objetivos, carta a Deus) são processados pelo Gemini para criar um perfil personalizado</li>
-          <li>O resultado é um conjunto de pesos temáticos (68 categorias) que determinam quais conteúdos bíblicos são mais relevantes para você</li>
-          <li>Esta análise é limitada a no máximo 5 execuções por usuário</li>
-        </ul>
-
-        <h3>6.3 Geração de Devocionais</h3>
-        <ul>
-          <li>Devocionais são gerados pelo Gemini com base em capítulos bíblicos específicos e na sua denominação religiosa</li>
-          <li>Os devocionais gerados são armazenados em cache para reutilização</li>
-          <li>O conteúdo gerado por IA é de caráter reflexivo e <strong>NÃO</strong> substitui orientação pastoral, teológica ou profissional</li>
-        </ul>
-
-        <h3>6.4 Decisões Automatizadas</h3>
-        <ul>
-          <li>O algoritmo de matching seleciona capítulos bíblicos com base nos seus pesos temáticos (60%), aleatoriedade (20%) e progressão (20%)</li>
-          <li>Você pode solicitar a exclusão dos resultados de análise e a realização de uma nova análise (dentro dos limites de uso)</li>
-        </ul>
-
-        <!-- 7. ARMAZENAMENTO E SEGURANÇA -->
-        <h2 id="armazenamento-seguranca">7. Armazenamento e Segurança dos Dados</h2>
-
-        <h3>7.1 Armazenamento no Servidor</h3>
-        <ul>
-          <li>Banco de dados PostgreSQL hospedado pela Supabase (infraestrutura AWS, região dos Estados Unidos)</li>
-          <li>Row Level Security (RLS) habilitada em todas as tabelas de usuário, garantindo que cada usuário só pode acessar seus próprios dados</li>
-          <li>Criptografia em trânsito (TLS/HTTPS) em todas as comunicações</li>
-          <li>Backups automáticos realizados pela Supabase</li>
-        </ul>
-
-        <h3>7.2 Armazenamento no Dispositivo</h3>
-        <ul>
-          <li>Tokens de autenticação armazenados de forma segura via AsyncStorage com wrapper seguro</li>
-          <li>Preferências e cache de sessão armazenados localmente via AsyncStorage</li>
-          <li>Dados de cache não contêm informações sensíveis completas</li>
-        </ul>
-
-        <h3>7.3 Medidas de Segurança Implementadas</h3>
-        <ul>
-          <li>Autenticação baseada em JWT (JSON Web Tokens) com renovação automática</li>
-          <li>Validação de JWT em todas as Edge Functions (endpoints de servidor)</li>
-          <li>Verificação de correspondência de user_id entre token e requisição</li>
-          <li>Verificação de assinatura em webhooks do RevenueCat</li>
-          <li>Limites de uso para prevenção de abuso (onboarding: 5x máximo)</li>
-          <li>Checagem de assinatura ativa para acesso a funcionalidades premium</li>
-          <li>Código-fonte de chaves sensíveis (Service Role Key, Gemini API Key) nunca exposto ao cliente</li>
-          <li>Padronização de respostas de erro para evitar vazamento de informações do sistema</li>
-        </ul>
-
-        <h3>7.4 Transferência Internacional de Dados</h3>
-        <ul>
-          <li>Seus dados podem ser transferidos e armazenados em servidores localizados nos Estados Unidos (Supabase/AWS, Google Cloud)</li>
-          <li>Essa transferência é necessária para a operação do serviço</li>
-          <li>As empresas receptoras possuem certificações e medidas de proteção adequadas</li>
-        </ul>
-
-        <!-- 8. RETENÇÃO DE DADOS -->
-        <h2 id="retencao">8. Retenção de Dados</h2>
-        <p>Seus dados pessoais são retidos pelos seguintes períodos:</p>
-
-        <h3>8.1 Dados de Conta</h3>
-        <ul>
-          <li>Mantidos enquanto sua conta estiver ativa</li>
-          <li>Após exclusão da conta, removidos em até 30 dias dos sistemas ativos e em até 90 dias dos backups</li>
-        </ul>
-
-        <h3>8.2 Dados de Perfil Espiritual</h3>
-        <ul>
-          <li>Mantidos enquanto sua conta estiver ativa</li>
-          <li>Podem ser redefinidos pelo usuário a qualquer momento</li>
-        </ul>
-
-        <h3>8.3 Histórico de Conversas com IA</h3>
-        <ul>
-          <li>Mantido enquanto a conta estiver ativa</li>
-          <li>Pode ser excluído pelo usuário ao iniciar uma nova conversa</li>
-          <li>Removido após exclusão da conta</li>
-        </ul>
-
-        <h3>8.4 Dados de Atividade e Streak</h3>
-        <ul>
-          <li>Mantidos enquanto a conta estiver ativa</li>
-          <li>Utilizados para cálculo de progresso e estatísticas pessoais</li>
-        </ul>
-
-        <h3>8.5 Dados de Assinatura</h3>
-        <ul>
-          <li>Mantidos conforme exigências legais e fiscais (até 5 anos após o término da assinatura)</li>
-          <li>RevenueCat mantém seus próprios registros conforme sua política</li>
-        </ul>
-
-        <h3>8.6 Logs Administrativos</h3>
-        <ul>
-          <li>Mantidos por até 12 meses para fins de auditoria e segurança</li>
-          <li>Não contêm dados pessoais identificáveis além do UUID do usuário</li>
-        </ul>
-
-        <!-- 9. SEUS DIREITOS -->
-        <h2 id="seus-direitos">9. Seus Direitos como Titular dos Dados</h2>
-        <p>Em conformidade com a LGPD (Lei Geral de Proteção de Dados - Brasil) e o GDPR (Regulamento Geral sobre Proteção de Dados - UE), você tem os seguintes direitos:</p>
-
-        <h3>9.1 Direito de Acesso</h3>
-        <p>Você pode solicitar uma cópia de todos os dados pessoais que mantemos sobre você.</p>
-
-        <h3>9.2 Direito de Correção</h3>
-        <p>Você pode atualizar ou corrigir seus dados pessoais diretamente no aplicativo (nome, avatar) ou solicitando via e-mail.</p>
-
-        <h3>9.3 Direito de Exclusão</h3>
-        <p>Você pode solicitar a exclusão completa de sua conta e todos os dados associados. Alguns dados podem ser retidos conforme obrigações legais.</p>
-
-        <h3>9.4 Direito de Portabilidade</h3>
-        <p>Você pode solicitar seus dados em formato legível por máquina.</p>
-
-        <h3>9.5 Direito de Revogação do Consentimento</h3>
-        <p>Você pode revogar o consentimento para o processamento de dados a qualquer momento, o que pode resultar na impossibilidade de utilizar determinadas funcionalidades do aplicativo.</p>
-
-        <h3>9.6 Direito de Oposição</h3>
-        <p>Você pode se opor ao processamento de seus dados para finalidades específicas.</p>
-
-        <h3>9.7 Direito à Informação</h3>
-        <p>Você pode solicitar informações sobre com quem compartilhamos seus dados e para quais finalidades.</p>
-
-        <div class="info-box">
-          <p><strong>Para exercer qualquer destes direitos, entre em contato:</strong></p>
+          <h3>2.2 Dados de Perfil Espiritual (Onboarding)</h3>
+          <p>Estes dados são fornecidos voluntariamente pelo usuário durante o processo de onboarding para personalização da experiência:</p>
           <ul>
-            <li>E-mail: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
-            <li>Prazo de resposta: Até 15 dias úteis</li>
+            <li>Religião ou denominação (ex.: católico, evangélico, cristão não denominacional, espírita, outra cristã, nenhuma)</li>
+            <li>Religião personalizada (campo de texto livre, caso selecione "outra")</li>
+            <li>Objetivos espirituais (seleção entre opções predefinidas)</li>
+            <li>Carta a Deus (texto livre, compartilhando intenções pessoais)</li>
+            <li>Frequência desejada de uso (diária, semanal, etc.)</li>
           </ul>
-        </div>
 
-        <!-- 10. PROTEÇÃO DE DADOS DE MENORES -->
-        <h2 id="menores">10. Proteção de Dados de Menores</h2>
-
-        <h3>10.1 Idade Mínima</h3>
-        <p>O Gabriel não é destinado a menores de 13 anos. Não coletamos intencionalmente dados pessoais de crianças menores de 13 anos.</p>
-
-        <h3>10.2 Consentimento Parental</h3>
-        <p>Para usuários entre 13 e 18 anos (ou a idade de maioridade digital em sua jurisdição), o uso do aplicativo deve ser supervisionado e consentido por um pai ou responsável legal.</p>
-
-        <h3>10.3 Descoberta de Dados de Menores</h3>
-        <p>Se tomarmos conhecimento de que coletamos dados de uma criança menor de 13 anos sem o consentimento parental verificável, tomaremos medidas imediatas para excluir esses dados. Se você acredita que podemos ter coletado dados de um menor, entre em contato conosco imediatamente em <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a>.</p>
-
-        <!-- 11. PERMISSÕES DO DISPOSITIVO -->
-        <h2 id="permissoes">11. Permissões do Dispositivo</h2>
-        <p>O Gabriel solicita as seguintes permissões:</p>
-
-        <h3>11.1 Acesso à Galeria de Fotos / Biblioteca de Mídia</h3>
-        <ul>
-          <li><strong>Finalidade:</strong> Permitir que o usuário selecione uma foto de sua galeria para usar como foto de perfil (avatar)</li>
-          <li><strong>Quando solicitada:</strong> Apenas quando o usuário toca no avatar para alterá-lo</li>
-          <li><strong>Dados acessados:</strong> Apenas a imagem selecionada pelo usuário; não acessamos outras fotos ou mídias do dispositivo</li>
-          <li><strong>Obrigatoriedade:</strong> Opcional. O aplicativo funciona normalmente sem esta permissão</li>
-        </ul>
-
-        <h3>11.2 Acesso à Internet</h3>
-        <ul>
-          <li><strong>Finalidade:</strong> Comunicação com os servidores backend (Supabase) para autenticação, sincronização de dados, chat com IA, geração de devocionais e gerenciamento de assinatura</li>
-          <li><strong>Obrigatoriedade:</strong> Necessário para o funcionamento do aplicativo</li>
-        </ul>
-
-        <h3>11.3 Notificações Push</h3>
-        <ul>
-          <li><strong>Finalidade:</strong> Enviar lembretes personalizados para leitura de devocionais e capítulos bíblicos, nos horários configurados pelo usuário</li>
-          <li><strong>Quando solicitada:</strong> Durante o onboarding ou ao ativar notificações nas configurações</li>
-          <li><strong>Obrigatoriedade:</strong> Opcional. O aplicativo funciona normalmente sem notificações ativas</li>
-        </ul>
-
-        <h3>11.4 Armazenamento Local Seguro</h3>
-        <ul>
-          <li><strong>Finalidade:</strong> Armazenar tokens de autenticação e preferências de forma segura no dispositivo</li>
-          <li><strong>Dados armazenados:</strong> Tokens JWT, preferências de tema, fonte, idioma, cache de estado da sessão</li>
-          <li><strong>Obrigatoriedade:</strong> Necessário para o funcionamento do aplicativo</li>
-        </ul>
-
-        <div class="highlight-box">
-          <p><strong>DECLARAÇÃO:</strong> O Gabriel <strong>NÃO</strong> solicita e <strong>NÃO</strong> utiliza as seguintes permissões ou APIs sensíveis:</p>
+          <h3>2.3 Dados de Uso e Atividade</h3>
           <ul>
-            <li>Câmera (não acessamos a câmera do dispositivo)</li>
-            <li>Microfone (não gravamos áudio)</li>
-            <li>Localização (não acessamos GPS ou localização)</li>
-            <li>Contatos (não acessamos a agenda)</li>
-            <li>Telefone (não realizamos chamadas)</li>
-            <li>SMS (não enviamos ou lemos mensagens)</li>
-            <li>Calendário (não acessamos o calendário)</li>
-            <li>Sensores corporais / dados de saúde</li>
-            <li>Accessibility Services API</li>
-            <li>VPN Service</li>
-            <li>Device Admin API</li>
-            <li>Background Location</li>
+            <li>Histórico de conversas com a inteligência artificial "Gabriel" (mensagens enviadas e respostas recebidas)</li>
+            <li>Devocional lidos e seu status (pendente, em geração, pronto, concluído)</li>
+            <li>Versículos bíblicos favoritados</li>
+            <li>Capítulos bíblicos lidos</li>
+            <li>Streak de atividades (sequência de dias consecutivos de uso)</li>
+            <li>Contagem semanal de atividades</li>
+            <li>Data e tipo de cada atividade registrada</li>
+            <li>Contagem de análises de onboarding realizadas</li>
           </ul>
-        </div>
 
-        <!-- 12. CONFORMIDADE COM POLÍTICAS DAS LOJAS -->
-        <h2 id="conformidade-lojas">12. Conformidade com Políticas das Lojas de Aplicativos</h2>
-
-        <h3>12.1 Google Play Store — Dados do Usuário</h3>
-        <p>Em conformidade com a política de Dados do Usuário do Google Play:</p>
-        <p><strong>Tipos de dados coletados e compartilhados:</strong></p>
-        <ul>
-          <li><strong>(a) Informações pessoais:</strong> Nome (coletado, não compartilhado para fins de marketing), Endereço de e-mail (coletado via provedor de autenticação), IDs de usuário (UUID do sistema)</li>
-          <li><strong>(b) Informações financeiras:</strong> Metadados de assinatura via RevenueCat. Não coletamos dados de pagamento diretamente</li>
-          <li><strong>(c) Mensagens:</strong> Mensagens no chat com IA — coletadas e armazenadas</li>
-          <li><strong>(d) Fotos e vídeos:</strong> Apenas quando o usuário faz upload de avatar</li>
-          <li><strong>(e) Atividade do aplicativo:</strong> Histórico de leitura, favoritos, streak</li>
-          <li><strong>(f) Informações e desempenho:</strong> Logs de erro e diagnóstico apenas em ambiente de desenvolvimento</li>
-          <li><strong>(g) Identificadores do dispositivo:</strong> Não coletamos IDFA, GAID ou outros identificadores de publicidade</li>
-        </ul>
-        <p><strong>Declaração de Segurança dos Dados (Data Safety Section):</strong></p>
-        <ul>
-          <li>Dados criptografados em trânsito: <strong>SIM</strong></li>
-          <li>Usuários podem solicitar exclusão de dados: <strong>SIM</strong></li>
-          <li>Dados compartilhados com terceiros: <strong>SIM</strong> (apenas para operação do serviço, conforme Seção 5)</li>
-        </ul>
-
-        <h3>12.2 Google Play — Permissões e APIs Sensíveis</h3>
-        <ul>
-          <li>Todas as permissões solicitadas são estritamente necessárias para a funcionalidade principal do aplicativo</li>
-          <li>Não utilizamos APIs sensíveis (Accessibility, VPN Service, Device Admin, etc.)</li>
-          <li>A permissão de acesso à galeria de fotos é usada exclusivamente para a funcionalidade de avatar do perfil do usuário</li>
-        </ul>
-
-        <h3>12.3 Google Play — Abuso de Dispositivos e de Rede</h3>
-        <ul>
-          <li>O Gabriel <strong>NÃO</strong> executa código malicioso ou potencialmente danoso</li>
-          <li><strong>NÃO</strong> compromete a segurança do dispositivo do usuário</li>
-          <li><strong>NÃO</strong> realiza mineração de criptomoedas</li>
-          <li><strong>NÃO</strong> transmite dados sem o conhecimento do usuário</li>
-          <li><strong>NÃO</strong> instala ou promove outros aplicativos</li>
-          <li><strong>NÃO</strong> explora vulnerabilidades do sistema</li>
-          <li><strong>NÃO</strong> utiliza o dispositivo como proxy sem consentimento</li>
-          <li>Todas as comunicações de rede são realizadas via HTTPS para servidores autenticados e conhecidos (Supabase, Google Cloud, RevenueCat)</li>
-        </ul>
-
-        <h3>12.4 Google Play — Comportamento Enganoso</h3>
-        <ul>
-          <li>O Gabriel descreve com precisão suas funcionalidades na listagem da loja</li>
-          <li>Não utilizamos técnicas de engenharia social</li>
-          <li>Não geramos notificações fora do aplicativo sem o consentimento explícito do usuário</li>
-          <li>Não imitamos funcionalidades do sistema operacional</li>
-          <li>Não redirecionamos usuários sem seu consentimento</li>
-          <li>Toda comunicação com IA é claramente identificada como tal</li>
-          <li>As respostas geradas por IA possuem disclaimers adequados</li>
-        </ul>
-
-        <h3>12.5 Google Play — Declarações Falsas</h3>
-        <p>O Gabriel declara com honestidade:</p>
-        <ul>
-          <li>É um aplicativo de estudo bíblico e devocional com funcionalidades de inteligência artificial</li>
-          <li>Utiliza o Google Gemini 2.0 para geração de conteúdo</li>
-          <li>Requer assinatura para acesso a recursos premium (chat com IA, devocionais personalizados)</li>
-          <li>Oferece período de teste gratuito antes da cobrança</li>
-          <li>O conteúdo gerado por IA <strong>NÃO</strong> substitui aconselhamento pastoral, teológico ou profissional</li>
-          <li><strong>NÃO</strong> garante resultados espirituais específicos</li>
-        </ul>
-
-        <h3>12.6 Google Play — Política de Nível de API Desejado</h3>
-        <ul>
-          <li>O aplicativo cumpre os requisitos de nível de API desejado do Google Play</li>
-          <li>Utiliza Expo SDK 54 com React Native 0.81</li>
-          <li>minSdkVersion Android: 24 (Android 7.0)</li>
-          <li>Será compilado com o targetSdkVersion mais recente exigido pelo Google Play no momento da publicação</li>
-          <li>Seguimos as melhores práticas de desenvolvimento Android conforme as diretrizes do Google</li>
-        </ul>
-
-        <h3>12.7 Apple App Store — Conformidade</h3>
-        <ul>
-          <li>Em conformidade com as App Store Review Guidelines</li>
-          <li>Privacidade implementada conforme Apple Privacy Guidelines</li>
-          <li>Suporte para Sign in with Apple implementado como opção de autenticação</li>
-          <li>Não utilizamos rastreamento entre aplicativos (App Tracking Transparency não é necessário pois não rastreamos usuários entre apps)</li>
-          <li>Nutrition Labels (Privacy Labels) na App Store refletirão com precisão os dados coletados conforme esta política</li>
-          <li>Assinaturas implementadas conforme Apple In-App Purchase guidelines</li>
-          <li>Política de auto-renovação claramente comunicada</li>
-        </ul>
-
-        <!-- 13. COOKIES E TECNOLOGIAS DE RASTREAMENTO -->
-        <h2 id="cookies">13. Cookies e Tecnologias de Rastreamento</h2>
-        <p>O Gabriel <strong>NÃO</strong> utiliza cookies tradicionais de navegador, pois é um aplicativo nativo.</p>
-        <p><strong>Tecnologias utilizadas:</strong></p>
-        <ul>
-          <li><strong>AsyncStorage:</strong> Armazenamento local no dispositivo para preferências, cache de estado e dados de sessão</li>
-          <li><strong>JWT Tokens:</strong> Tokens de autenticação armazenados localmente para manter a sessão do usuário</li>
-          <li><strong>Zustand com persistência:</strong> Gerenciamento de estado com armazenamento local para experiência fluida</li>
-        </ul>
-        <p>Nenhuma destas tecnologias é utilizada para rastreamento, publicidade ou análise comportamental entre aplicativos.</p>
-
-        <!-- 14. ALTERAÇÕES NESTA POLÍTICA -->
-        <h2 id="alteracoes">14. Alterações nesta Política</h2>
-        <p>Reservamo-nos o direito de atualizar esta Política de Privacidade a qualquer momento. Quando fizermos alterações significativas:</p>
-        <ul>
-          <li>Notificaremos os usuários através do aplicativo</li>
-          <li>A data de "Última atualização" no início deste documento será alterada</li>
-          <li>Para alterações materiais, poderemos solicitar seu consentimento novamente</li>
-        </ul>
-        <p>O uso continuado do aplicativo após a publicação de alterações constitui aceitação da política atualizada. Recomendamos que você revise esta política periodicamente.</p>
-
-        <!-- 15. DISPOSIÇÕES FINAIS -->
-        <h2 id="disposicoes-finais">15. Disposições Finais</h2>
-
-        <h3>15.1 Legislação Aplicável</h3>
-        <p>Esta Política de Privacidade é regida pelas leis da República Federativa do Brasil, em especial pela Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).</p>
-        <p>Para usuários localizados na União Europeia, aplicam-se também as disposições do Regulamento Geral sobre Proteção de Dados (GDPR).</p>
-        <p>Para usuários localizados nos Estados Unidos, aplicam-se as leis estaduais de privacidade aplicáveis, incluindo a CCPA (California Consumer Privacy Act), quando aplicável.</p>
-
-        <h3>15.2 Foro</h3>
-        <p>Fica eleito o foro da comarca de residência do responsável pelo tratamento de dados para dirimir quaisquer controvérsias relacionadas a esta Política de Privacidade.</p>
-
-        <h3>15.3 Contato</h3>
-        <p>Para quaisquer dúvidas, comentários, reclamações ou solicitações relacionadas a esta Política de Privacidade ou ao tratamento de seus dados pessoais, entre em contato:</p>
-        <div class="info-box">
+          <h3>2.4 Dados de Preferências e Configurações</h3>
           <ul>
-            <li>E-mail: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
-            <li>Assunto: [Privacidade Gabriel] Sua solicitação</li>
+            <li>Tema visual (claro, escuro, sistema)</li>
+            <li>Tamanho da fonte preferido</li>
+            <li>Versão da Bíblia preferida (ARA, KJV, etc.)</li>
+            <li>Idioma do aplicativo</li>
+            <li>Configurações de notificação (ativadas/desativadas, horários dos lembretes para devocionais e leitura bíblica)</li>
           </ul>
-          <p>Nos comprometemos a responder todas as solicitações em até 15 dias úteis.</p>
-        </div>
+
+          <h3>2.5 Dados de Assinatura e Pagamento</h3>
+          <ul>
+            <li>Status da assinatura (ativo, teste, cancelado, expirado)</li>
+            <li>Tipo de plano (mensal, anual)</li>
+            <li>Datas de início e fim do período de assinatura</li>
+            <li>Identificadores do RevenueCat (app_user_id)</li>
+            <li>Loja de origem da compra (Google Play Store ou Apple App Store)</li>
+          </ul>
+          <HighlightBox>
+            <p><strong>IMPORTANTE:</strong> Não coletamos, armazenamos ou temos acesso a dados de cartão de crédito, dados bancários ou qualquer informação financeira direta. Todo o processamento de pagamentos é realizado exclusivamente pelas plataformas Google Play (Google) e App Store (Apple), conforme suas respectivas políticas de privacidade. O serviço RevenueCat gerencia apenas os metadados da assinatura.</p>
+          </HighlightBox>
+
+          <h3>2.6 Dados Técnicos</h3>
+          <ul>
+            <li>Tokens de autenticação (JWT) armazenados de forma segura no dispositivo</li>
+            <li>Dados de cache local (preferências, estado da sessão)</li>
+            <li>Logs de erros e depuração (apenas em ambiente de desenvolvimento)</li>
+          </ul>
+
+          <h3>2.7 Dados que NÃO Coletamos</h3>
+          <p>Para total transparência, informamos que <strong>NÃO</strong> coletamos:</p>
+          <ul>
+            <li>Localização geográfica (GPS) ou dados de geolocalização</li>
+            <li>Lista de contatos ou agenda telefônica</li>
+            <li>Mensagens SMS ou registros de chamadas</li>
+            <li>Microfone ou gravações de áudio</li>
+            <li>Dados de saúde ou biométricos</li>
+            <li>Histórico de navegação na web</li>
+            <li>Identificadores de publicidade (IDFA/GAID)</li>
+            <li>Dados de outros aplicativos instalados no dispositivo</li>
+            <li>Dados financeiros diretos (cartões, contas bancárias)</li>
+          </ul>
+        </LegalSection>
+
+        <LegalSection id="uso-dos-dados" title="3. Como Utilizamos Seus Dados">
+          <p>Utilizamos seus dados pessoais para as seguintes finalidades:</p>
+
+          <h3>3.1 Personalização da Experiência Espiritual</h3>
+          <ul>
+            <li>Gerar devocionais personalizados com base em seu perfil espiritual (religião, objetivos, carta a Deus)</li>
+            <li>Selecionar capítulos bíblicos relevantes através de algoritmo de correspondência (matching) baseado em pesos de palavras-chave</li>
+            <li>Personalizar as respostas da inteligência artificial Gabriel durante as conversas</li>
+            <li>Adaptar o conteúdo de acordo com sua denominação religiosa</li>
+          </ul>
+
+          <h3>3.2 Funcionamento do Aplicativo</h3>
+          <ul>
+            <li>Autenticar sua identidade e manter sua sessão segura</li>
+            <li>Sincronizar seus dados entre dispositivos (quando conectado com conta Google ou Apple)</li>
+            <li>Exibir seu perfil (nome, avatar) dentro do aplicativo</li>
+            <li>Gerenciar suas preferências de notificação</li>
+            <li>Manter o registro de seu streak e progresso de leitura</li>
+          </ul>
+
+          <h3>3.3 Processamento por Inteligência Artificial</h3>
+          <ul>
+            <li>Suas mensagens no chat são enviadas ao Google Gemini 2.0 para geração de respostas teológicas contextualizadas</li>
+            <li>Seus dados de onboarding (religião, objetivos, carta) são analisados pelo Gemini para criar um perfil personalizado de pesos temáticos (68 categorias temáticas)</li>
+            <li>Devocionais são gerados pelo Gemini com base no capítulo bíblico e sua denominação religiosa</li>
+          </ul>
+
+          <h3>3.4 Gerenciamento de Assinatura</h3>
+          <ul>
+            <li>Verificar o status da sua assinatura ou período de teste</li>
+            <li>Processar eventos de compra, renovação e cancelamento</li>
+            <li>Garantir acesso aos recursos premium</li>
+          </ul>
+
+          <h3>3.5 Segurança e Prevenção de Abuso</h3>
+          <ul>
+            <li>Verificar autenticação via tokens JWT</li>
+            <li>Aplicar limites de uso (ex.: máximo de 5 análises de onboarding)</li>
+            <li>Proteger contra acesso não autorizado aos dados de outros usuários</li>
+            <li>Registrar operações sensíveis em logs administrativos</li>
+          </ul>
+
+          <h3>3.6 Melhorias do Serviço</h3>
+          <ul>
+            <li>Compreender como os usuários interagem com o aplicativo para melhorar funcionalidades</li>
+            <li>Identificar e corrigir problemas técnicos</li>
+          </ul>
+        </LegalSection>
+
+        <LegalSection id="base-legal" title="4. Base Legal para o Tratamento (LGPD / GDPR)">
+          <p>O tratamento de seus dados pessoais é realizado com base nas seguintes bases legais:</p>
+
+          <h3>4.1 Consentimento (Art. 7, I - LGPD / Art. 6(1)(a) - GDPR)</h3>
+          <ul>
+            <li>Coleta de dados de perfil espiritual durante o onboarding</li>
+            <li>Envio de mensagens ao chat com IA</li>
+            <li>Upload de foto de perfil</li>
+            <li>Ativação de notificações push</li>
+          </ul>
+
+          <h3>4.2 Execução de Contrato (Art. 7, V - LGPD / Art. 6(1)(b) - GDPR)</h3>
+          <ul>
+            <li>Criação e manutenção da conta do usuário</li>
+            <li>Fornecimento dos serviços do aplicativo (devocionais, leitura bíblica, chat)</li>
+            <li>Gerenciamento de assinaturas e acesso a recursos premium</li>
+          </ul>
+
+          <h3>4.3 Interesse Legítimo (Art. 7, IX - LGPD / Art. 6(1)(f) - GDPR)</h3>
+          <ul>
+            <li>Segurança do aplicativo e prevenção de fraudes</li>
+            <li>Melhorias e otimizações do serviço</li>
+            <li>Logs administrativos para auditoria</li>
+          </ul>
+        </LegalSection>
+
+        <LegalSection id="compartilhamento" title="5. Compartilhamento de Dados com Terceiros">
+          <p>Compartilhamos dados pessoais com os seguintes prestadores de serviço, estritamente para a operação do aplicativo:</p>
+
+          <h3>5.1 Supabase (Backend e Banco de Dados)</h3>
+          <ul>
+            <li><strong>Função:</strong> Autenticação, armazenamento de dados, banco de dados, armazenamento de arquivos (avatares)</li>
+            <li><strong>Dados compartilhados:</strong> Todos os dados de conta, perfil, atividade e configurações</li>
+            <li><strong>Localização dos servidores:</strong> Estados Unidos (AWS)</li>
+            <li><strong>Política de privacidade:</strong> <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">supabase.com/privacy</a></li>
+            <li><strong>Medidas de segurança:</strong> Row Level Security (RLS), criptografia em trânsito (TLS), backups automáticos</li>
+          </ul>
+
+          <h3>5.2 Google (Gemini AI / Google Cloud)</h3>
+          <ul>
+            <li><strong>Função:</strong> Processamento de linguagem natural para o chat e geração de devocionais</li>
+            <li><strong>Dados compartilhados:</strong> Mensagens do chat, dados de onboarding (religião, objetivos, carta a Deus) para processamento pela IA</li>
+            <li><strong>Localização dos servidores:</strong> Estados Unidos</li>
+            <li><strong>Política de privacidade:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
+            <li><strong>Observação:</strong> Os dados são processados pela API do Google Gemini exclusivamente para gerar respostas. De acordo com a política da Google, dados enviados via API Gemini não são usados para treinar modelos de IA generativa.</li>
+          </ul>
+
+          <h3>5.3 RevenueCat (Gerenciamento de Assinaturas)</h3>
+          <ul>
+            <li><strong>Função:</strong> Gerenciamento de assinaturas in-app, verificação de entitlements</li>
+            <li><strong>Dados compartilhados:</strong> Identificador do usuário, status de assinatura, tipo de plano, datas de compra e expiração</li>
+            <li><strong>Localização dos servidores:</strong> Estados Unidos</li>
+            <li><strong>Política de privacidade:</strong> <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></li>
+          </ul>
+
+          <h3>5.4 Google Play Store / Apple App Store</h3>
+          <ul>
+            <li><strong>Função:</strong> Processamento de pagamentos para assinaturas</li>
+            <li><strong>Dados compartilhados:</strong> Dados de pagamento são processados exclusivamente pelas lojas; nós recebemos apenas confirmação e metadados da transação via RevenueCat</li>
+            <li><strong>Políticas de privacidade:</strong>
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a> ·
+              <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a>
+            </li>
+          </ul>
+
+          <h3>5.5 Expo (Framework de Desenvolvimento)</h3>
+          <ul>
+            <li><strong>Função:</strong> Framework para construção do aplicativo, serviços de atualização e notificações push</li>
+            <li><strong>Dados compartilhados:</strong> Tokens de push notification (quando ativadas)</li>
+            <li><strong>Política de privacidade:</strong> <a href="https://expo.dev/privacy" target="_blank" rel="noopener noreferrer">expo.dev/privacy</a></li>
+          </ul>
+
+          <HighlightBox>
+            <p><strong>NÃO</strong> compartilhamos, vendemos, alugamos ou negociamos seus dados pessoais com terceiros para fins de marketing, publicidade ou qualquer outra finalidade comercial não relacionada à operação do aplicativo.</p>
+          </HighlightBox>
+        </LegalSection>
+
+        <LegalSection id="inteligencia-artificial" title="6. Inteligência Artificial e Processamento Automatizado">
+          <p>O Gabriel utiliza inteligência artificial (Google Gemini 2.0) para as seguintes funcionalidades:</p>
+
+          <h3>6.1 Chat com Gabriel</h3>
+          <ul>
+            <li>Suas mensagens são enviadas ao Google Gemini para geração de respostas teológicas</li>
+            <li>O histórico da conversa é mantido em nosso banco de dados para continuidade do diálogo</li>
+            <li>Cada conversa possui um identificador único</li>
+            <li>As respostas são geradas automaticamente e <strong>NÃO</strong> constituem aconselhamento profissional (teológico, psicológico ou de qualquer outra natureza)</li>
+          </ul>
+
+          <h3>6.2 Análise de Onboarding</h3>
+          <ul>
+            <li>Seus dados de perfil espiritual (religião, objetivos, carta a Deus) são processados pelo Gemini para criar um perfil personalizado</li>
+            <li>O resultado é um conjunto de pesos temáticos (68 categorias) que determinam quais conteúdos bíblicos são mais relevantes para você</li>
+            <li>Esta análise é limitada a no máximo 5 execuções por usuário</li>
+          </ul>
+
+          <h3>6.3 Geração de Devocionais</h3>
+          <ul>
+            <li>Devocionais são gerados pelo Gemini com base em capítulos bíblicos específicos e na sua denominação religiosa</li>
+            <li>Os devocionais gerados são armazenados em cache para reutilização</li>
+            <li>O conteúdo gerado por IA é de caráter reflexivo e <strong>NÃO</strong> substitui orientação pastoral, teológica ou profissional</li>
+          </ul>
+
+          <h3>6.4 Decisões Automatizadas</h3>
+          <ul>
+            <li>O algoritmo de matching seleciona capítulos bíblicos com base nos seus pesos temáticos (60%), aleatoriedade (20%) e progressão (20%)</li>
+            <li>Você pode solicitar a exclusão dos resultados de análise e a realização de uma nova análise (dentro dos limites de uso)</li>
+          </ul>
+        </LegalSection>
+
+        <LegalSection id="armazenamento-seguranca" title="7. Armazenamento e Segurança dos Dados">
+          <h3>7.1 Armazenamento no Servidor</h3>
+          <ul>
+            <li>Banco de dados PostgreSQL hospedado pela Supabase (infraestrutura AWS, região dos Estados Unidos)</li>
+            <li>Row Level Security (RLS) habilitada em todas as tabelas de usuário, garantindo que cada usuário só pode acessar seus próprios dados</li>
+            <li>Criptografia em trânsito (TLS/HTTPS) em todas as comunicações</li>
+            <li>Backups automáticos realizados pela Supabase</li>
+          </ul>
+
+          <h3>7.2 Armazenamento no Dispositivo</h3>
+          <ul>
+            <li>Tokens de autenticação armazenados de forma segura via AsyncStorage com wrapper seguro</li>
+            <li>Preferências e cache de sessão armazenados localmente via AsyncStorage</li>
+            <li>Dados de cache não contêm informações sensíveis completas</li>
+          </ul>
+
+          <h3>7.3 Medidas de Segurança Implementadas</h3>
+          <ul>
+            <li>Autenticação baseada em JWT (JSON Web Tokens) com renovação automática</li>
+            <li>Validação de JWT em todas as Edge Functions (endpoints de servidor)</li>
+            <li>Verificação de correspondência de user_id entre token e requisição</li>
+            <li>Verificação de assinatura em webhooks do RevenueCat</li>
+            <li>Limites de uso para prevenção de abuso (onboarding: 5x máximo)</li>
+            <li>Checagem de assinatura ativa para acesso a funcionalidades premium</li>
+            <li>Código-fonte de chaves sensíveis (Service Role Key, Gemini API Key) nunca exposto ao cliente</li>
+            <li>Padronização de respostas de erro para evitar vazamento de informações do sistema</li>
+          </ul>
+
+          <h3>7.4 Transferência Internacional de Dados</h3>
+          <ul>
+            <li>Seus dados podem ser transferidos e armazenados em servidores localizados nos Estados Unidos (Supabase/AWS, Google Cloud)</li>
+            <li>Essa transferência é necessária para a operação do serviço</li>
+            <li>As empresas receptoras possuem certificações e medidas de proteção adequadas</li>
+          </ul>
+        </LegalSection>
+
+        <LegalSection id="retencao" title="8. Retenção de Dados">
+          <p>Seus dados pessoais são retidos pelos seguintes períodos:</p>
+
+          <h3>8.1 Dados de Conta</h3>
+          <ul>
+            <li>Mantidos enquanto sua conta estiver ativa</li>
+            <li>Após exclusão da conta, removidos em até 30 dias dos sistemas ativos e em até 90 dias dos backups</li>
+          </ul>
+
+          <h3>8.2 Dados de Perfil Espiritual</h3>
+          <ul>
+            <li>Mantidos enquanto sua conta estiver ativa</li>
+            <li>Podem ser redefinidos pelo usuário a qualquer momento</li>
+          </ul>
+
+          <h3>8.3 Histórico de Conversas com IA</h3>
+          <ul>
+            <li>Mantido enquanto a conta estiver ativa</li>
+            <li>Pode ser excluído pelo usuário ao iniciar uma nova conversa</li>
+            <li>Removido após exclusão da conta</li>
+          </ul>
+
+          <h3>8.4 Dados de Atividade e Streak</h3>
+          <ul>
+            <li>Mantidos enquanto a conta estiver ativa</li>
+            <li>Utilizados para cálculo de progresso e estatísticas pessoais</li>
+          </ul>
+
+          <h3>8.5 Dados de Assinatura</h3>
+          <ul>
+            <li>Mantidos conforme exigências legais e fiscais (até 5 anos após o término da assinatura)</li>
+            <li>RevenueCat mantém seus próprios registros conforme sua política</li>
+          </ul>
+
+          <h3>8.6 Logs Administrativos</h3>
+          <ul>
+            <li>Mantidos por até 12 meses para fins de auditoria e segurança</li>
+            <li>Não contêm dados pessoais identificáveis além do UUID do usuário</li>
+          </ul>
+        </LegalSection>
+
+        <LegalSection id="seus-direitos" title="9. Seus Direitos como Titular dos Dados">
+          <p>Em conformidade com a LGPD (Lei Geral de Proteção de Dados - Brasil) e o GDPR (Regulamento Geral sobre Proteção de Dados - UE), você tem os seguintes direitos:</p>
+
+          <h3>9.1 Direito de Acesso</h3>
+          <p>Você pode solicitar uma cópia de todos os dados pessoais que mantemos sobre você.</p>
+
+          <h3>9.2 Direito de Correção</h3>
+          <p>Você pode atualizar ou corrigir seus dados pessoais diretamente no aplicativo (nome, avatar) ou solicitando via e-mail.</p>
+
+          <h3>9.3 Direito de Exclusão</h3>
+          <p>Você pode solicitar a exclusão completa de sua conta e todos os dados associados. Alguns dados podem ser retidos conforme obrigações legais.</p>
+
+          <h3>9.4 Direito de Portabilidade</h3>
+          <p>Você pode solicitar seus dados em formato legível por máquina.</p>
+
+          <h3>9.5 Direito de Revogação do Consentimento</h3>
+          <p>Você pode revogar o consentimento para o processamento de dados a qualquer momento, o que pode resultar na impossibilidade de utilizar determinadas funcionalidades do aplicativo.</p>
+
+          <h3>9.6 Direito de Oposição</h3>
+          <p>Você pode se opor ao processamento de seus dados para finalidades específicas.</p>
+
+          <h3>9.7 Direito à Informação</h3>
+          <p>Você pode solicitar informações sobre com quem compartilhamos seus dados e para quais finalidades.</p>
+
+          <InfoBox>
+            <p><strong>Para exercer qualquer destes direitos, entre em contato:</strong></p>
+            <ul>
+              <li>E-mail: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
+              <li>Prazo de resposta: Até 15 dias úteis</li>
+            </ul>
+          </InfoBox>
+        </LegalSection>
+
+        <LegalSection id="menores" title="10. Proteção de Dados de Menores">
+          <h3>10.1 Idade Mínima</h3>
+          <p>O Gabriel não é destinado a menores de 13 anos. Não coletamos intencionalmente dados pessoais de crianças menores de 13 anos.</p>
+
+          <h3>10.2 Consentimento Parental</h3>
+          <p>Para usuários entre 13 e 18 anos (ou a idade de maioridade digital em sua jurisdição), o uso do aplicativo deve ser supervisionado e consentido por um pai ou responsável legal.</p>
+
+          <h3>10.3 Descoberta de Dados de Menores</h3>
+          <p>Se tomarmos conhecimento de que coletamos dados de uma criança menor de 13 anos sem o consentimento parental verificável, tomaremos medidas imediatas para excluir esses dados. Se você acredita que podemos ter coletado dados de um menor, entre em contato conosco imediatamente em <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a>.</p>
+        </LegalSection>
+
+        <LegalSection id="permissoes" title="11. Permissões do Dispositivo">
+          <p>O Gabriel solicita as seguintes permissões:</p>
+
+          <h3>11.1 Acesso à Galeria de Fotos / Biblioteca de Mídia</h3>
+          <ul>
+            <li><strong>Finalidade:</strong> Permitir que o usuário selecione uma foto de sua galeria para usar como foto de perfil (avatar)</li>
+            <li><strong>Quando solicitada:</strong> Apenas quando o usuário toca no avatar para alterá-lo</li>
+            <li><strong>Dados acessados:</strong> Apenas a imagem selecionada pelo usuário; não acessamos outras fotos ou mídias do dispositivo</li>
+            <li><strong>Obrigatoriedade:</strong> Opcional. O aplicativo funciona normalmente sem esta permissão</li>
+          </ul>
+
+          <h3>11.2 Acesso à Internet</h3>
+          <ul>
+            <li><strong>Finalidade:</strong> Comunicação com os servidores backend (Supabase) para autenticação, sincronização de dados, chat com IA, geração de devocionais e gerenciamento de assinatura</li>
+            <li><strong>Obrigatoriedade:</strong> Necessário para o funcionamento do aplicativo</li>
+          </ul>
+
+          <h3>11.3 Notificações Push</h3>
+          <ul>
+            <li><strong>Finalidade:</strong> Enviar lembretes personalizados para leitura de devocionais e capítulos bíblicos, nos horários configurados pelo usuário</li>
+            <li><strong>Quando solicitada:</strong> Durante o onboarding ou ao ativar notificações nas configurações</li>
+            <li><strong>Obrigatoriedade:</strong> Opcional. O aplicativo funciona normalmente sem notificações ativas</li>
+          </ul>
+
+          <h3>11.4 Armazenamento Local Seguro</h3>
+          <ul>
+            <li><strong>Finalidade:</strong> Armazenar tokens de autenticação e preferências de forma segura no dispositivo</li>
+            <li><strong>Dados armazenados:</strong> Tokens JWT, preferências de tema, fonte, idioma, cache de estado da sessão</li>
+            <li><strong>Obrigatoriedade:</strong> Necessário para o funcionamento do aplicativo</li>
+          </ul>
+
+          <HighlightBox>
+            <p><strong>DECLARAÇÃO:</strong> O Gabriel <strong>NÃO</strong> solicita e <strong>NÃO</strong> utiliza as seguintes permissões ou APIs sensíveis:</p>
+            <ul>
+              <li>Câmera (não acessamos a câmera do dispositivo)</li>
+              <li>Microfone (não gravamos áudio)</li>
+              <li>Localização (não acessamos GPS ou localização)</li>
+              <li>Contatos (não acessamos a agenda)</li>
+              <li>Telefone (não realizamos chamadas)</li>
+              <li>SMS (não enviamos ou lemos mensagens)</li>
+              <li>Calendário (não acessamos o calendário)</li>
+              <li>Sensores corporais / dados de saúde</li>
+              <li>Accessibility Services API</li>
+              <li>VPN Service</li>
+              <li>Device Admin API</li>
+              <li>Background Location</li>
+            </ul>
+          </HighlightBox>
+        </LegalSection>
+
+        <LegalSection id="conformidade-lojas" title="12. Conformidade com Políticas das Lojas de Aplicativos">
+          <h3>12.1 Google Play Store — Dados do Usuário</h3>
+          <p>Em conformidade com a política de Dados do Usuário do Google Play:</p>
+          <p><strong>Tipos de dados coletados e compartilhados:</strong></p>
+          <ul>
+            <li><strong>(a) Informações pessoais:</strong> Nome (coletado, não compartilhado para fins de marketing), Endereço de e-mail (coletado via provedor de autenticação), IDs de usuário (UUID do sistema)</li>
+            <li><strong>(b) Informações financeiras:</strong> Metadados de assinatura via RevenueCat. Não coletamos dados de pagamento diretamente</li>
+            <li><strong>(c) Mensagens:</strong> Mensagens no chat com IA — coletadas e armazenadas</li>
+            <li><strong>(d) Fotos e vídeos:</strong> Apenas quando o usuário faz upload de avatar</li>
+            <li><strong>(e) Atividade do aplicativo:</strong> Histórico de leitura, favoritos, streak</li>
+            <li><strong>(f) Informações e desempenho:</strong> Logs de erro e diagnóstico apenas em ambiente de desenvolvimento</li>
+            <li><strong>(g) Identificadores do dispositivo:</strong> Não coletamos IDFA, GAID ou outros identificadores de publicidade</li>
+          </ul>
+          <p><strong>Declaração de Segurança dos Dados (Data Safety Section):</strong></p>
+          <ul>
+            <li>Dados criptografados em trânsito: <strong>SIM</strong></li>
+            <li>Usuários podem solicitar exclusão de dados: <strong>SIM</strong></li>
+            <li>Dados compartilhados com terceiros: <strong>SIM</strong> (apenas para operação do serviço, conforme Seção 5)</li>
+          </ul>
+
+          <h3>12.2 Google Play — Permissões e APIs Sensíveis</h3>
+          <ul>
+            <li>Todas as permissões solicitadas são estritamente necessárias para a funcionalidade principal do aplicativo</li>
+            <li>Não utilizamos APIs sensíveis (Accessibility, VPN Service, Device Admin, etc.)</li>
+            <li>A permissão de acesso à galeria de fotos é usada exclusivamente para a funcionalidade de avatar do perfil do usuário</li>
+          </ul>
+
+          <h3>12.3 Google Play — Abuso de Dispositivos e de Rede</h3>
+          <ul>
+            <li>O Gabriel <strong>NÃO</strong> executa código malicioso ou potencialmente danoso</li>
+            <li><strong>NÃO</strong> compromete a segurança do dispositivo do usuário</li>
+            <li><strong>NÃO</strong> realiza mineração de criptomoedas</li>
+            <li><strong>NÃO</strong> transmite dados sem o conhecimento do usuário</li>
+            <li><strong>NÃO</strong> instala ou promove outros aplicativos</li>
+            <li><strong>NÃO</strong> explora vulnerabilidades do sistema</li>
+            <li><strong>NÃO</strong> utiliza o dispositivo como proxy sem consentimento</li>
+            <li>Todas as comunicações de rede são realizadas via HTTPS para servidores autenticados e conhecidos (Supabase, Google Cloud, RevenueCat)</li>
+          </ul>
+
+          <h3>12.4 Google Play — Comportamento Enganoso</h3>
+          <ul>
+            <li>O Gabriel descreve com precisão suas funcionalidades na listagem da loja</li>
+            <li>Não utilizamos técnicas de engenharia social</li>
+            <li>Não geramos notificações fora do aplicativo sem o consentimento explícito do usuário</li>
+            <li>Não imitamos funcionalidades do sistema operacional</li>
+            <li>Não redirecionamos usuários sem seu consentimento</li>
+            <li>Toda comunicação com IA é claramente identificada como tal</li>
+            <li>As respostas geradas por IA possuem disclaimers adequados</li>
+          </ul>
+
+          <h3>12.5 Google Play — Declarações Falsas</h3>
+          <p>O Gabriel declara com honestidade:</p>
+          <ul>
+            <li>É um aplicativo de estudo bíblico e devocional com funcionalidades de inteligência artificial</li>
+            <li>Utiliza o Google Gemini 2.0 para geração de conteúdo</li>
+            <li>Requer assinatura para acesso a recursos premium (chat com IA, devocionais personalizados)</li>
+            <li>Oferece período de teste gratuito antes da cobrança</li>
+            <li>O conteúdo gerado por IA <strong>NÃO</strong> substitui aconselhamento pastoral, teológico ou profissional</li>
+            <li><strong>NÃO</strong> garante resultados espirituais específicos</li>
+          </ul>
+
+          <h3>12.6 Google Play — Política de Nível de API Desejado</h3>
+          <ul>
+            <li>O aplicativo cumpre os requisitos de nível de API desejado do Google Play</li>
+            <li>Utiliza Expo SDK 54 com React Native 0.81</li>
+            <li>minSdkVersion Android: 24 (Android 7.0)</li>
+            <li>Será compilado com o targetSdkVersion mais recente exigido pelo Google Play no momento da publicação</li>
+            <li>Seguimos as melhores práticas de desenvolvimento Android conforme as diretrizes do Google</li>
+          </ul>
+
+          <h3>12.7 Apple App Store — Conformidade</h3>
+          <ul>
+            <li>Em conformidade com as App Store Review Guidelines</li>
+            <li>Privacidade implementada conforme Apple Privacy Guidelines</li>
+            <li>Suporte para Sign in with Apple implementado como opção de autenticação</li>
+            <li>Não utilizamos rastreamento entre aplicativos (App Tracking Transparency não é necessário pois não rastreamos usuários entre apps)</li>
+            <li>Nutrition Labels (Privacy Labels) na App Store refletirão com precisão os dados coletados conforme esta política</li>
+            <li>Assinaturas implementadas conforme Apple In-App Purchase guidelines</li>
+            <li>Política de auto-renovação claramente comunicada</li>
+          </ul>
+        </LegalSection>
+
+        <LegalSection id="cookies" title="13. Cookies e Tecnologias de Rastreamento">
+          <p>O Gabriel <strong>NÃO</strong> utiliza cookies tradicionais de navegador, pois é um aplicativo nativo.</p>
+          <p><strong>Tecnologias utilizadas:</strong></p>
+          <ul>
+            <li><strong>AsyncStorage:</strong> Armazenamento local no dispositivo para preferências, cache de estado e dados de sessão</li>
+            <li><strong>JWT Tokens:</strong> Tokens de autenticação armazenados localmente para manter a sessão do usuário</li>
+            <li><strong>Zustand com persistência:</strong> Gerenciamento de estado com armazenamento local para experiência fluida</li>
+          </ul>
+          <p>Nenhuma destas tecnologias é utilizada para rastreamento, publicidade ou análise comportamental entre aplicativos.</p>
+        </LegalSection>
+
+        <LegalSection id="alteracoes" title="14. Alterações nesta Política">
+          <p>Reservamo-nos o direito de atualizar esta Política de Privacidade a qualquer momento. Quando fizermos alterações significativas:</p>
+          <ul>
+            <li>Notificaremos os usuários através do aplicativo</li>
+            <li>A data de "Última atualização" no início deste documento será alterada</li>
+            <li>Para alterações materiais, poderemos solicitar seu consentimento novamente</li>
+          </ul>
+          <p>O uso continuado do aplicativo após a publicação de alterações constitui aceitação da política atualizada. Recomendamos que você revise esta política periodicamente.</p>
+        </LegalSection>
+
+        <LegalSection id="disposicoes-finais" title="15. Disposições Finais">
+          <h3>15.1 Legislação Aplicável</h3>
+          <p>Esta Política de Privacidade é regida pelas leis da República Federativa do Brasil, em especial pela Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).</p>
+          <p>Para usuários localizados na União Europeia, aplicam-se também as disposições do Regulamento Geral sobre Proteção de Dados (GDPR).</p>
+          <p>Para usuários localizados nos Estados Unidos, aplicam-se as leis estaduais de privacidade aplicáveis, incluindo a CCPA (California Consumer Privacy Act), quando aplicável.</p>
+
+          <h3>15.2 Foro</h3>
+          <p>Fica eleito o foro da comarca de residência do responsável pelo tratamento de dados para dirimir quaisquer controvérsias relacionadas a esta Política de Privacidade.</p>
+
+          <h3>15.3 Contato</h3>
+          <p>Para quaisquer dúvidas, comentários, reclamações ou solicitações relacionadas a esta Política de Privacidade ou ao tratamento de seus dados pessoais, entre em contato:</p>
+          <InfoBox>
+            <ul>
+              <li>E-mail: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
+              <li>Assunto: [Privacidade Gabriel] Sua solicitação</li>
+            </ul>
+            <p>Nos comprometemos a responder todas as solicitações em até 15 dias úteis.</p>
+          </InfoBox>
+        </LegalSection>
 
         <div class="document-footer">
           <p>Gabriel: Bíblia e Devocional</p>
@@ -571,117 +629,5 @@ import '../styles/global.css';
 
       </div>
     </div>
-  </section>
+  </Container>
 </BaseLayout>
-
-<style>
-  .legal {
-    padding: var(--space-3xl) 0;
-  }
-
-  .legal h1 {
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-xs);
-  }
-
-  .subtitle {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-xs);
-  }
-
-  .last-updated {
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-2xl);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .content h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-top: var(--space-2xl);
-    margin-bottom: var(--space-sm);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .content h2:first-child {
-    border-top: none;
-    padding-top: 0;
-  }
-
-  .content h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-sm);
-  }
-
-  .content p {
-    color: var(--color-text-secondary);
-    line-height: 1.75;
-    margin-bottom: var(--space-md);
-  }
-
-  .content ul {
-    color: var(--color-text-secondary);
-    line-height: 1.75;
-    margin-bottom: var(--space-md);
-    padding-left: var(--space-lg);
-  }
-
-  .content li {
-    margin-bottom: var(--space-xs);
-  }
-
-  .info-box {
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-    margin: var(--space-lg) 0;
-  }
-
-  .info-box p {
-    margin-bottom: var(--space-sm);
-  }
-
-  .info-box ul {
-    margin-bottom: 0;
-  }
-
-  .highlight-box {
-    background: var(--color-accent-glow);
-    border: 1px solid rgba(124, 92, 252, 0.25);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-    margin: var(--space-lg) 0;
-  }
-
-  .highlight-box p {
-    margin-bottom: var(--space-sm);
-  }
-
-  .highlight-box ul {
-    margin-bottom: 0;
-  }
-
-  .document-footer {
-    text-align: center;
-    margin-top: var(--space-3xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .document-footer p {
-    color: var(--color-text-muted);
-    font-size: 0.8125rem;
-    margin-bottom: var(--space-xs);
-  }
-</style>

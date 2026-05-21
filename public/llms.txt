@@ -1,0 +1,24 @@
+# Gabriel — Bíblia e Devocional
+
+> App mobile de crescimento espiritual com devocionais personalizados, leitura bíblica em 3 idiomas (PT/EN/ES) e chat com IA contextualizada por religião.
+
+## Sobre
+
+- **Plataformas:** iOS e Android
+- **Editora:** VHXCO
+- **Modelo:** Freemium com trial de 3-7 dias via RevenueCat
+- **Features principais:** Devocionais diários gerados por IA, leitura bíblica (PT-ARA, EN-KJV, ES-RVR) com visualização "Jardim da Fé", sistema de streak inteligente, verso do dia, chat IA com Gabriel.
+- **Onboarding:** 7 etapas com carta para Deus analisada por IA.
+- **Auth:** Anônimo, Google, Apple.
+
+## Páginas
+
+- [/](https://gabriel.vhxco.com/) — Home, apresentação do app
+- [/privacy](https://gabriel.vhxco.com/privacy) — Política de Privacidade (LGPD/GDPR-compliant)
+- [/terms](https://gabriel.vhxco.com/terms) — Termos de Uso
+- [/delete-account](https://gabriel.vhxco.com/delete-account) — Solicitação de exclusão de conta
+
+## Contato
+
+- Email: vitor@vhxco.com
+- Empresa: VHXCO (CNPJ 62.874.893/0001-51)

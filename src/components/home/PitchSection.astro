@@ -1,0 +1,138 @@
+---
+/**
+ * PitchSection.astro
+ * Home v2 — Type as Sky.
+ * polish-v2 changes:
+ *   - Extra padding-top to accommodate Hero cycler peek (phone invades from above)
+ *   - overflow: visible so cycler can render above
+ *   - position: relative + z-index for stacking context
+ *   - Clip-path lines converted to transition (reversible on scroll)
+ *   - Script replaced by data-reveal + reveal-on-enter.ts central observer
+ */
+---
+
+<section class="pitch" aria-label="Sobre o Gabriel" data-reveal>
+  <div class="pitch-mesh" aria-hidden="true"></div>
+  <div class="pitch-content">
+    <p class="pitch-eyebrow">s o b r e &nbsp; o &nbsp; G a b r i e l</p>
+    <h2 class="pitch-title">
+      <span class="pitch-line">Um lugar</span>
+      <span class="pitch-line">pra <em>parar</em>.</span>
+    </h2>
+    <p class="pitch-sub">
+      Devocional curto, leitura bíblica que cresce contigo,<br/>
+      um assistente que te conhece. Tudo num só app.
+    </p>
+  </div>
+</section>
+
+<style>
+  .pitch {
+    position: relative;
+    background: var(--color-paper);
+    /*
+     * padding-top mirrors Hero padding-bottom:
+     * accommodates the bottom half of the cycler (cyclerH/2 = 280px + buffer).
+     * clamp(18rem, 32vw, 24rem) matches Hero padding-bottom for true 50/50 symmetry.
+     */
+    padding: clamp(22rem, 32vw, 26rem) 6vw clamp(6rem, 12vw, 10rem);
+    overflow: visible;
+  }
+
+  .pitch-mesh {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(65vw 55vh at 80% 15%, var(--color-celestial-200), transparent 65%),
+      radial-gradient(50vw 45vh at 15% 85%, var(--color-divine-50), transparent 65%);
+    filter: blur(8px);
+    pointer-events: none;
+    animation: pitch-drift 20s ease-in-out infinite;
+    opacity: 0.7;
+    /* Clip mesh to section bounds even though section overflows */
+    overflow: hidden;
+  }
+
+  @keyframes pitch-drift {
+    0%, 100% { background-position: 0% 0%, 0% 0%; }
+    50% { background-position: -3% 4%, 5% -2%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pitch-mesh { animation: none; }
+  }
+
+  .pitch-content {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+  }
+
+  .pitch-eyebrow {
+    font-family: var(--font-family-sans);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: var(--color-ink-muted);
+    margin: 0 0 3.5rem;
+  }
+
+  .pitch-title {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 144, 'wght' 880, 'SOFT' 50, 'WONK' 0;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+    margin: 0 0 2.5rem;
+  }
+
+  /* Transition-based clip-path (reversible in/out) */
+  .pitch-line {
+    display: block;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .pitch.is-visible .pitch-line:nth-child(1) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 0ms;
+  }
+
+  .pitch.is-visible .pitch-line:nth-child(2) {
+    clip-path: inset(0 0 0% 0);
+    transition-delay: 150ms;
+  }
+
+  .pitch-title em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pitch-line {
+      clip-path: none !important;
+      transition: none !important;
+    }
+  }
+
+  .pitch-sub {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 28;
+    font-weight: 400;
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    margin: 0;
+    max-width: 38rem;
+  }
+
+  @media (max-width: 899px) {
+    /* mirrors Hero mobile padding-bottom: clamp(14rem, 40vw, 18rem) */
+    /* mirrors Hero mobile padding-bottom (cyclerH/2 = 320px ≈ 20rem) */
+    .pitch { padding: clamp(22rem, 38vw, 26rem) 1.5rem 5rem; }
+    .pitch-title { font-size: clamp(2.25rem, 12vw, 4rem); }
+    .pitch-eyebrow { margin-bottom: 2rem; }
+  }
+</style>

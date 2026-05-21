@@ -1,10 +1,308 @@
 /* ===========================
-   Gabriel App Website
-   Global Styles & Design Tokens
+   Gabriel Website — Global Styles v1.5
+   Manuscrito iluminado moderno
+   Tailwind 4 + Fraunces Variable + Newsreader Variable + Inter
    =========================== */
 
+/* Tailwind 4 entry point */
+@import "tailwindcss";
+
+/* --- Self-hosted fonts via @fontsource --- */
+/* Inter (sans utilitário — nav, captions, UI labels) */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+/* Fraunces Variable (display: wordmark, kickers, drop caps, H1/H2 oversize) */
+/* opsz axis: 9–144 — cobre caption a display num único arquivo */
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/fraunces/opsz-italic.css";
+/* Newsreader Variable (body serif editorial: pull quotes, intro, pitch) */
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
+/* Lora removida (ADR-0015 §11 Q8 — Fraunces+Newsreader+Inter cobrem tudo) */
+
+/* --- Tailwind 4 design tokens via @theme --- */
+@theme {
+  /* ========================
+     Colors — celestial (mantidos — legais reusam)
+     ======================== */
+  --color-celestial-50: #E8F4F8;
+  --color-celestial-100: #D1E9F1;
+  --color-celestial-200: #A3D3E3;
+  --color-celestial-300: #75BDD5;
+  --color-celestial-400: #47A7C7;
+  --color-celestial-500: #1E3A5F;
+  --color-celestial-600: #1A3354;
+  --color-celestial-700: #162B49;
+  --color-celestial-800: #12243E;
+  --color-celestial-900: #0E1D33;
+
+  /* Colors — divine */
+  --color-divine-50: #FBF7E8;
+  --color-divine-100: #F7EFD1;
+  --color-divine-200: #EFDFA3;
+  --color-divine-300: #E7CF75;
+  --color-divine-400: #DFBF47;
+  --color-divine-500: #D4AF37;
+  --color-divine-600: #BF9E32;
+  --color-divine-700: #AA8D2C;
+  --color-divine-800: #957C27;
+  --color-divine-900: #806B21;
+
+  /* Colors — sacred */
+  --color-sacred-50: #EEEAF4;
+  --color-sacred-500: #4A3B6E;
+  --color-sacred-700: #3A2F58;
+
+  /* Colors — garden */
+  --color-garden-50: #EDF4EF;
+  --color-garden-500: #4A7C59;
+  --color-garden-700: #3A6447;
+
+  /* Colors — life */
+  --color-life-50: #F4FAE6;
+  --color-life-500: #7CB518;
+  --color-life-700: #649114;
+
+  /* Colors — semantic legacy */
+  --color-heavenly: #E8F4F8;
+  --color-lavender: #E6E6FA;
+
+  /* ========================
+     Colors — Editorial neutrals (ADR-0015 §5.1)
+     paper/ink paleta manuscrito iluminado moderno
+     ======================== */
+  --color-paper: #FAF7F0;        /* pergaminho moderno: warm white */
+  --color-paper-deep: #F2EDE0;   /* paper aged, bg de seções alternadas */
+  --color-ink: #1A1814;          /* preto editorial profundo */
+  --color-ink-soft: #3A352B;     /* body em paper */
+  --color-ink-muted: #6E6759;    /* captions, microcopy em paper */
+
+  /* ========================
+     Font families (ADR-0015 §4.1)
+     ======================== */
+  --font-family-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  --font-family-serif: 'Newsreader Variable', 'Newsreader', Georgia, serif;
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+
+  /* ========================
+     Escala tipográfica — 12 tokens (ADR-0015 §4.2)
+     ======================== */
+  --text-display-2xl: clamp(4.5rem, 18vw, 12rem);   /* Hero wordmark "Gabriel" */
+  --text-display-xl: clamp(3rem, 9vw, 6rem);          /* Drop cap capitular */
+  --text-display: clamp(2.5rem, 6vw, 4.5rem);         /* H1 seção principal */
+  --text-h1: clamp(2rem, 4.5vw, 3.25rem);             /* H1 seções secundárias */
+  --text-h2: clamp(1.625rem, 3.2vw, 2.25rem);         /* H2 features, showcase */
+  --text-h3: 1.375rem;                                  /* Card titles */
+  --text-h4: 1.125rem;                                  /* Sub-itens */
+  --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);      /* Lead paragraph */
+  --text-body-lg: 1.125rem;                             /* Pull quotes inline */
+  --text-body: 1rem;                                    /* Body padrão */
+  --text-small: 0.875rem;                               /* Captions */
+  --text-caption: 0.75rem;                              /* Kickers */
+
+  /* Line heights */
+  --leading-display: 0.92;
+  --leading-tight: 1.05;
+  --leading-snug: 1.15;
+  --leading-body: 1.65;
+  --leading-relaxed: 1.75;
+
+  /* ========================
+     Border radius
+     ======================== */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-editorial-sm: 4px;
+  --radius-editorial-md: 8px;    /* Buttons v1.5 — menos "pillow shaped" */
+  --radius-editorial-lg: 12px;
+
+  /* ========================
+     Box shadows
+     ======================== */
+  --shadow-soft: 0 4px 20px rgba(30, 58, 95, 0.08);
+  --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.3);
+  --shadow-paper-lift: 0 4px 16px rgba(26, 24, 20, 0.04), 0 1px 2px rgba(26, 24, 20, 0.06);
+  --shadow-soft-text: 0 1px 1px rgba(26, 24, 20, 0.08);
+  --shadow-divine-glow: 0 0 24px rgba(212, 175, 55, 0.16);
+
+  /* ========================
+     Keyframes (Tailwind 4 @theme)
+     ======================== */
+  --animate-fade-up: fade-up 0.6s ease-out forwards;
+}
+
+/* ========================
+   Keyframes: animações editoriais (ADR-0015 §7)
+   ======================== */
+
+/* Stagger letras wordmark Hero */
+@keyframes letter-in {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Drop cap fade-in */
+@keyframes drop-cap-in {
+  0% { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* SVG stroke draw-in (ornamentos) */
+@keyframes stroke-draw {
+  0% { stroke-dashoffset: var(--stroke-length, 400); }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Fade-up padrão */
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in simples */
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* ========================
+   Utilities editoriais (Tailwind 4 @layer)
+   ======================== */
+@layer utilities {
+  /* Tipografia display */
+  .text-display-2xl {
+    font-size: var(--text-display-2xl);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+  .text-display-xl {
+    font-size: var(--text-display-xl);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .text-display {
+    font-size: var(--text-display);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+  .text-h1 {
+    font-size: var(--text-h1);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .text-h2 {
+    font-size: var(--text-h2);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .text-h3 {
+    font-size: var(--text-h3);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .text-lead {
+    font-size: var(--text-lead);
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+  }
+  .text-caption-tracked {
+    font-size: var(--text-caption);
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Família display (Fraunces) */
+  .font-display {
+    font-family: var(--font-family-display);
+    font-variation-settings: 'opsz' 32;
+  }
+
+  /* Família serif (Newsreader) */
+  .font-editorial {
+    font-family: var(--font-family-serif);
+    font-variation-settings: 'opsz' 16;
+  }
+
+  /* Fraunces opsz variants — usados em componentes */
+  .fraunces-caption { font-family: var(--font-family-display); font-variation-settings: 'opsz' 9, 'wght' 400; }
+  .fraunces-body { font-family: var(--font-family-display); font-variation-settings: 'opsz' 18, 'wght' 500; }
+  .fraunces-h3 { font-family: var(--font-family-display); font-variation-settings: 'opsz' 24, 'wght' 600; }
+  .fraunces-h2 { font-family: var(--font-family-display); font-variation-settings: 'opsz' 32, 'wght' 600; }
+  .fraunces-h1 { font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 600; }
+  .fraunces-display { font-family: var(--font-family-display); font-variation-settings: 'opsz' 72, 'wght' 600; }
+  .fraunces-display-xl { font-family: var(--font-family-display); font-variation-settings: 'opsz' 96, 'wght' 700; }
+  .fraunces-wordmark { font-family: var(--font-family-display); font-variation-settings: 'opsz' 144, 'wght' 800; }
+  .fraunces-numeral { font-family: var(--font-family-display); font-variation-settings: 'opsz' 96, 'wght' 800; font-style: italic; }
+  .fraunces-dropcap { font-family: var(--font-family-display); font-variation-settings: 'opsz' 96, 'wght' 900; }
+
+  /* Newsreader opsz variants */
+  .newsreader-display { font-family: var(--font-family-serif); font-variation-settings: 'opsz' 36; }
+  .newsreader-text { font-family: var(--font-family-serif); font-variation-settings: 'opsz' 16; }
+  .newsreader-caption { font-family: var(--font-family-serif); font-variation-settings: 'opsz' 9; }
+
+  /* Radius editorial */
+  .rounded-editorial { border-radius: var(--radius-editorial-md); }
+  .rounded-editorial-sm { border-radius: var(--radius-editorial-sm); }
+  .rounded-editorial-lg { border-radius: var(--radius-editorial-lg); }
+}
+
+/* ========================
+   Paper texture — opt-in via .paper-grain (ADR-0015 §11 Q5)
+   SVG turbulence noise 3-4% opacity, tátil sem ruído
+   ======================== */
+.paper-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: multiply;
+  background-size: 200px 200px;
+}
+
+/* ========================
+   prefers-reduced-motion: global override
+   ======================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================
+   Reset minimal
+   ======================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Body base — manuscrito iluminado: paper + ink (ADR-0015 §5.1) */
+body {
+  font-family: var(--font-family-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  line-height: 1.65;
+  min-height: 100dvh;
+}
+
+/* ========================
+   Legacy CSS custom properties
+   Mantidas para compatibilidade com legais existentes.
+   ======================== */
 :root {
-  /* Colors */
+  /* Legacy colors */
   --color-bg: #0f0f13;
   --color-bg-surface: #1a1a24;
   --color-bg-elevated: #232330;
@@ -39,40 +337,202 @@
   --transition-base: 250ms ease;
 }
 
-/* Reset & Base */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ========================
+   Prose styles for legal pages (.prose-legal)
+   Inter mantido — legais não usam Fraunces/Newsreader
+   ======================== */
+.prose-legal p {
+  color: var(--color-celestial-700);
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
 }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.prose-legal h3 {
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-celestial-700);
+  margin-top: 1.25rem;
+  margin-bottom: 0.375rem;
 }
 
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  line-height: 1.6;
-  min-height: 100dvh;
+.prose-legal ul {
+  color: var(--color-celestial-700);
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  list-style-type: disc;
 }
 
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: color var(--transition-fast);
+.prose-legal li {
+  margin-bottom: 0.25rem;
 }
 
-a:hover {
-  color: var(--color-accent-hover);
+.prose-legal a {
+  color: var(--color-celestial-500);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
-/* Utility */
+.prose-legal a:hover {
+  color: var(--color-celestial-700);
+}
+
+.prose-legal strong {
+  font-weight: 600;
+  color: var(--color-celestial-800);
+}
+
+.prose-legal code {
+  display: inline-block;
+  background: var(--color-celestial-50);
+  border: 1px solid var(--color-celestial-200);
+  border-radius: 0.375rem;
+  padding: 0.1em 0.4em;
+  font-family: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  color: var(--color-celestial-700);
+}
+
+/* Steps layout for delete-account */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--color-celestial-50);
+  border: 1px solid var(--color-celestial-200);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-celestial-700);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-celestial-700);
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+}
+
+.step-content p {
+  font-size: 0.875rem;
+  margin-bottom: 0;
+  color: var(--color-celestial-700);
+}
+
+.step-content code {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--color-celestial-200);
+  border-radius: 0.375rem;
+  padding: 0.15em 0.5em;
+  font-family: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+  color: var(--color-celestial-700);
+  margin-top: 0.25rem;
+}
+
+/* CTA button for delete-account */
+.cta-button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-celestial-700);
+  color: #fff !important;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: center;
+  text-decoration: none !important;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.cta-button:hover {
+  background: var(--color-celestial-600);
+  transform: translateY(-1px);
+}
+
+/* Data tables for delete-account */
+.data-table {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-celestial-200);
+}
+
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background: var(--color-celestial-50);
+}
+
+.data-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-celestial-700);
+  border-bottom: 1px solid var(--color-celestial-200);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-celestial-700);
+  border-bottom: 1px solid var(--color-celestial-100);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Document footer inside legal content */
+.document-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-celestial-100);
+}
+
+.document-footer p {
+  color: var(--color-celestial-400);
+  font-size: 0.8125rem;
+  margin-bottom: 0.25rem;
+}
+
+.document-footer a {
+  color: var(--color-celestial-500);
+}
+
+.document-footer a:hover {
+  color: var(--color-celestial-700);
+}
+
 .container {
   width: 100%;
   max-width: 720px;

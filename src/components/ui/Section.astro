@@ -1,0 +1,68 @@
+---
+/**
+ * Section.astro
+ * Wrapper de seção com padding vertical configurável e variantes de background.
+ * v1.5: prop rhythm + bg paper/paper-deep/ink + legado white/heavenly/celestial.
+ *
+ * Props:
+ *   bg: 'paper' | 'paper-deep' | 'ink' |
+ *       'white' | 'heavenly' | 'celestial-gradient' | 'celestial-700'  (legacy)
+ *   rhythm: 'tight' | 'comfy' | 'spacious' (default 'comfy')
+ *   class?: string — classes extras passadas ao <section>
+ *   slot — conteúdo da seção
+ *
+ * IMPORTANTE: classes Tailwind são literais (não interpoladas) pra garantir
+ * tree-shaking correto no Tailwind 4.
+ */
+
+interface Props {
+  bg?: 'paper' | 'paper-deep' | 'ink' |
+       'white' | 'heavenly' | 'celestial-gradient' | 'celestial-700';
+  rhythm?: 'tight' | 'comfy' | 'spacious';
+  class?: string;
+  id?: string;
+}
+
+const { bg = 'paper', rhythm = 'comfy', class: className, id } = Astro.props;
+
+// Padding por rhythm
+const rhythmClass =
+  rhythm === 'tight'
+    ? 'py-16 md:py-20 lg:py-24'
+    : rhythm === 'spacious'
+      ? 'py-32 md:py-40 lg:py-48'
+      : 'py-20 md:py-28 lg:py-32'; // comfy (default)
+
+// Background — inline style para novos tokens + classes para legacy
+const bgClass =
+  bg === 'white'
+    ? 'bg-white'
+    : bg === 'heavenly'
+      ? 'bg-heavenly'
+      : bg === 'celestial-gradient'
+        ? 'bg-gradient-to-b from-celestial-400 to-celestial-300'
+        : bg === 'celestial-700'
+          ? 'bg-celestial-700'
+          : ''; // paper/paper-deep/ink via inline style
+
+const bgStyle =
+  bg === 'paper'
+    ? 'background-color: var(--color-paper);'
+    : bg === 'paper-deep'
+      ? 'background-color: var(--color-paper-deep);'
+      : bg === 'ink'
+        ? 'background-color: var(--color-ink);'
+        : '';
+---
+
+<section
+  class:list={[
+    rhythmClass,
+    bgClass,
+    className,
+  ]}
+  style={bgStyle || undefined}
+  id={id}
+>
+  <slot />
+</section>
