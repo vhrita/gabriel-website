@@ -2,10 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import HeroSection from '../components/home/HeroSection.astro';
+import TrustSignals from '../components/home/TrustSignals.astro';
 import FeaturesIntro from '../components/home/FeaturesIntro.astro';
 import FeatureRow from '../components/home/FeatureRow.astro';
-import TestimonialSection from '../components/home/TestimonialSection.astro';
+import HowItWorks from '../components/home/HowItWorks.astro';
+import Guarantees from '../components/home/Guarantees.astro';
+import FAQ from '../components/home/FAQ.astro';
 import FinalCTA from '../components/home/FinalCTA.astro';
+
+// Pricing centralizado — fonte única de verdade pro FAQ e microcopy
+const PRICING = {
+  monthly: 'R$ 14,90',
+  yearly: 'R$ 99,90',
+  trial: '7 dias',
+  yearlyDiscount: '44%',
+};
 
 const jsonLdData = [
   {
@@ -35,7 +46,7 @@ const jsonLdData = [
     },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "14.90",
       "priceCurrency": "BRL",
       "availability": "https://schema.org/InStock"
     }
@@ -43,14 +54,17 @@ const jsonLdData = [
 ];
 ---
 <BaseLayout
-  title="Gabriel — Sua jornada espiritual, todos os dias"
-  description="Devocionais personalizados por IA, a Bíblia em 3 idiomas e conversas com Gabriel sobre fé. Grátis no Google Play."
+  title="Gabriel — Bíblia e Devocional"
+  description="Devocional curto escrito pra você, a Bíblia em três idiomas e um amigo pra tirar dúvidas. Teste 7 dias grátis."
   headerVariant="transparent"
   bodyTheme="light"
 >
   <JsonLd data={jsonLdData} />
+
   <HeroSection />
+  <TrustSignals />
   <FeaturesIntro />
+
   <FeatureRow
     num="01"
     textSide="right"
@@ -96,6 +110,10 @@ const jsonLdData = [
     screen="verse"
     alt="Tela do versículo do dia"
   />
-  <TestimonialSection />
-  <FinalCTA />
+
+  <HowItWorks />
+  <Guarantees />
+  <FAQ pricing={PRICING} />
+  <FinalCTA pricing={PRICING} />
+
 </BaseLayout>
