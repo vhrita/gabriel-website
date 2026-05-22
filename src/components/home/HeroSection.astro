@@ -112,7 +112,7 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     margin: 0 0 1.5rem;
   }
 
-  /* H1 */
+  /* H1 — wght 700 (plano §3.5: 800 gritante em fundo light) */
   .hero-h1 {
     font-size: clamp(2.75rem, 8vw, 5.5rem);
     line-height: 0.94;
@@ -120,11 +120,12 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     color: var(--color-text-strong);
     margin: 0 0 1.75rem;
     -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'opsz' 144, 'wght' 700;
   }
 
   .hero-h1 em {
     font-style: italic;
-    font-variation-settings: 'opsz' 144, 'wght' 800, 'SOFT' 100, 'WONK' 1;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
     color: var(--color-text-strong);
   }
 
