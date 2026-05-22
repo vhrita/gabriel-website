@@ -1,10 +1,10 @@
 ---
 /**
- * FeaturesIntro.astro — v3
+ * FeaturesIntro.astro — v4 light
  *
  * Mini section de transição abrindo as 5 feature rows.
  * Eyebrow + Fraunces display H2 + Newsreader sub. Sem mockup.
- * Background: bg-dark-base (contínuo com hero).
+ * Background: bg-base (white) — contínua com hero.
  */
 ---
 
@@ -24,8 +24,8 @@
 
     <!-- Sub -->
     <p class="features-intro-sub newsreader-text">
-      Tudo o que você precisa pra começar o dia<br/>
-      com Deus — direto, calmo, em português.
+      Devocional, Bíblia, oração e conversa.<br/>
+      Em português, no seu ritmo.
     </p>
 
   </div>
@@ -34,13 +34,13 @@
 <style>
   .features-intro {
     position: relative;
-    background: var(--color-bg-dark-base);
+    background: var(--color-bg-base);
     padding-block: clamp(4rem, 8vw, 6rem);
     text-align: center;
   }
 
   .features-intro-inner {
-    max-width: 72rem;
+    max-width: 64rem;
     margin-inline: auto;
     padding-inline: clamp(1.5rem, 6vw, 4rem);
     position: relative;
@@ -53,16 +53,15 @@
     font-weight: 500;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: var(--color-accent-gold);
+    color: var(--color-accent-deep);
     margin: 0 0 1.25rem;
-    opacity: 0.85;
   }
 
   .features-intro-h2 {
     font-size: clamp(2.5rem, 7vw, 5rem);
     line-height: 0.96;
     letter-spacing: -0.03em;
-    color: var(--color-text-on-dark);
+    color: var(--color-text-strong);
     margin: 0 0 1.5rem;
     -webkit-font-smoothing: antialiased;
   }
@@ -70,13 +69,13 @@
   .features-intro-h2 em {
     font-style: italic;
     font-variation-settings: 'opsz' 72, 'wght' 600, 'SOFT' 100, 'WONK' 1;
-    color: var(--color-accent-gold);
+    color: var(--color-accent-deep);
   }
 
   .features-intro-sub {
     font-size: clamp(1rem, 1.5vw, 1.25rem);
     line-height: 1.65;
-    color: var(--color-text-on-dark-muted);
+    color: var(--color-text-body);
     margin: 0 auto;
     max-width: 48ch;
     font-style: italic;
