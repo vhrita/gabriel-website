@@ -1,17 +1,34 @@
 ---
 /**
- * FinalCTA.astro — v3
+ * FinalCTA.astro — v4 light
  *
  * Final call-to-action section, centered.
- * Background: bg-dark-base (contrasta com testimonial bg-dark-soft).
+ * Background: bg-alt (slate-50) — não branco puro pra fechar respirado.
+ * Microcopy honesto: 7 dias grátis, preço transparente.
  *
  * Block source: adapted from Preline "Centered CTA" pattern (free)
  * https://preline.co/blocks/marketing/cta/#centered-cta
- * Dark bg substituído pelo nosso bg-dark-base flat (calm vibe).
- * Buttons substituídos pelos StoreBadge (Google Play real + App Store disabled).
  */
 
 import StoreBadge from '../ui/StoreBadge.astro';
+
+interface Props {
+  pricing?: {
+    monthly: string;
+    yearly: string;
+    trial: string;
+    yearlyDiscount: string;
+  };
+}
+
+const {
+  pricing = {
+    monthly: 'R$ 14,90',
+    yearly: 'R$ 99,90',
+    trial: '7 dias',
+    yearlyDiscount: '44%',
+  }
+} = Astro.props;
 ---
 
 <section
@@ -21,17 +38,16 @@ import StoreBadge from '../ui/StoreBadge.astro';
   <div class="final-cta-inner">
 
     <!-- Eyebrow -->
-    <p class="final-cta-eyebrow" aria-hidden="true">a g o r a</p>
+    <p class="final-cta-eyebrow" aria-hidden="true">c o m e c e</p>
 
     <!-- H2 -->
     <h2 class="final-cta-h2 fraunces-display">
-      Comece sua jornada <em>hoje</em>.
+      Comece sua manhã com Deus <em>hoje</em>.
     </h2>
 
     <!-- Sub -->
     <p class="final-cta-sub newsreader-text">
-      Grátis no Google Play. iOS em breve.<br/>
-      Sua manhã com Deus, em menos de 3 minutos.
+      {pricing.trial} grátis. Em menos de 1 minuto.
     </p>
 
     <!-- Store badges -->
@@ -49,7 +65,9 @@ import StoreBadge from '../ui/StoreBadge.astro';
     </div>
 
     <!-- Bottom hint -->
-    <p class="final-cta-hint">Sem cadastro obrigatório. Funciona offline.</p>
+    <p class="final-cta-hint">
+      Sem cadastro pra começar · Depois {pricing.monthly}/mês ou {pricing.yearly}/ano · iOS em breve
+    </p>
 
   </div>
 </section>
@@ -57,13 +75,14 @@ import StoreBadge from '../ui/StoreBadge.astro';
 <style>
   .final-cta {
     position: relative;
-    background: var(--color-bg-dark-base);
+    background: var(--color-bg-alt);
     padding-block: clamp(6rem, 12vw, 10rem);
     text-align: center;
+    border-top: 1px solid var(--color-divider);
   }
 
   .final-cta-inner {
-    max-width: 72rem;
+    max-width: 64rem;
     margin-inline: auto;
     padding-inline: clamp(1.5rem, 6vw, 4rem);
     position: relative;
@@ -81,9 +100,8 @@ import StoreBadge from '../ui/StoreBadge.astro';
     font-weight: 500;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: var(--color-accent-gold);
+    color: var(--color-accent-deep);
     margin: 0;
-    opacity: 0.85;
   }
 
   /* H2 */
@@ -91,7 +109,7 @@ import StoreBadge from '../ui/StoreBadge.astro';
     font-size: clamp(2.5rem, 7vw, 5rem);
     line-height: 0.96;
     letter-spacing: -0.03em;
-    color: var(--color-text-on-dark);
+    color: var(--color-text-strong);
     margin: 0;
     -webkit-font-smoothing: antialiased;
   }
@@ -99,14 +117,14 @@ import StoreBadge from '../ui/StoreBadge.astro';
   .final-cta-h2 em {
     font-style: italic;
     font-variation-settings: 'opsz' 72, 'wght' 600, 'SOFT' 100, 'WONK' 1;
-    color: var(--color-accent-gold);
+    color: var(--color-accent-deep);
   }
 
   /* Sub */
   .final-cta-sub {
     font-size: clamp(1rem, 1.5vw, 1.25rem);
     line-height: 1.65;
-    color: var(--color-text-on-dark-muted);
+    color: var(--color-text-body);
     margin: 0;
     font-style: italic;
     font-variation-settings: 'opsz' 18;
@@ -126,8 +144,7 @@ import StoreBadge from '../ui/StoreBadge.astro';
   .final-cta-hint {
     font-family: var(--font-family-sans);
     font-size: 0.8125rem;
-    font-style: italic;
-    color: var(--color-text-on-dark-faint);
+    color: var(--color-text-faint);
     margin: 0;
   }
 </style>
