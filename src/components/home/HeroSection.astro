@@ -1,9 +1,10 @@
 ---
 /**
- * HeroSection.astro — v3
+ * HeroSection.astro — v4 light
  *
- * Hero editorial dark: 2-col grid em desktop (text esq + PhoneFrame dir),
+ * Hero editorial light: 2-col grid em desktop (text esq + PhoneFrame dir),
  * stack em mobile (text acima, phone abaixo).
+ * Paleta: white + navy + gold. Spacing fix: 64rem / 6fr 5fr / text max-w 28rem.
  *
  * Block source inspirado em Preline "Split Hero with Product Mockup":
  * https://preline.co/blocks/marketing/hero-sections/#split-hero-with-product-mockup
@@ -23,20 +24,19 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     <div class="hero-text">
 
       <!-- Eyebrow -->
-      <p class="hero-eyebrow" aria-hidden="true">g a b r i e l</p>
+      <p class="hero-eyebrow" aria-hidden="true">gabriel · bíblia &amp; devocional</p>
 
       <!-- H1 -->
       <h1 class="hero-h1 fraunces-wordmark">
-        <span>Sua jornada</span>
-        <em>espiritual</em><span>,</span>
+        <span>Dez minutos com Deus.</span>
         <br/>
-        <span>todos os dias.</span>
+        <span>Todo dia, no seu </span><em>ritmo</em><span>.</span>
       </h1>
 
       <!-- Lead -->
       <p class="hero-lead newsreader-display">
-        Devocional curto, Bíblia que cresce com você e um lugar
-        pra parar — no seu ritmo, sem culpa.
+        Devocional curto escrito pra você, a Bíblia em três idiomas
+        e um amigo pra tirar dúvidas. Comece em menos de 1 minuto, sem cadastro.
       </p>
 
       <!-- Store badges -->
@@ -54,7 +54,7 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
       </div>
 
       <!-- Hint -->
-      <p class="hero-hint">iOS em breve.</p>
+      <p class="hero-hint">Teste 7 dias grátis · Cancele quando quiser · iOS em breve</p>
 
     </div>
 
@@ -74,13 +74,13 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
 <style>
   .hero-section {
     position: relative;
-    background: var(--color-bg-dark-base);
+    background: var(--color-bg-base);
     padding-block: clamp(5rem, 12vw, 9rem);
     overflow: hidden;
   }
 
   .hero-inner {
-    max-width: 72rem;
+    max-width: 64rem;
     margin-inline: auto;
     padding-inline: clamp(1.5rem, 6vw, 4rem);
     display: grid;
@@ -91,9 +91,14 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
 
   @media (min-width: 768px) {
     .hero-inner {
-      grid-template-columns: 1fr auto;
-      gap: clamp(3rem, 6vw, 6rem);
+      grid-template-columns: 6fr 5fr;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
     }
+  }
+
+  /* Text column */
+  .hero-text {
+    max-width: 28rem;
   }
 
   /* Eyebrow */
@@ -103,9 +108,8 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     font-weight: 500;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: var(--color-accent-gold);
+    color: var(--color-accent-deep);
     margin: 0 0 1.5rem;
-    opacity: 0.85;
   }
 
   /* H1 */
@@ -113,7 +117,7 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     font-size: clamp(2.75rem, 8vw, 5.5rem);
     line-height: 0.94;
     letter-spacing: -0.03em;
-    color: var(--color-text-on-dark);
+    color: var(--color-text-strong);
     margin: 0 0 1.75rem;
     -webkit-font-smoothing: antialiased;
   }
@@ -121,14 +125,14 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
   .hero-h1 em {
     font-style: italic;
     font-variation-settings: 'opsz' 144, 'wght' 800, 'SOFT' 100, 'WONK' 1;
-    color: var(--color-text-on-dark);
+    color: var(--color-text-strong);
   }
 
   /* Lead */
   .hero-lead {
     font-size: clamp(1.125rem, 2vw, 1.375rem);
     line-height: 1.6;
-    color: var(--color-text-on-dark-muted);
+    color: var(--color-text-body);
     margin: 0 0 2.25rem;
     max-width: 36ch;
     font-style: italic;
@@ -148,8 +152,7 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
   .hero-hint {
     font-family: var(--font-family-sans);
     font-size: 0.8125rem;
-    font-style: italic;
-    color: var(--color-text-on-dark-faint);
+    color: var(--color-text-faint);
     margin: 0;
   }
 
@@ -158,12 +161,10 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     display: flex;
     justify-content: center;
     align-items: center;
-    /* mobile: phone abaixo do texto (sem order override — flui depois do text col) */
   }
 
   @media (min-width: 768px) {
     .hero-phone {
-      /* desktop: phone à direita (já é col-2 no grid de 2 colunas) */
       justify-content: flex-end;
     }
   }
