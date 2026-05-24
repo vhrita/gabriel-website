@@ -32,7 +32,7 @@ const jsonLdData = {
   "description": "Termos de Uso do aplicativo Gabriel: Bíblia e Devocional. Leia antes de utilizar o aplicativo.",
   "url": "https://gabriel.vhxco.com/terms",
   "inLanguage": "pt-BR",
-  "lastReviewed": "2026-02-28",
+  "lastReviewed": "2026-05-24",
   "isPartOf": {
     "@type": "WebSite",
     "name": "Gabriel",
@@ -61,7 +61,7 @@ const jsonLdData = {
       </h1>
       <p class="text-celestial-500 text-base mb-1">Gabriel: Bíblia e Devocional</p>
       <p class="text-celestial-400 text-sm pb-6 border-b border-celestial-100">
-        Última atualização: 28 de fevereiro de 2026 · Versão 1.0
+        Última atualização: 24 de maio de 2026 · Versão 1.1
       </p>
     </div>
 
@@ -86,14 +86,14 @@ const jsonLdData = {
 
           <h3>2.1 Funcionalidades Gratuitas</h3>
           <ul>
-            <li>Criação de conta (anônima, Google ou Apple)</li>
+            <li>Criação de conta (anônima ou Google)</li>
             <li>Processo de onboarding com personalização do perfil espiritual</li>
             <li>Acesso básico ao leitor bíblico</li>
           </ul>
 
           <h3>2.2 Funcionalidades Premium (Assinatura)</h3>
           <ul>
-            <li>Chat com inteligência artificial "Gabriel" (powered by Google Gemini 2.0) para perguntas e orientação bíblica</li>
+            <li>Chat com inteligência artificial "Gabriel" (powered by API Gemini do Google — família Gemma e Gemini) para perguntas e orientação bíblica</li>
             <li>Devocionais personalizados gerados por IA com base em seu perfil espiritual e capítulos bíblicos selecionados</li>
             <li>Algoritmo de matching para seleção personalizada de capítulos bíblicos</li>
             <li>Sistema de streak e acompanhamento de progresso</li>
@@ -110,16 +110,16 @@ const jsonLdData = {
 
         <LegalSection id="elegibilidade" title="3. Elegibilidade">
           <h3>3.1 Idade Mínima</h3>
-          <p>Para utilizar o Gabriel, você deve ter no mínimo 13 anos de idade. Usuários entre 13 e 18 anos devem ter o consentimento de um pai ou responsável legal.</p>
+          <p>Para utilizar o Gabriel, você deve ter no mínimo <strong>18 anos de idade</strong>. O aplicativo não é destinado a menores de 18 anos. Esta restrição está alinhada com os Termos de Serviço da API Gemini do Google, que proíbe o uso do serviço por pessoas com menos de 18 anos ou em serviços a elas direcionados. Ao aceitar estes Termos, você declara ter 18 anos ou mais.</p>
 
           <h3>3.2 Capacidade Legal</h3>
-          <p>Ao aceitar estes Termos, você declara que possui capacidade legal para celebrar este acordo ou que possui o consentimento de um responsável legal.</p>
+          <p>Ao aceitar estes Termos, você declara que possui 18 anos ou mais e capacidade legal plena para celebrar este acordo.</p>
         </LegalSection>
 
         <LegalSection id="conta" title="4. Conta do Usuário">
           <h3>4.1 Criação de Conta</h3>
           <ul>
-            <li>Você pode criar uma conta de forma anônima ou vincular uma conta Google ou Apple</li>
+            <li>Você pode criar uma conta de forma anônima ou vincular uma conta Google</li>
             <li>Você é responsável por manter a segurança de suas credenciais de acesso</li>
             <li>Você deve fornecer informações verdadeiras e atualizadas</li>
           </ul>
@@ -128,7 +128,7 @@ const jsonLdData = {
           <ul>
             <li>Contas anônimas possuem acesso limitado</li>
             <li>Dados de contas anônimas podem ser perdidos se o aplicativo for desinstalado ou o cache for limpo</li>
-            <li>Recomendamos vincular sua conta a um provedor (Google ou Apple) para segurança e sincronização</li>
+            <li>Recomendamos vincular sua conta ao Google para segurança e sincronização</li>
           </ul>
 
           <h3>4.3 Uma Conta por Pessoa</h3>
@@ -154,7 +154,7 @@ const jsonLdData = {
 
           <h3>5.2 Processamento de Pagamento</h3>
           <ul>
-            <li>Todos os pagamentos são processados pelas lojas de aplicativos (Google Play Store ou Apple App Store)</li>
+            <li>Todos os pagamentos são processados pela Google Play Store (plataforma Android)</li>
             <li><strong>NÃO</strong> temos acesso a seus dados de cartão de crédito ou informações financeiras diretas</li>
             <li>Os preços podem variar conforme região e moeda local</li>
           </ul>
@@ -167,16 +167,16 @@ const jsonLdData = {
 
           <h3>5.4 Cancelamento</h3>
           <ul>
-            <li>Você pode cancelar sua assinatura a qualquer momento através das configurações de assinatura da Google Play Store ou Apple App Store</li>
+            <li>Você pode cancelar sua assinatura a qualquer momento através das configurações de assinatura da Google Play Store</li>
             <li>O cancelamento entra em vigor ao final do período de cobrança já pago</li>
             <li>Você continuará tendo acesso aos recursos premium até o final do período pago</li>
-            <li><strong>NÃO</strong> processamos cancelamentos diretamente; todo gerenciamento de assinatura deve ser feito pela loja de aplicativos</li>
+            <li><strong>NÃO</strong> processamos cancelamentos diretamente; todo gerenciamento de assinatura deve ser feito pela Google Play Store</li>
           </ul>
 
           <h3>5.5 Reembolsos</h3>
           <ul>
-            <li>Reembolsos são regidos pelas políticas de reembolso da Google Play Store ou Apple App Store</li>
-            <li>Solicitações de reembolso devem ser direcionadas à loja de aplicativos onde a compra foi realizada</li>
+            <li>Reembolsos são regidos pelas políticas de reembolso da Google Play Store</li>
+            <li>Solicitações de reembolso devem ser direcionadas à Google Play Store</li>
             <li>Nós não processamos reembolsos diretamente</li>
           </ul>
 
@@ -190,7 +190,7 @@ const jsonLdData = {
 
         <LegalSection id="conteudo-ia" title="6. Conteúdo Gerado por Inteligência Artificial">
           <h3>6.1 Natureza do Conteúdo</h3>
-          <p>O Gabriel utiliza inteligência artificial (Google Gemini 2.0) para gerar conteúdo, incluindo respostas no chat, devocionais e análises de perfil. É essencial que você compreenda:</p>
+          <p>O Gabriel utiliza a <strong>API Gemini do Google</strong> (família de modelos Gemma e Gemini, plano free tier) para gerar conteúdo, incluindo respostas no chat, devocionais e análises de perfil. É essencial que você compreenda:</p>
           <ul>
             <li>O conteúdo gerado por IA é de caráter <strong>INFORMATIVO</strong> e <strong>REFLEXIVO</strong></li>
             <li><strong>NÃO</strong> constitui aconselhamento teológico profissional</li>
@@ -392,7 +392,7 @@ const jsonLdData = {
 
         <div class="document-footer">
           <p>Gabriel: Bíblia e Devocional</p>
-          <p>Versão 1.0 — 28 de fevereiro de 2026</p>
+          <p>Versão 1.1 — 24 de maio de 2026</p>
           <p><a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer">VHXCO</a> — Todos os direitos reservados</p>
         </div>
 
