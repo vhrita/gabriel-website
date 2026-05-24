@@ -72,12 +72,13 @@ const tiltStyle = tilt !== 0 ? `transform: rotate(${tilt}deg)` : '';
      Offsets: frame 1 = 0%, frame 2 = 25%, frame 3 = 50%, frame 4 = 75% */
 
   @keyframes cycler-fade {
-    0%    { opacity: 0; }
-    3%    { opacity: 1; }
-    22%   { opacity: 1; }
-    25%   { opacity: 0; }
-    100%  { opacity: 0; }
+    0%,  22% { opacity: 1; }
+    25%, 97% { opacity: 0; }
+    100%     { opacity: 1; }
   }
+
+  /* frame--1 starts at opacity 1 as fallback before animation kicks in */
+  .frame--1 { opacity: 1; }
 
   .frame--1 {
     animation: cycler-fade 8s ease-in-out infinite;
