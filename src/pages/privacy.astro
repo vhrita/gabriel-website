@@ -32,7 +32,7 @@ const jsonLdData = {
   "description": "Política de Privacidade do aplicativo Gabriel: Bíblia e Devocional. Saiba como coletamos, usamos e protegemos seus dados.",
   "url": "https://gabriel.vhxco.com/privacy",
   "inLanguage": "pt-BR",
-  "lastReviewed": "2026-02-28",
+  "lastReviewed": "2026-05-24",
   "isPartOf": {
     "@type": "WebSite",
     "name": "Gabriel",
@@ -61,7 +61,7 @@ const jsonLdData = {
       </h1>
       <p class="text-celestial-500 text-base mb-1">Gabriel: Bíblia e Devocional</p>
       <p class="text-celestial-400 text-sm pb-6 border-b border-celestial-100">
-        Última atualização: 28 de fevereiro de 2026 · Versão 1.0
+        Última atualização: 24 de maio de 2026 · Versão 1.1
       </p>
     </div>
 
@@ -82,12 +82,17 @@ const jsonLdData = {
             Ao utilizar o Gabriel, você concorda com as práticas descritas nesta Política de Privacidade. Caso não concorde com qualquer termo, por favor, não utilize o aplicativo.
           </p>
           <InfoBox>
-            <p><strong>Responsável pelo tratamento de dados:</strong></p>
+            <p><strong>Responsável pelo tratamento de dados (Controlador):</strong></p>
             <ul>
               <li>Empresa: <a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer">VHXCO (VHX Company)</a></li>
               <li>CNPJ: 62.874.893/0001-51</li>
-              <li>E-mail de contato: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
+              <li>E-mail de contato: <a href="mailto:gabriel@vhxco.com">gabriel@vhxco.com</a></li>
               <li>Identificador do pacote: com.gabriel.biblia</li>
+            </ul>
+            <p><strong>Encarregado pelo Tratamento de Dados Pessoais (DPO — Art. 41 LGPD):</strong></p>
+            <ul>
+              <li>Encarregado: VHXCO</li>
+              <li>Contato: <a href="mailto:gabriel@vhxco.com">gabriel@vhxco.com</a></li>
             </ul>
           </InfoBox>
         </LegalSection>
@@ -98,10 +103,10 @@ const jsonLdData = {
           <h3>2.1 Dados de Identificação e Conta</h3>
           <ul>
             <li>Nome de exibição (informado pelo usuário ou obtido do provedor de autenticação)</li>
-            <li>Endereço de e-mail (obtido do provedor de autenticação Google ou Apple)</li>
+            <li>Endereço de e-mail (obtido do provedor de autenticação Google)</li>
             <li>Foto de perfil (URL do avatar, caso o usuário faça upload ou seja obtida do provedor de autenticação)</li>
             <li>Identificador único do usuário (UUID gerado pelo sistema)</li>
-            <li>Tipo de conta (anônima, Google, Apple)</li>
+            <li>Tipo de conta (anônima ou Google)</li>
           </ul>
 
           <h3>2.2 Dados de Perfil Espiritual (Onboarding)</h3>
@@ -141,17 +146,17 @@ const jsonLdData = {
             <li>Tipo de plano (mensal, anual)</li>
             <li>Datas de início e fim do período de assinatura</li>
             <li>Identificadores do RevenueCat (app_user_id)</li>
-            <li>Loja de origem da compra (Google Play Store ou Apple App Store)</li>
+            <li>Loja de origem da compra (Google Play Store)</li>
           </ul>
           <HighlightBox>
-            <p><strong>IMPORTANTE:</strong> Não coletamos, armazenamos ou temos acesso a dados de cartão de crédito, dados bancários ou qualquer informação financeira direta. Todo o processamento de pagamentos é realizado exclusivamente pelas plataformas Google Play (Google) e App Store (Apple), conforme suas respectivas políticas de privacidade. O serviço RevenueCat gerencia apenas os metadados da assinatura.</p>
+            <p><strong>IMPORTANTE:</strong> Não coletamos, armazenamos ou temos acesso a dados de cartão de crédito, dados bancários ou qualquer informação financeira direta. Todo o processamento de pagamentos é realizado exclusivamente pela Google Play Store, conforme sua política de privacidade. O serviço RevenueCat gerencia apenas os metadados da assinatura.</p>
           </HighlightBox>
 
           <h3>2.6 Dados Técnicos</h3>
           <ul>
             <li>Tokens de autenticação (JWT) armazenados de forma segura no dispositivo</li>
             <li>Dados de cache local (preferências, estado da sessão)</li>
-            <li>Logs de erros e depuração (apenas em ambiente de desenvolvimento)</li>
+            <li>Logs de erros, falhas e diagnóstico de desempenho, coletados em produção via Sentry (veja §5.6)</li>
           </ul>
 
           <h3>2.7 Dados que NÃO Coletamos</h3>
@@ -183,7 +188,7 @@ const jsonLdData = {
           <h3>3.2 Funcionamento do Aplicativo</h3>
           <ul>
             <li>Autenticar sua identidade e manter sua sessão segura</li>
-            <li>Sincronizar seus dados entre dispositivos (quando conectado com conta Google ou Apple)</li>
+            <li>Sincronizar seus dados entre dispositivos (quando conectado com conta Google)</li>
             <li>Exibir seu perfil (nome, avatar) dentro do aplicativo</li>
             <li>Gerenciar suas preferências de notificação</li>
             <li>Manter o registro de seu streak e progresso de leitura</li>
@@ -191,9 +196,10 @@ const jsonLdData = {
 
           <h3>3.3 Processamento por Inteligência Artificial</h3>
           <ul>
-            <li>Suas mensagens no chat são enviadas ao Google Gemini 2.0 para geração de respostas teológicas contextualizadas</li>
-            <li>Seus dados de onboarding (religião, objetivos, carta) são analisados pelo Gemini para criar um perfil personalizado de pesos temáticos (68 categorias temáticas)</li>
-            <li>Devocionais são gerados pelo Gemini com base no capítulo bíblico e sua denominação religiosa</li>
+            <li>Suas mensagens no chat são enviadas à API Gemini do Google (modelos da família Gemma e Gemini) para geração de respostas teológicas contextualizadas</li>
+            <li>Seus dados de onboarding (religião, objetivos, carta a Deus) são processados pela API Gemini do Google para criar um perfil personalizado de pesos temáticos (68 categorias temáticas)</li>
+            <li>Devocionais são gerados pela API Gemini do Google com base no capítulo bíblico e na sua denominação religiosa</li>
+            <li><strong>Atenção:</strong> o aplicativo utiliza o plano gratuito (free tier) da API Gemini. Neste plano, o Google pode usar o conteúdo enviado e as respostas geradas para melhorar seus produtos e serviços, incluindo revisão humana do conteúdo. Consulte os <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener noreferrer">Termos da API Gemini</a> para detalhes.</li>
           </ul>
 
           <h3>3.4 Gerenciamento de Assinatura</h3>
@@ -256,13 +262,15 @@ const jsonLdData = {
             <li><strong>Medidas de segurança:</strong> Row Level Security (RLS), criptografia em trânsito (TLS), backups automáticos</li>
           </ul>
 
-          <h3>5.2 Google (Gemini AI / Google Cloud)</h3>
+          <h3>5.2 Google (API Gemini — Inteligência Artificial)</h3>
           <ul>
-            <li><strong>Função:</strong> Processamento de linguagem natural para o chat e geração de devocionais</li>
-            <li><strong>Dados compartilhados:</strong> Mensagens do chat, dados de onboarding (religião, objetivos, carta a Deus) para processamento pela IA</li>
+            <li><strong>Função:</strong> Processamento de linguagem natural para o chat com a IA "Gabriel" e geração de devocionais personalizados</li>
+            <li><strong>Dados compartilhados:</strong> Mensagens do chat, dados de onboarding (religião, objetivos, carta a Deus) — enviados à API Gemini do Google para geração de respostas</li>
             <li><strong>Localização dos servidores:</strong> Estados Unidos</li>
+            <li><strong>Modelos utilizados:</strong> Família Gemma e Gemini (plano free tier / API Developer)</li>
             <li><strong>Política de privacidade:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
-            <li><strong>Observação:</strong> Os dados são processados pela API do Google Gemini exclusivamente para gerar respostas. De acordo com a política da Google, dados enviados via API Gemini não são usados para treinar modelos de IA generativa.</li>
+            <li><strong>Termos da API Gemini:</strong> <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener noreferrer">ai.google.dev/gemini-api/terms</a></li>
+            <li><strong>Importante — uso pelo Google:</strong> o aplicativo usa o plano gratuito (free tier / unpaid) da API Gemini. Conforme os Termos da API Gemini (seção "Unpaid Services"), o Google pode usar o conteúdo enviado e as respostas geradas para melhorar seus produtos e serviços. Isso pode incluir revisão humana do conteúdo enviado. <strong>Portanto, os dados enviados à API Gemini são compartilhados com o Google para fins próprios do Google</strong>, além da mera geração da resposta. Não há garantia de confidencialidade no plano gratuito.</li>
           </ul>
 
           <h3>5.3 RevenueCat (Gerenciamento de Assinaturas)</h3>
@@ -273,14 +281,11 @@ const jsonLdData = {
             <li><strong>Política de privacidade:</strong> <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></li>
           </ul>
 
-          <h3>5.4 Google Play Store / Apple App Store</h3>
+          <h3>5.4 Google Play Store</h3>
           <ul>
-            <li><strong>Função:</strong> Processamento de pagamentos para assinaturas</li>
-            <li><strong>Dados compartilhados:</strong> Dados de pagamento são processados exclusivamente pelas lojas; nós recebemos apenas confirmação e metadados da transação via RevenueCat</li>
-            <li><strong>Políticas de privacidade:</strong>
-              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a> ·
-              <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a>
-            </li>
+            <li><strong>Função:</strong> Processamento de pagamentos para assinaturas (plataforma Android)</li>
+            <li><strong>Dados compartilhados:</strong> Dados de pagamento são processados exclusivamente pela loja; nós recebemos apenas confirmação e metadados da transação via RevenueCat</li>
+            <li><strong>Política de privacidade:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></li>
           </ul>
 
           <h3>5.5 Expo (Framework de Desenvolvimento)</h3>
@@ -290,17 +295,30 @@ const jsonLdData = {
             <li><strong>Política de privacidade:</strong> <a href="https://expo.dev/privacy" target="_blank" rel="noopener noreferrer">expo.dev/privacy</a></li>
           </ul>
 
+          <h3>5.6 Sentry (Monitoramento de Erros)</h3>
+          <ul>
+            <li><strong>Função:</strong> Captura e análise de erros, falhas (crashes) e diagnóstico de desempenho em produção</li>
+            <li><strong>Dados compartilhados:</strong> Logs de erro, stack traces, informações de diagnóstico do dispositivo (versão do SO, versão do app). Não envia conteúdo de conversas ou dados de perfil espiritual.</li>
+            <li><strong>Localização dos servidores:</strong> Estados Unidos</li>
+            <li><strong>Papel:</strong> Processador de dados (atua sob nossas instruções para fins de operação do serviço)</li>
+            <li><strong>Política de privacidade:</strong> <a href="https://sentry.io/privacy/" target="_blank" rel="noopener noreferrer">sentry.io/privacy</a></li>
+          </ul>
+
           <HighlightBox>
             <p><strong>NÃO</strong> compartilhamos, vendemos, alugamos ou negociamos seus dados pessoais com terceiros para fins de marketing, publicidade ou qualquer outra finalidade comercial não relacionada à operação do aplicativo.</p>
           </HighlightBox>
         </LegalSection>
 
         <LegalSection id="inteligencia-artificial" title="6. Inteligência Artificial e Processamento Automatizado">
-          <p>O Gabriel utiliza inteligência artificial (Google Gemini 2.0) para as seguintes funcionalidades:</p>
+          <p>O Gabriel utiliza a <strong>API Gemini do Google</strong> (família de modelos Gemma e Gemini) para as seguintes funcionalidades. O aplicativo opera no <strong>plano gratuito (free tier / API Developer)</strong> da API Gemini.</p>
+
+          <HighlightBox>
+            <p><strong>Aviso importante sobre privacidade na IA:</strong> no plano gratuito da API Gemini, o Google pode usar o conteúdo enviado (mensagens do chat, dados de onboarding) e as respostas geradas para melhorar seus produtos e serviços. Esse conteúdo pode passar por revisão humana por parte do Google. Isso significa que os dados enviados à API são <strong>compartilhados com o Google para fins próprios do Google</strong>. Não envie informações altamente confidenciais ao chat se isso for uma preocupação. Para mais detalhes, consulte os <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener noreferrer">Termos da API Gemini</a>.</p>
+          </HighlightBox>
 
           <h3>6.1 Chat com Gabriel</h3>
           <ul>
-            <li>Suas mensagens são enviadas ao Google Gemini para geração de respostas teológicas</li>
+            <li>Suas mensagens são enviadas à API Gemini do Google para geração de respostas teológicas</li>
             <li>O histórico da conversa é mantido em nosso banco de dados para continuidade do diálogo</li>
             <li>Cada conversa possui um identificador único</li>
             <li>As respostas são geradas automaticamente e <strong>NÃO</strong> constituem aconselhamento profissional (teológico, psicológico ou de qualquer outra natureza)</li>
@@ -308,14 +326,14 @@ const jsonLdData = {
 
           <h3>6.2 Análise de Onboarding</h3>
           <ul>
-            <li>Seus dados de perfil espiritual (religião, objetivos, carta a Deus) são processados pelo Gemini para criar um perfil personalizado</li>
+            <li>Seus dados de perfil espiritual (religião, objetivos, carta a Deus) são enviados à API Gemini do Google para criar um perfil personalizado</li>
             <li>O resultado é um conjunto de pesos temáticos (68 categorias) que determinam quais conteúdos bíblicos são mais relevantes para você</li>
             <li>Esta análise é limitada a no máximo 5 execuções por usuário</li>
           </ul>
 
           <h3>6.3 Geração de Devocionais</h3>
           <ul>
-            <li>Devocionais são gerados pelo Gemini com base em capítulos bíblicos específicos e na sua denominação religiosa</li>
+            <li>Devocionais são gerados pela API Gemini do Google com base em capítulos bíblicos específicos e na sua denominação religiosa</li>
             <li>Os devocionais gerados são armazenados em cache para reutilização</li>
             <li>O conteúdo gerado por IA é de caráter reflexivo e <strong>NÃO</strong> substitui orientação pastoral, teológica ou profissional</li>
           </ul>
@@ -357,7 +375,7 @@ const jsonLdData = {
 
           <h3>7.4 Transferência Internacional de Dados</h3>
           <ul>
-            <li>Seus dados podem ser transferidos e armazenados em servidores localizados nos Estados Unidos (Supabase/AWS, Google Cloud)</li>
+            <li>Seus dados podem ser transferidos e armazenados em servidores localizados nos Estados Unidos (Supabase/AWS, Google Cloud, Sentry)</li>
             <li>Essa transferência é necessária para a operação do serviço</li>
             <li>As empresas receptoras possuem certificações e medidas de proteção adequadas</li>
           </ul>
@@ -431,7 +449,7 @@ const jsonLdData = {
           <InfoBox>
             <p><strong>Para exercer qualquer destes direitos, entre em contato:</strong></p>
             <ul>
-              <li>E-mail: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
+              <li>E-mail: <a href="mailto:gabriel@vhxco.com">gabriel@vhxco.com</a></li>
               <li>Prazo de resposta: Até 15 dias úteis</li>
             </ul>
           </InfoBox>
@@ -439,13 +457,13 @@ const jsonLdData = {
 
         <LegalSection id="menores" title="10. Proteção de Dados de Menores">
           <h3>10.1 Idade Mínima</h3>
-          <p>O Gabriel não é destinado a menores de 13 anos. Não coletamos intencionalmente dados pessoais de crianças menores de 13 anos.</p>
+          <p>O Gabriel é destinado exclusivamente a usuários com <strong>18 anos ou mais</strong>. Não coletamos intencionalmente dados pessoais de pessoas menores de 18 anos. Esta restrição está alinhada com os Termos de Serviço da API Gemini do Google, que proíbe o uso em serviços acessíveis por menores de 18 anos.</p>
 
-          <h3>10.2 Consentimento Parental</h3>
-          <p>Para usuários entre 13 e 18 anos (ou a idade de maioridade digital em sua jurisdição), o uso do aplicativo deve ser supervisionado e consentido por um pai ou responsável legal.</p>
+          <h3>10.2 Restrição a Menores</h3>
+          <p>O aplicativo não é direcionado a menores de 18 anos. Ao utilizar o Gabriel, você declara ter 18 anos ou mais. Caso saibamos que um usuário é menor de 18 anos, sua conta será encerrada e os dados serão excluídos.</p>
 
           <h3>10.3 Descoberta de Dados de Menores</h3>
-          <p>Se tomarmos conhecimento de que coletamos dados de uma criança menor de 13 anos sem o consentimento parental verificável, tomaremos medidas imediatas para excluir esses dados. Se você acredita que podemos ter coletado dados de um menor, entre em contato conosco imediatamente em <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a>.</p>
+          <p>Se tomarmos conhecimento de que coletamos dados de uma pessoa menor de 18 anos, tomaremos medidas imediatas para excluir esses dados e encerrar a conta. Se você acredita que podemos ter coletado dados de um menor, entre em contato conosco imediatamente em <a href="mailto:gabriel@vhxco.com">gabriel@vhxco.com</a>.</p>
         </LegalSection>
 
         <LegalSection id="permissoes" title="11. Permissões do Dispositivo">
@@ -505,10 +523,10 @@ const jsonLdData = {
           <ul>
             <li><strong>(a) Informações pessoais:</strong> Nome (coletado, não compartilhado para fins de marketing), Endereço de e-mail (coletado via provedor de autenticação), IDs de usuário (UUID do sistema)</li>
             <li><strong>(b) Informações financeiras:</strong> Metadados de assinatura via RevenueCat. Não coletamos dados de pagamento diretamente</li>
-            <li><strong>(c) Mensagens:</strong> Mensagens no chat com IA — coletadas e armazenadas</li>
+            <li><strong>(c) Mensagens:</strong> Mensagens no chat com IA — coletadas, armazenadas e <strong>compartilhadas com o Google</strong> via API Gemini (free tier) para geração de respostas e potencial melhoria de produtos Google</li>
             <li><strong>(d) Fotos e vídeos:</strong> Apenas quando o usuário faz upload de avatar</li>
             <li><strong>(e) Atividade do aplicativo:</strong> Histórico de leitura, favoritos, streak</li>
-            <li><strong>(f) Informações e desempenho:</strong> Logs de erro e diagnóstico apenas em ambiente de desenvolvimento</li>
+            <li><strong>(f) Informações e desempenho:</strong> Logs de erro, falhas (crashes) e diagnóstico de desempenho — coletados em produção via Sentry e compartilhados com Sentry (processador, EUA)</li>
             <li><strong>(g) Identificadores do dispositivo:</strong> Não coletamos IDFA, GAID ou outros identificadores de publicidade</li>
           </ul>
           <p><strong>Declaração de Segurança dos Dados (Data Safety Section):</strong></p>
@@ -552,7 +570,7 @@ const jsonLdData = {
           <p>O Gabriel declara com honestidade:</p>
           <ul>
             <li>É um aplicativo de estudo bíblico e devocional com funcionalidades de inteligência artificial</li>
-            <li>Utiliza o Google Gemini 2.0 para geração de conteúdo</li>
+            <li>Utiliza a API Gemini do Google (família de modelos Gemma e Gemini, plano free tier) para geração de conteúdo</li>
             <li>Requer assinatura para acesso a recursos premium (chat com IA, devocionais personalizados)</li>
             <li>Oferece período de teste gratuito antes da cobrança</li>
             <li>O conteúdo gerado por IA <strong>NÃO</strong> substitui aconselhamento pastoral, teológico ou profissional</li>
@@ -568,16 +586,8 @@ const jsonLdData = {
             <li>Seguimos as melhores práticas de desenvolvimento Android conforme as diretrizes do Google</li>
           </ul>
 
-          <h3>12.7 Apple App Store — Conformidade</h3>
-          <ul>
-            <li>Em conformidade com as App Store Review Guidelines</li>
-            <li>Privacidade implementada conforme Apple Privacy Guidelines</li>
-            <li>Suporte para Sign in with Apple implementado como opção de autenticação</li>
-            <li>Não utilizamos rastreamento entre aplicativos (App Tracking Transparency não é necessário pois não rastreamos usuários entre apps)</li>
-            <li>Nutrition Labels (Privacy Labels) na App Store refletirão com precisão os dados coletados conforme esta política</li>
-            <li>Assinaturas implementadas conforme Apple In-App Purchase guidelines</li>
-            <li>Política de auto-renovação claramente comunicada</li>
-          </ul>
+          <h3>12.7 Apple App Store — Conformidade (Reservado — iOS não disponível)</h3>
+          <p>O Gabriel está disponível atualmente <strong>apenas na Google Play Store (Android)</strong>. O lançamento para iOS / Apple App Store está previsto para uma versão futura. Esta seção será atualizada quando o aplicativo for disponibilizado para iOS.</p>
         </LegalSection>
 
         <LegalSection id="cookies" title="13. Cookies e Tecnologias de Rastreamento">
@@ -614,7 +624,7 @@ const jsonLdData = {
           <p>Para quaisquer dúvidas, comentários, reclamações ou solicitações relacionadas a esta Política de Privacidade ou ao tratamento de seus dados pessoais, entre em contato:</p>
           <InfoBox>
             <ul>
-              <li>E-mail: <a href="mailto:vitor@vhxco.com">vitor@vhxco.com</a></li>
+              <li>E-mail: <a href="mailto:gabriel@vhxco.com">gabriel@vhxco.com</a></li>
               <li>Assunto: [Privacidade Gabriel] Sua solicitação</li>
             </ul>
             <p>Nos comprometemos a responder todas as solicitações em até 15 dias úteis.</p>
@@ -623,7 +633,7 @@ const jsonLdData = {
 
         <div class="document-footer">
           <p>Gabriel: Bíblia e Devocional</p>
-          <p>Versão 1.0 — 28 de fevereiro de 2026</p>
+          <p>Versão 1.1 — 24 de maio de 2026</p>
           <p><a href="https://vhxco.com.br" target="_blank" rel="noopener noreferrer">VHXCO</a> — Todos os direitos reservados</p>
         </div>
 
