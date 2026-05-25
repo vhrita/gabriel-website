@@ -568,8 +568,10 @@ body {
   border-top: 1px solid var(--color-celestial-100);
 }
 
+/* celestial-600 (não 400): legais migraram p/ fundo branco (light) — 400 (#47A7C7)
+   dava ~2.66:1 e falhava AA. 600 (#1A3354) passa folgado em branco. */
 .document-footer p {
-  color: var(--color-celestial-400);
+  color: var(--color-celestial-600);
   font-size: 0.8125rem;
   margin-bottom: 0.25rem;
 }
