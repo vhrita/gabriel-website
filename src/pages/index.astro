@@ -10,13 +10,9 @@ import Guarantees from '../components/home/Guarantees.astro';
 import FAQ from '../components/home/FAQ.astro';
 import FinalCTA from '../components/home/FinalCTA.astro';
 
-// Pricing centralizado — fonte única de verdade pro FAQ e microcopy
-const PRICING = {
-  monthly: 'R$ 14,90',
-  yearly: 'R$ 99,90',
-  trial: '7 dias',
-  yearlyDiscount: '44%',
-};
+// Preço: decisão do Vitor (2026-05) — a LP NÃO exibe valores (R$). O modelo é
+// freemium (download grátis + trial), mas mostrar mensalidade mata conversão.
+// JSON-LD: sem bloco `offers` — não afirmamos preço nem "grátis" (evita SEO enganoso).
 
 const jsonLdData = [
   {
@@ -43,12 +39,6 @@ const jsonLdData = [
     "publisher": {
       "@type": "Organization",
       "name": "VHXCO"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "14.90",
-      "priceCurrency": "BRL",
-      "availability": "https://schema.org/InStock"
     }
   }
 ];
@@ -117,7 +107,7 @@ const jsonLdData = [
 
   <HowItWorks />
   <Guarantees />
-  <FAQ pricing={PRICING} />
-  <FinalCTA pricing={PRICING} />
+  <FAQ />
+  <FinalCTA />
 
 </BaseLayout>

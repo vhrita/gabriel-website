@@ -2,31 +2,16 @@
 /**
  * FAQ.astro — v4 light (NOVA seção)
  *
- * 6 perguntas reais com preço transparente. Native <details> (zero JS).
+ * 6 perguntas reais. Native <details> (zero JS).
  * Desktop: 2 colunas, mobile: 1 coluna accordion.
  * Background: bg-base (white).
+ *
+ * Preço: decisão do Vitor (2026-05) — NÃO mostrar valores na LP (conversão).
+ * A pergunta de preço responde "baixe grátis, escolha o plano se gostar".
  *
  * Block source: Preline "FAQ Two-column" adaptado (free)
  * https://preline.co/blocks/marketing/faqs/#two-column-faqs
  */
-
-interface Props {
-  pricing?: {
-    monthly: string;
-    yearly: string;
-    trial: string;
-    yearlyDiscount: string;
-  };
-}
-
-const {
-  pricing = {
-    monthly: 'R$ 14,90',
-    yearly: 'R$ 99,90',
-    trial: '7 dias',
-    yearlyDiscount: '44%',
-  }
-} = Astro.props;
 ---
 
 <section
@@ -46,7 +31,7 @@ const {
 
       <details class="faq-item">
         <summary class="faq-question fraunces-h3">
-          Quanto custa?
+          Preciso pagar?
           <span class="faq-chevron" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m6 9 6 6 6-6"/>
@@ -54,7 +39,7 @@ const {
           </span>
         </summary>
         <p class="faq-answer newsreader-text">
-          Teste {pricing.trial} grátis. Depois {pricing.monthly}/mês ou {pricing.yearly}/ano (economia de {pricing.yearlyDiscount} no anual). Cancele a qualquer momento na Play Store.
+          Não pra começar. Baixe e comece a usar agora, de graça. Se quiser os recursos completos — devocionais personalizados e o chat com o Gabriel — você experimenta sem pagar e, se gostar, escolhe um plano. Cancele a qualquer momento na Play Store.
         </p>
       </details>
 
