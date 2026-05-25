@@ -9,6 +9,9 @@ import HowItWorks from '../components/home/HowItWorks.astro';
 import Guarantees from '../components/home/Guarantees.astro';
 import FAQ from '../components/home/FAQ.astro';
 import FinalCTA from '../components/home/FinalCTA.astro';
+import StickyDownloadCTA from '../components/ui/StickyDownloadCTA.astro';
+
+const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.gabriel.biblia';
 
 // Preço: decisão do Vitor (2026-05) — a LP NÃO exibe valores (R$). O modelo é
 // freemium (download grátis + trial), mas mostrar mensalidade mata conversão.
@@ -109,5 +112,8 @@ const jsonLdData = [
   <Guarantees />
   <FAQ />
   <FinalCTA />
+
+  <!-- FAB de download persistente — aparece após o hero, some no CTA final -->
+  <StickyDownloadCTA href={GOOGLE_PLAY_URL} />
 
 </BaseLayout>
