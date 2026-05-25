@@ -65,50 +65,54 @@ const jsonLdData = [
   <TrustSignals />
   <FeaturesIntro />
 
+  <!-- Ordem por conversao: diferenciador -> IA -> habito diario -> compartilhavel -> conteudo.
+       #1 e #2 com feature="primary" (enfase sutil de topo). Tom zig-zag alt/base/alt/base/alt. -->
   <FeatureRow
     num="01"
     textSide="right"
     tone="alt"
-    title="Devocional do dia."
-    copy="Uma reflexão escrita pra você esta manhã — adaptada à sua tradição (católica, evangélica, espírita ou nenhuma), seus objetivos e sua Carta pra Deus. Pequena, certeira, todo dia diferente."
-    screen="devocional"
-    alt="Tela de devocional do app Gabriel"
+    feature="primary"
+    title="Sua Carta pra Deus."
+    copy="Você escreve o que carrega no peito. O Gabriel lê — junto com sua tradição e seus objetivos — e monta devocionais feitos pra sua história, não pra um feed genérico."
+    screen="letter"
+    alt="Tela da Carta pra Deus no onboarding do app Gabriel"
   />
   <FeatureRow
     num="02"
     textSide="left"
     tone="base"
-    title="A Bíblia que cresce com você."
-    copy="Os 66 livros em português, inglês e espanhol. A cada capítulo lido, seu Jardim da Fé floresce — você vê o caminho que fez."
-    screen="bible"
-    alt="Tela do Jardim da Fé"
-  />
-  <FeatureRow
-    num="03"
-    textSide="right"
-    tone="alt"
+    feature="primary"
     title="Um amigo pra conversar."
     copy="Pergunte ao Gabriel sobre fé, Bíblia, dúvidas teológicas. Ele responde consultando a Bíblia — sempre no contexto da sua tradição, sem julgamento."
     screen="chat"
     alt="Tela do chat com Gabriel"
   />
   <FeatureRow
+    num="03"
+    textSide="right"
+    tone="alt"
+    title="Devocional do dia."
+    copy="Uma reflexão escrita pra você esta manhã — adaptada à sua tradição (católica, evangélica, espírita ou nenhuma) e à sua Carta pra Deus. Pequena, certeira, todo dia diferente."
+    screen="devocional"
+    alt="Tela de devocional do app Gabriel"
+  />
+  <FeatureRow
     num="04"
     textSide="left"
     tone="base"
-    title="Constância sem culpa."
-    copy="Você escolhe a frequência: todo dia, 5×, 3× ou 1× por semana. O streak respeita seu ritmo e celebra cada retorno — não cobra perfeição."
-    screen="streak"
-    alt="Tela de constância e streak"
+    title="Um versículo por dia."
+    copy="Cada manhã, um versículo novo pra começar o dia ou compartilhar com quem você ama. Pequeno gesto, eco longo."
+    screen="verse"
+    alt="Tela do versículo do dia"
   />
   <FeatureRow
     num="05"
     textSide="right"
     tone="alt"
-    title="Um versículo por dia."
-    copy="Cada manhã, um versículo novo pra começar o dia ou compartilhar com quem você ama. Pequeno gesto, eco longo."
-    screen="verse"
-    alt="Tela do versículo do dia"
+    title="A Bíblia que cresce com você."
+    copy="Os 66 livros em três traduções — Almeida, King James e Reina-Valera. A cada capítulo lido, seu Jardim da Fé floresce e você vê o caminho que fez."
+    screen="bible"
+    alt="Tela do Jardim da Fé"
   />
 
   <HowItWorks />
