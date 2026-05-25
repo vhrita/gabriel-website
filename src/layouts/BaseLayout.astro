@@ -9,15 +9,17 @@ interface Props {
   pathname?: string;
   type?: 'website' | 'article';
   headerVariant?: 'transparent' | 'solid';
+  bodyTheme?: 'paper' | 'dark' | 'light';
 }
 
 const {
   title,
-  description = 'Gabriel: Bíblia e Devocional — Sua jornada espiritual, todos os dias.',
+  description = 'Gabriel — Bíblia e Devocional. Dez minutos com Deus, todo dia, no seu ritmo.',
   image = '/og-image.png',
   pathname,
   type = 'website',
   headerVariant = 'solid',
+  bodyTheme = 'paper',
 } = Astro.props;
 
 const resolvedPathname = pathname ?? Astro.url.pathname;
@@ -37,8 +39,8 @@ const year = new Date().getFullYear();
     <!-- Canonical -->
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Theme color — paper (ADR-0015 §5.1) -->
-    <meta name="theme-color" content="#FAF7F0" />
+    <!-- Theme color — adapts to bodyTheme -->
+    <meta name="theme-color" content={bodyTheme === 'dark' ? '#0E1D33' : bodyTheme === 'light' ? '#FFFFFF' : '#FAF7F0'} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
@@ -71,7 +73,17 @@ const year = new Date().getFullYear();
     <title>{title}</title>
   </head>
 
-  <body class="font-sans min-h-dvh flex flex-col antialiased paper-grain" style="background-color: var(--color-paper); color: var(--color-ink);">
+  <body
+    class:list={[
+      'font-sans min-h-dvh flex flex-col antialiased',
+      bodyTheme === 'paper' && 'paper-grain',
+    ]}
+    style={bodyTheme === 'dark'
+      ? 'background-color: var(--color-bg-dark-base); color: var(--color-text-on-dark);'
+      : bodyTheme === 'light'
+      ? 'background-color: var(--color-bg-base); color: var(--color-text-strong);'
+      : 'background-color: var(--color-paper); color: var(--color-ink);'}
+  >
 
     <!-- Skip to content (a11y) -->
     <a
@@ -92,6 +104,7 @@ const year = new Date().getFullYear();
     <header
       id="site-header"
       data-variant={headerVariant}
+      data-body-theme={bodyTheme}
       class:list={[
         'sticky top-0 z-50 transition-all duration-300',
         headerVariant === 'solid'
@@ -99,7 +112,11 @@ const year = new Date().getFullYear();
           : 'header--transparent',
       ]}
       style={headerVariant === 'solid'
-        ? `background-color: var(--color-paper); border-bottom: 1px solid rgba(26, 24, 20, 0.06);`
+        ? (bodyTheme === 'dark'
+            ? 'background-color: var(--color-bg-dark-base); border-bottom: 1px solid var(--color-divider-on-dark);'
+            : bodyTheme === 'light'
+            ? 'background-color: var(--color-bg-base); border-bottom: 1px solid var(--color-divider-soft);'
+            : 'background-color: var(--color-paper); border-bottom: 1px solid rgba(26, 24, 20, 0.06);')
         : ''}
     >
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,7 +137,7 @@ const year = new Date().getFullYear();
               style="border-radius: 6px; display: inline-block; vertical-align: middle; flex-shrink: 0;"
             />
             <span
-              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 24, 'wght' 700; font-size: 1.25rem; color: var(--color-ink); letter-spacing: -0.02em; -webkit-font-smoothing: antialiased;"
+              style={`font-family: var(--font-family-display); font-variation-settings: 'opsz' 24, 'wght' 700; font-size: 1.25rem; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark)' : bodyTheme === 'light' ? 'var(--color-text-strong)' : 'var(--color-ink)'}; letter-spacing: -0.02em; -webkit-font-smoothing: antialiased;`}
             >Gabriel</span>
           </a>
 
@@ -131,7 +148,7 @@ const year = new Date().getFullYear();
                 <a
                   href="/privacy"
                   class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
-                  style="letter-spacing: 0.04em; color: var(--color-ink-muted);"
+                  style={`letter-spacing: 0.04em; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark-muted)' : bodyTheme === 'light' ? 'var(--color-text-muted)' : 'var(--color-ink-muted)'};`}
                 >
                   Privacidade
                 </a>
@@ -140,7 +157,7 @@ const year = new Date().getFullYear();
                 <a
                   href="/terms"
                   class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
-                  style="letter-spacing: 0.04em; color: var(--color-ink-muted);"
+                  style={`letter-spacing: 0.04em; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark-muted)' : bodyTheme === 'light' ? 'var(--color-text-muted)' : 'var(--color-ink-muted)'};`}
                 >
                   Termos
                 </a>
@@ -149,7 +166,7 @@ const year = new Date().getFullYear();
                 <a
                   href="/delete-account"
                   class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
-                  style="letter-spacing: 0.04em; color: var(--color-ink-muted); white-space: nowrap;"
+                  style={`letter-spacing: 0.04em; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark-muted)' : bodyTheme === 'light' ? 'var(--color-text-muted)' : 'var(--color-ink-muted)'}; white-space: nowrap;`}
                 >
                   Excluir Conta
                 </a>
@@ -165,22 +182,22 @@ const year = new Date().getFullYear();
       <slot />
     </main>
 
-    <!-- Footer v2 — Type as Sky. polish-v2: footer App col uses StoreBadges instead of text links. -->
-    <footer style="background-color: var(--color-ink); color: var(--color-paper);">
+    <!-- Footer v4 — Dark navy anchor. bg navy (celestial-900) sobre home light. -->
+    <footer style="background-color: var(--color-bg-dark-base); color: var(--color-text-on-dark);">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div class="footer-grid">
 
           <!-- Wordmark + tagline -->
           <div class="footer-brand">
             <p
-              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 700; font-size: 1.75rem; color: var(--color-paper); margin: 0 0 0.5rem; letter-spacing: -0.025em; -webkit-font-smoothing: antialiased;"
+              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 700; font-size: 1.75rem; color: var(--color-text-on-dark); margin: 0 0 0.5rem; letter-spacing: -0.025em; -webkit-font-smoothing: antialiased;"
             >
               Gabriel
             </p>
             <p
-              style="font-family: var(--font-family-serif); font-variation-settings: 'opsz' 14; font-style: italic; font-size: 0.875rem; color: rgba(250, 247, 240, 0.55); margin: 0; line-height: 1.5;"
+              style="font-family: var(--font-family-serif); font-variation-settings: 'opsz' 14; font-style: italic; font-size: 0.875rem; color: var(--color-text-on-dark-muted); margin: 0; line-height: 1.5;"
             >
-              Sua jornada espiritual, todos os dias.
+              Bíblia e devocional, todos os dias.
             </p>
           </div>
 
@@ -301,20 +318,34 @@ const year = new Date().getFullYear();
     <script>
       const header = document.getElementById('site-header');
       if (header && header.dataset.variant === 'transparent') {
+        const isDark = header.dataset.bodyTheme === 'dark';
+        const isLight = header.dataset.bodyTheme === 'light';
+        const bgScrolled = isDark
+          ? 'rgba(14, 29, 51, 0.85)'
+          : isLight
+          ? 'rgba(255, 255, 255, 0.85)'
+          : 'rgba(250, 247, 240, 0.85)';
+        const borderScrolled = isDark
+          ? '1px solid rgba(250, 247, 240, 0.10)'
+          : isLight
+          ? '1px solid rgba(30, 58, 95, 0.06)'
+          : '1px solid rgba(26, 24, 20, 0.06)';
+
         function applyScrollState() {
           const scrolled = window.scrollY > 20;
+          const style = header!.style as CSSStyleDeclaration & { webkitBackdropFilter: string };
           if (scrolled) {
-            header!.style.backgroundColor = 'rgba(250, 247, 240, 0.85)';
-            header!.style.backdropFilter = 'blur(12px)';
-            header!.style.webkitBackdropFilter = 'blur(12px)';
-            header!.style.borderBottom = '1px solid rgba(26, 24, 20, 0.06)';
-            header!.style.boxShadow = 'none';
+            style.backgroundColor = bgScrolled;
+            style.backdropFilter = 'blur(12px)';
+            style.webkitBackdropFilter = 'blur(12px)';
+            style.borderBottom = borderScrolled;
+            style.boxShadow = 'none';
           } else {
-            header!.style.backgroundColor = 'transparent';
-            header!.style.backdropFilter = '';
-            header!.style.webkitBackdropFilter = '';
-            header!.style.borderBottom = '';
-            header!.style.boxShadow = '';
+            style.backgroundColor = 'transparent';
+            style.backdropFilter = '';
+            style.webkitBackdropFilter = '';
+            style.borderBottom = '';
+            style.boxShadow = '';
           }
         }
 

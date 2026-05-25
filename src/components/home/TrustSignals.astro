@@ -1,0 +1,138 @@
+---
+/**
+ * TrustSignals.astro — v4 light (NOVA seção)
+ *
+ * Linha de social proof honesta pós-hero. Sem números fake.
+ * 5 estrelas + "Avaliado no Google Play" + microcopy de características reais.
+ * Background: bg-alt (slate-50) — transição visual entre hero e FeaturesIntro.
+ *
+ * Block source: Preline "Inline logos" simplificado, texto-only (free)
+ * https://preline.co/blocks/marketing/social-proof/
+ * Stars: Lucide star icon × 5, MIT License — https://lucide.dev/icons/star
+ */
+---
+
+<div
+  class="trust-signals"
+  aria-label="Avaliações e características"
+>
+  <div class="trust-inner">
+
+    <!-- Stars + rating -->
+    <div class="trust-rating">
+      <div class="trust-stars" aria-label="5 estrelas" role="img">
+        {Array.from({ length: 5 }).map(() => (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            stroke="none"
+            aria-hidden="true"
+            class="trust-star"
+          >
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        ))}
+      </div>
+      <a
+        href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="trust-store-link"
+      >
+        Avaliado no Google Play
+      </a>
+    </div>
+
+    <!-- Divider -->
+    <div class="trust-sep" aria-hidden="true"></div>
+
+    <!-- Characteristics microcopy -->
+    <p class="trust-meta">
+      Bíblia em 3 idiomas · Sem ads · Funciona offline · Lançado em 2026
+    </p>
+
+  </div>
+</div>
+
+<style>
+  .trust-signals {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-divider);
+    border-bottom: 1px solid var(--color-divider);
+    padding-block: 1rem;
+  }
+
+  .trust-inner {
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+  }
+
+  /* Stars + link */
+  .trust-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .trust-stars {
+    display: flex;
+    gap: 0.125rem;
+    align-items: center;
+  }
+
+  .trust-star {
+    color: var(--color-accent-deep);
+  }
+
+  .trust-store-link {
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    letter-spacing: 0.01em;
+    transition: color 150ms ease;
+  }
+
+  .trust-store-link:hover {
+    color: var(--color-text-strong);
+  }
+
+  /* Divider dot */
+  .trust-sep {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-divider);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .trust-sep {
+      display: none;
+    }
+    .trust-inner {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  /* Meta */
+  .trust-meta {
+    font-family: var(--font-family-sans);
+    font-size: 0.75rem;
+    color: var(--color-text-faint);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+</style>

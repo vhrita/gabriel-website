@@ -1,0 +1,123 @@
+---
+/**
+ * TestimonialSection.astro — v3
+ *
+ * Single-quote testimonial centered.
+ * Background: bg-dark-soft (contraste visual entre feature rows e CTA).
+ *
+ * Block source: Preline "Center-Aligned Mini Testimonial"
+ * https://preline.co/blocks/marketing/testimonials/#center-aligned-mini-testimonial-with-logo-divider
+ *
+ * Stars: Lucide star icon × 5, color accent-gold.
+ * <!-- Lucide icons: https://lucide.dev | MIT License -->
+ */
+---
+
+<section
+  class="testimonial-section"
+  aria-label="Depoimento de usuária"
+>
+  <div class="testimonial-inner">
+
+    <!-- 5 stars -->
+    <!-- Lucide: star icon × 5, MIT License — https://lucide.dev/icons/star -->
+    <div class="testimonial-stars" aria-label="5 estrelas" role="img">
+      {Array.from({ length: 5 }).map(() => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          stroke="none"
+          aria-hidden="true"
+          class="star-icon"
+        >
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      ))}
+    </div>
+
+    <!-- Quote -->
+    <blockquote class="testimonial-quote newsreader-display">
+      <p>
+        &ldquo;O único app que eu uso e recomendo.<br/>
+        Gabriel virou parte da minha manhã.&rdquo;
+      </p>
+    </blockquote>
+
+    <!-- Divider -->
+    <div class="testimonial-divider" aria-hidden="true"></div>
+
+    <!-- Author -->
+    <p class="testimonial-author">Maria, 32 anos</p>
+
+  </div>
+</section>
+
+<style>
+  .testimonial-section {
+    position: relative;
+    background: var(--color-bg-dark-soft);
+    padding-block: clamp(6rem, 12vw, 10rem);
+    text-align: center;
+  }
+
+  .testimonial-inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* Stars */
+  .testimonial-stars {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  .star-icon {
+    color: var(--color-accent-gold);
+    flex-shrink: 0;
+  }
+
+  /* Quote */
+  .testimonial-quote {
+    margin: 0;
+  }
+
+  .testimonial-quote p {
+    font-size: clamp(1.375rem, 3vw, 2.25rem);
+    line-height: 1.45;
+    color: var(--color-text-on-dark);
+    font-style: italic;
+    font-variation-settings: 'opsz' 36;
+    margin: 0;
+    max-width: 30ch;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Divider */
+  .testimonial-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--color-accent-gold);
+    opacity: 0.4;
+  }
+
+  /* Author */
+  .testimonial-author {
+    font-family: var(--font-family-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-on-dark-muted);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+</style>

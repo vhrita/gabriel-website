@@ -1,0 +1,152 @@
+---
+/**
+ * FeatureRow.astro — v4 light
+ *
+ * Componente genérico de feature alternating L/R, usado 5x.
+ * Paleta: white/slate-50 + navy + gold-deep.
+ *
+ * Block source: HyperUI + Tailblocks alternating layout pattern (free, light mode)
+ * https://tailblocks.cc (Content/Features)
+ *
+ * textSide="right"  → phone esquerda, texto direita
+ * textSide="left"   → texto esquerda, phone direita
+ *
+ * Mobile: sempre stack vertical (phone acima, texto abaixo) — 1 coluna.
+ */
+
+import PhoneFrame from '../mockups/PhoneFrame.astro';
+
+interface Props {
+  num: '01' | '02' | '03' | '04' | '05';
+  title: string;
+  copy: string;
+  screen: 'devocional' | 'bible' | 'chat' | 'streak' | 'verse';
+  alt: string;
+  textSide: 'left' | 'right';
+  tone?: 'base' | 'alt';
+}
+
+const { num, title, copy, screen, alt, textSide, tone = 'base' } = Astro.props;
+
+// textSide="right" → text on RIGHT, phone on LEFT (default grid order — no reverse needed)
+// textSide="left"  → text on LEFT, phone on RIGHT (reversed: phone gets order:2, text gets order:1)
+const bgClass = tone === 'alt' ? 'feature-row--alt' : 'feature-row--base';
+const reverseClass = textSide === 'left' ? 'feature-row--reverse' : '';
+---
+
+<section
+  class:list={['feature-row', bgClass, reverseClass]}
+  aria-label={`Feature ${num}: ${title}`}
+>
+  <div class="feature-row-inner">
+
+    <!-- Phone column — always first in DOM, order toggled via CSS -->
+    <div class="feature-row-phone">
+      <PhoneFrame
+        screen={screen}
+        alt={alt}
+        size="md"
+        priority={false}
+      />
+    </div>
+
+    <!-- Text column -->
+    <div class="feature-row-text">
+
+      <!-- Numeral eyebrow -->
+      <p class="feature-row-num fraunces-numeral" aria-hidden="true">{num}</p>
+
+      <!-- H3 -->
+      <h3 class="feature-row-h3 fraunces-h1">{title}</h3>
+
+      <!-- Body copy -->
+      <p class="feature-row-body newsreader-text">{copy}</p>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .feature-row {
+    position: relative;
+    padding-block: clamp(6rem, 12vw, 10rem);
+  }
+
+  .feature-row--base { background: var(--color-bg-base); }
+  .feature-row--alt  { background: var(--color-bg-alt); }
+
+  .feature-row-inner {
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .feature-row-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+    }
+
+    /* textSide="right" → phone col-1 (left), text col-2 (right) — default, no reverse class */
+    /* textSide="left"  → text col-1 (left), phone col-2 (right) — feature-row--reverse */
+    .feature-row--reverse .feature-row-phone {
+      order: 2;
+    }
+    .feature-row--reverse .feature-row-text {
+      order: 1;
+    }
+  }
+
+  /* Phone column — centered, especially on mobile */
+  .feature-row-phone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    /* default (textSide="right"): phone left = justify start on desktop */
+    .feature-row-phone {
+      justify-content: flex-start;
+    }
+    /* reversed (textSide="left"): phone right = justify end on desktop */
+    .feature-row--reverse .feature-row-phone {
+      justify-content: flex-end;
+    }
+  }
+
+  /* Numeral */
+  .feature-row-num {
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1;
+    color: var(--color-accent-deep);
+    opacity: 0.85;
+    margin: 0 0 0.5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* H3 */
+  .feature-row-h3 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--color-text-strong);
+    margin: 0 0 1.25rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Body */
+  .feature-row-body {
+    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--color-text-body);
+    margin: 0;
+    max-width: 44ch;
+    font-variation-settings: 'opsz' 16;
+  }
+</style>

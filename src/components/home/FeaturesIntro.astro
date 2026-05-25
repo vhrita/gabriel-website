@@ -1,0 +1,84 @@
+---
+/**
+ * FeaturesIntro.astro — v4 light
+ *
+ * Mini section de transição abrindo as 5 feature rows.
+ * Eyebrow + Fraunces display H2 + Newsreader sub. Sem mockup.
+ * Background: bg-base (white) — contínua com hero.
+ */
+---
+
+<section
+  class="features-intro"
+  aria-label="O que o Gabriel oferece"
+>
+  <div class="features-intro-inner">
+
+    <!-- Eyebrow -->
+    <p class="features-intro-eyebrow" aria-hidden="true">o &nbsp; a p p</p>
+
+    <!-- H2 -->
+    <h2 class="features-intro-h2 fraunces-display">
+      Cinco rotinas, um <em>lugar</em>.
+    </h2>
+
+    <!-- Sub -->
+    <p class="features-intro-sub newsreader-text">
+      Devocional, Bíblia, oração e conversa.<br/>
+      Em português, no seu ritmo.
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .features-intro {
+    position: relative;
+    background: var(--color-bg-base);
+    padding-block: clamp(4rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  .features-intro-inner {
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    position: relative;
+    z-index: 1;
+  }
+
+  .features-intro-eyebrow {
+    font-family: var(--font-family-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-accent-deep);
+    margin: 0 0 1.25rem;
+  }
+
+  .features-intro-h2 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    color: var(--color-text-strong);
+    margin: 0 0 1.5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .features-intro-h2 em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 72, 'wght' 600, 'SOFT' 100, 'WONK' 1;
+    color: var(--color-accent-deep);
+  }
+
+  .features-intro-sub {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.65;
+    color: var(--color-text-body);
+    margin: 0 auto;
+    max-width: 48ch;
+    font-style: italic;
+    font-variation-settings: 'opsz' 18;
+  }
+</style>
