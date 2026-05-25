@@ -16,7 +16,7 @@ interface Props {
   /** Alt text descritivo PT-BR (a11y) */
   alt: string;
   /** Tamanho do frame (controla a largura, aspect lock) */
-  size?: 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   /** Indica se a imagem deve ser carregada com prioridade (hero) */
   priority?: boolean;
   /** Classe extra */
@@ -24,7 +24,8 @@ interface Props {
 }
 
 const { screen, alt, size = 'md', priority = false, class: className } = Astro.props;
-const width = size === 'lg' ? 320 : 280;
+// sm: feature rows (massa equilibrada com texto, encurta mobile) · md: default · lg: hero
+const width = size === 'lg' ? 320 : size === 'sm' ? 192 : 280;
 const aspect = 19.5 / 9; // iPhone 14-like
 const height = Math.round(width * aspect);
 const screenSrc = `/screens/v3/${screen}.png`;

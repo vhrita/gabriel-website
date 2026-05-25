@@ -45,7 +45,7 @@ const reverseClass = textSide === 'left' ? 'feature-row--reverse' : '';
       <PhoneFrame
         screen={screen}
         alt={alt}
-        size="md"
+        size="sm"
         priority={false}
       />
     </div>
@@ -70,7 +70,9 @@ const reverseClass = textSide === 'left' ? 'feature-row--reverse' : '';
 <style>
   .feature-row {
     position: relative;
-    padding-block: clamp(6rem, 12vw, 10rem);
+    /* polish-iter1: padding-block apertado (era clamp(6rem,12vw,10rem) — soltava as seções).
+       Densidade editorial calma: respira sem void. Floor baixo encurta o mobile. */
+    padding-block: clamp(2.5rem, 7vw, 5.5rem);
   }
 
   .feature-row--base { background: var(--color-bg-base); }
@@ -82,14 +84,21 @@ const reverseClass = textSide === 'left' ? 'feature-row--reverse' : '';
     padding-inline: clamp(1.5rem, 6vw, 4rem);
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 5vw, 4rem);
-    align-items: center;
+    gap: clamp(2rem, 4vw, 3rem);
+    /* polish-iter1: start (era center) — texto curto não fica centralizado contra
+       phone alto deixando gaps verticais; ambos ancoram no topo, massa equilibrada. */
+    align-items: start;
   }
 
   @media (min-width: 768px) {
     .feature-row-inner {
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(3rem, 6vw, 6rem);
+      /* polish-iter1: phone col mais estreita (0.85fr) que texto (1fr) —
+         phone reduzido (sm=192px) + texto com mais respiro = massa equilibrada. */
+      grid-template-columns: 0.85fr 1fr;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+      /* start (não center): texto ancora no topo junto do phone — leitura editorial
+         tipo revista (numeral alinha ao topo do phone), evita texto "flutuando" no meio. */
+      align-items: start;
     }
 
     /* textSide="right" → phone col-1 (left), text col-2 (right) — default, no reverse class */
