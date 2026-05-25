@@ -11,6 +11,7 @@
  */
 
 import StoreBadge from '../ui/StoreBadge.astro';
+import IOSWaitlist from '../ui/IOSWaitlist.astro';
 import PhoneFrame from '../mockups/PhoneFrame.astro';
 ---
 
@@ -39,22 +40,18 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
         e um amigo pra tirar dúvidas. Comece em menos de 1 minuto, sem cadastro.
       </p>
 
-      <!-- Store badges -->
+      <!-- Store badges + iOS waitlist (App Store ainda não lançou — captura e-mail) -->
       <div class="hero-badges" role="group" aria-label="Baixar o app">
         <StoreBadge
           variant="google-play"
           href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
           size="md"
         />
-        <StoreBadge
-          variant="app-store"
-          disabled
-          size="md"
-        />
+        <IOSWaitlist size="md" align="start" />
       </div>
 
       <!-- Hint -->
-      <p class="hero-hint">Teste 7 dias grátis · Cancele quando quiser · iOS em breve</p>
+      <p class="hero-hint">Baixe grátis · Cancele quando quiser · iOS em breve</p>
 
     </div>
 
@@ -140,12 +137,13 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     font-variation-settings: 'opsz' 36;
   }
 
-  /* Badges */
+  /* Badges — align-start: trigger iOS (details) e badge ficam no topo;
+     ao expandir o painel cresce p/ baixo sem deslocar a badge do Google. */
   .hero-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.875rem;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 0.875rem;
   }
 

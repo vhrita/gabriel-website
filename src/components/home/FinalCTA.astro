@@ -11,6 +11,7 @@
  */
 
 import StoreBadge from '../ui/StoreBadge.astro';
+import IOSWaitlist from '../ui/IOSWaitlist.astro';
 ---
 
 <section
@@ -32,18 +33,14 @@ import StoreBadge from '../ui/StoreBadge.astro';
       Baixe grátis. Em menos de 1 minuto.
     </p>
 
-    <!-- Store badges -->
+    <!-- Store badges + iOS waitlist -->
     <div class="final-cta-badges" role="group" aria-label="Baixar o app">
       <StoreBadge
         variant="google-play"
         href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
         size="md"
       />
-      <StoreBadge
-        variant="app-store"
-        disabled
-        size="md"
-      />
+      <IOSWaitlist size="md" align="center" />
     </div>
 
     <!-- Bottom hint -->
@@ -112,12 +109,13 @@ import StoreBadge from '../ui/StoreBadge.astro';
     font-variation-settings: 'opsz' 18;
   }
 
-  /* Badges */
+  /* Badges — align-start p/ a badge e o trigger iOS ficarem no topo (mesma
+     linha de 50px); o painel da waitlist expande p/ baixo sem deslocar. */
   .final-cta-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.875rem;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     margin-top: 0.5rem;
   }
