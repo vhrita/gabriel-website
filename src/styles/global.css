@@ -143,17 +143,17 @@
   /* Ink (text) */
   --color-text-strong:   #1E3A5F;   /* celestial 500 — primário (= app.text) */
   --color-text-body:     #334155;   /* slate-700 — body legível em paper */
-  --color-text-muted:    #64748B;   /* slate-500 (= app.textSecondary) */
-  --color-text-faint:    #94A3B8;   /* slate-400 — captions, microcopy */
+  --color-text-muted:    #64748B;   /* slate-500 (= app.textSecondary) — AA 4.76:1 em white */
+  --color-text-faint:    #566273;   /* slate-600+ — captions, microcopy — AA 6.19:1 em white / 5.92:1 em bg-alt (era #94A3B8 = 2.56:1, falhava) */
 
   /* Borders / dividers */
   --color-divider:       #E2E8F0;   /* slate-200 (= app.border) */
   --color-divider-soft:  rgba(30, 58, 95, 0.06);
 
   /* Accent — Divine Gold (mantido) */
-  --color-accent:        #D4AF37;   /* divine 500 */
+  --color-accent:        #D4AF37;   /* divine 500 — identidade gold (decorativo: badges, glows) */
   --color-accent-hi:     #DFBF47;   /* divine 400 (hover) */
-  --color-accent-deep:   #AA8D2C;   /* divine 700 (text on light bg c/ contraste AA) */
+  --color-accent-deep:   #806B21;   /* divine 900 — gold p/ TEXTO em fundo light c/ contraste AA: 5.19:1 em white / 4.96:1 em bg-alt (era #AA8D2C = 3.20:1, falhava) */
 
   /* Shadows pro light theme — tint navy, não preto */
   --shadow-phone-frame:
