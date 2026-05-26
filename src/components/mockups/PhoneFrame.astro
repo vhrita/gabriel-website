@@ -54,6 +54,7 @@ const styleAttr = [
         width={width - 24}
         height={height - 24}
         loading={priority ? 'eager' : 'lazy'}
+        fetchpriority={priority ? 'high' : undefined}
         decoding="async"
         class="phone-frame__img"
       />
