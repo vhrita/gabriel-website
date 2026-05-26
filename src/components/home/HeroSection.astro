@@ -36,9 +36,9 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
 
       <!-- Lead -->
       <p class="hero-lead newsreader-display">
-        Você escreve sua <em>Carta pra Deus</em> e o Gabriel monta um devocional
-        feito pra ela. Mais a Bíblia em três traduções e um amigo pra tirar dúvidas.
-        Comece em menos de 1 minuto, sem cadastro.
+        Você escreve sua <em>Carta pra Deus</em> e conta seus objetivos — e o
+        Gabriel monta devocionais diários feitos para você. Mais um amigo pra
+        tirar dúvidas e conversar. Comece em menos de 1 minuto, sem cadastro.
       </p>
 
       <!-- Store badges + iOS waitlist (App Store ainda não lançou — captura e-mail) -->
@@ -52,15 +52,15 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
       </div>
 
       <!-- Hint -->
-      <p class="hero-hint">Baixe grátis · Cancele quando quiser · iOS em breve</p>
+      <p class="hero-hint">Baixe grátis · iOS em breve</p>
 
     </div>
 
-    <!-- Phone column -->
-    <div class="hero-phone" aria-hidden="true">
+    <!-- Phone column — screenshot anunciada por leitor de tela (PhoneFrame é role=img c/ aria-label) -->
+    <div class="hero-phone">
       <PhoneFrame
-        screen="home"
-        alt="Tela inicial do app Gabriel com o Jardim da Fé e o assistente"
+        screen="devocional"
+        alt="Tela de devocional diário do app Gabriel: uma reflexão personalizada escrita para hoje"
         size="lg"
         priority={true}
       />
@@ -73,7 +73,12 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
   .hero-section {
     position: relative;
     background: var(--color-bg-base);
-    padding-block: clamp(5rem, 12vw, 9rem);
+    /* Topo enxuto: o header transparent é sticky (h-12 = 48px); o hero começa
+       logo abaixo dele com respiro saudável, sem buraco (smoke leva4 — Vitor viu
+       conteúdo empurrado p/ fora da viewport por padding-top simétrico de até 9rem).
+       Base segue generosa pra separar do TrustSignals. */
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+    padding-bottom: clamp(4rem, 10vw, 7rem);
     overflow: hidden;
   }
 
