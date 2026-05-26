@@ -270,12 +270,16 @@ const year = new Date().getFullYear();
           <p
             style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.55); margin: 0; letter-spacing: 0.02em;"
           >
-            &copy; {year} VHXCO · CNPJ 62.874.893/0001-51
+            &copy; {year} Gabriel · CNPJ 62.874.893/0001-51
           </p>
-          <!-- Assinatura discreta da software house. Sem link — site da VHXCO
-               ainda não está no ar. X ciano sobre o navy (PNG já transparente). -->
-          <span
-            style="display: inline-flex; align-items: center; gap: 0.4375rem; font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.85); letter-spacing: 0.02em;"
+          <!-- Assinatura discreta da software house. Linkada pro site da VHXCO
+               (no ar). X ciano sobre o navy (PNG já transparente). Hover sutil. -->
+          <a
+            href="https://vhxco.com"
+            target="_blank"
+            rel="noopener"
+            class="footer-vhxco"
+            style="display: inline-flex; align-items: center; gap: 0.4375rem; font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.85); letter-spacing: 0.02em; text-decoration: none; transition: opacity 200ms;"
           >
             <img
               src="/vhxco-mark.png"
@@ -285,7 +289,7 @@ const year = new Date().getFullYear();
               style="height: 20px; width: auto; display: block; flex-shrink: 0;"
             />
             Uma criação VHXCO
-          </span>
+          </a>
         </div>
       </div>
 
@@ -303,6 +307,9 @@ const year = new Date().getFullYear();
         }
         .footer-link:hover {
           color: rgba(250, 247, 240, 0.95) !important;
+        }
+        .footer-vhxco:hover {
+          opacity: 0.7;
         }
       </style>
     </footer>
