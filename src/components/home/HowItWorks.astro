@@ -49,9 +49,9 @@
       <!-- Passo 03 -->
       <div class="how-step">
         <p class="how-step-num fraunces-numeral" aria-hidden="true">03</p>
-        <h3 class="how-step-title fraunces-h3">Receba todo dia</h3>
+        <h3 class="how-step-title fraunces-h3">No seu ritmo</h3>
         <p class="how-step-body newsreader-text">
-          Devocional, versículo e um amigo pronto pra conversar.
+          Todo dia, 3× ou 1× por semana — você escolhe. Sua Ofensiva respeita o ritmo e celebra cada volta, sem cobrar perfeição.
         </p>
       </div>
 
@@ -67,7 +67,9 @@
   }
 
   .how-inner {
-    max-width: 64rem;
+    /* polish-iter1: 72rem (era 64rem) — grid de 3 colunas usa melhor o espaço em 1280/1920,
+       reduz margem morta lateral. Seções text-led seguem em 64rem. */
+    max-width: 72rem;
     margin-inline: auto;
     padding-inline: clamp(1.5rem, 6vw, 4rem);
   }

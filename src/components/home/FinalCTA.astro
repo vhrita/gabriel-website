@@ -4,31 +4,16 @@
  *
  * Final call-to-action section, centered.
  * Background: bg-alt (slate-50) — não branco puro pra fechar respirado.
- * Microcopy honesto: 7 dias grátis, preço transparente.
+ * Preço: sem valores na LP (decisão do Vitor) — CTA "Comece grátis" +
+ * microcopy honesta ("escolha um plano pra continuar" — não "se gostar", que
+ * implicaria uso livre permanente; o app trava após o teste).
  *
  * Block source: adapted from Preline "Centered CTA" pattern (free)
  * https://preline.co/blocks/marketing/cta/#centered-cta
  */
 
 import StoreBadge from '../ui/StoreBadge.astro';
-
-interface Props {
-  pricing?: {
-    monthly: string;
-    yearly: string;
-    trial: string;
-    yearlyDiscount: string;
-  };
-}
-
-const {
-  pricing = {
-    monthly: 'R$ 14,90',
-    yearly: 'R$ 99,90',
-    trial: '7 dias',
-    yearlyDiscount: '44%',
-  }
-} = Astro.props;
+import IOSWaitlist from '../ui/IOSWaitlist.astro';
 ---
 
 <section
@@ -47,26 +32,22 @@ const {
 
     <!-- Sub -->
     <p class="final-cta-sub newsreader-text">
-      {pricing.trial} grátis. Em menos de 1 minuto.
+      Comece grátis. Em menos de 1 minuto.
     </p>
 
-    <!-- Store badges -->
+    <!-- Store badges + iOS waitlist -->
     <div class="final-cta-badges" role="group" aria-label="Baixar o app">
       <StoreBadge
         variant="google-play"
         href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
         size="md"
       />
-      <StoreBadge
-        variant="app-store"
-        disabled
-        size="md"
-      />
+      <IOSWaitlist size="md" align="center" />
     </div>
 
     <!-- Bottom hint -->
     <p class="final-cta-hint">
-      Sem cadastro pra começar · Depois {pricing.monthly}/mês ou {pricing.yearly}/ano · iOS em breve
+      Sem cadastro pra começar · Escolha um plano pra continuar · iOS em breve
     </p>
 
   </div>
@@ -130,12 +111,13 @@ const {
     font-variation-settings: 'opsz' 18;
   }
 
-  /* Badges */
+  /* Badges — align-start p/ a badge e o trigger iOS ficarem no topo (mesma
+     linha de 50px); o painel da waitlist expande p/ baixo sem deslocar. */
   .final-cta-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.875rem;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     margin-top: 0.5rem;
   }

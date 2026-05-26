@@ -11,6 +11,7 @@
  */
 
 import StoreBadge from '../ui/StoreBadge.astro';
+import IOSWaitlist from '../ui/IOSWaitlist.astro';
 import PhoneFrame from '../mockups/PhoneFrame.astro';
 ---
 
@@ -35,34 +36,31 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
 
       <!-- Lead -->
       <p class="hero-lead newsreader-display">
-        Devocional curto escrito pra você, a Bíblia em três idiomas
-        e um amigo pra tirar dúvidas. Comece em menos de 1 minuto, sem cadastro.
+        Você escreve sua <em>Carta pra Deus</em> e conta seus objetivos — e o
+        Gabriel monta devocionais diários feitos para você. Mais um amigo pra
+        tirar dúvidas e conversar. Comece em menos de 1 minuto, sem cadastro.
       </p>
 
-      <!-- Store badges -->
+      <!-- Store badges + iOS waitlist (App Store ainda não lançou — captura e-mail) -->
       <div class="hero-badges" role="group" aria-label="Baixar o app">
         <StoreBadge
           variant="google-play"
           href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
           size="md"
         />
-        <StoreBadge
-          variant="app-store"
-          disabled
-          size="md"
-        />
+        <IOSWaitlist size="md" align="start" />
       </div>
 
       <!-- Hint -->
-      <p class="hero-hint">Teste 7 dias grátis · Cancele quando quiser · iOS em breve</p>
+      <p class="hero-hint">Baixe grátis · iOS em breve</p>
 
     </div>
 
-    <!-- Phone column -->
-    <div class="hero-phone" aria-hidden="true">
+    <!-- Phone column — screenshot anunciada por leitor de tela (PhoneFrame é role=img c/ aria-label) -->
+    <div class="hero-phone">
       <PhoneFrame
         screen="devocional"
-        alt="Tela de devocional do app Gabriel"
+        alt="Tela de devocional diário do app Gabriel: uma reflexão personalizada escrita para hoje"
         size="lg"
         priority={true}
       />
@@ -75,7 +73,12 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
   .hero-section {
     position: relative;
     background: var(--color-bg-base);
-    padding-block: clamp(5rem, 12vw, 9rem);
+    /* Topo enxuto: o header transparent é sticky (h-12 = 48px); o hero começa
+       logo abaixo dele com respiro saudável, sem buraco (smoke leva4 — Vitor viu
+       conteúdo empurrado p/ fora da viewport por padding-top simétrico de até 9rem).
+       Base segue generosa pra separar do TrustSignals. */
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+    padding-bottom: clamp(4rem, 10vw, 7rem);
     overflow: hidden;
   }
 
@@ -140,12 +143,20 @@ import PhoneFrame from '../mockups/PhoneFrame.astro';
     font-variation-settings: 'opsz' 36;
   }
 
-  /* Badges */
+  /* "Carta pra Deus" — diferenciador do app, destacado no tom editorial */
+  .hero-lead em {
+    font-style: italic;
+    color: var(--color-text-strong);
+    font-variation-settings: 'opsz' 36, 'wght' 560;
+  }
+
+  /* Badges — align-start: trigger iOS (details) e badge ficam no topo;
+     ao expandir o painel cresce p/ baixo sem deslocar a badge do Google. */
   .hero-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.875rem;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 0.875rem;
   }
 

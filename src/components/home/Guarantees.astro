@@ -62,7 +62,7 @@
         <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
         <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
       </svg>
-      <p class="guarantee-text">Teste 7 dias grátis</p>
+      <p class="guarantee-text">Teste grátis</p>
     </div>
 
     <!-- Card 3: Privacidade -->
@@ -86,7 +86,7 @@
       <p class="guarantee-text">Seus dados ficam com você</p>
     </div>
 
-    <!-- Card 4: Offline -->
+    <!-- Card 4: Bíblia offline (só a Bíblia roda offline; devocionais/chat precisam de net) -->
     <div class="guarantee-card">
       <!-- Lucide: wifi-off icon — MIT License — https://lucide.dev/icons/wifi-off -->
       <svg
@@ -110,7 +110,7 @@
         <path d="M22 8.82a15 15 0 0 0-11.288-3.764"/>
         <path d="m2 2 20 20"/>
       </svg>
-      <p class="guarantee-text">Funciona offline</p>
+      <p class="guarantee-text">Bíblia disponível offline</p>
     </div>
 
   </div>
@@ -125,7 +125,8 @@
   }
 
   .guarantees-inner {
-    max-width: 64rem;
+    /* polish-iter1: 72rem (era 64rem) — grid de 4 colunas respira melhor em desktop largo. */
+    max-width: 72rem;
     margin-inline: auto;
     padding-inline: clamp(1.5rem, 6vw, 4rem);
     display: grid;

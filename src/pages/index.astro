@@ -9,14 +9,13 @@ import HowItWorks from '../components/home/HowItWorks.astro';
 import Guarantees from '../components/home/Guarantees.astro';
 import FAQ from '../components/home/FAQ.astro';
 import FinalCTA from '../components/home/FinalCTA.astro';
+import StickyDownloadCTA from '../components/ui/StickyDownloadCTA.astro';
 
-// Pricing centralizado — fonte única de verdade pro FAQ e microcopy
-const PRICING = {
-  monthly: 'R$ 14,90',
-  yearly: 'R$ 99,90',
-  trial: '7 dias',
-  yearlyDiscount: '44%',
-};
+const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.gabriel.biblia';
+
+// Preço: decisão do Vitor (2026-05) — a LP NÃO exibe valores (R$). O modelo é
+// freemium (download grátis + trial), mas mostrar mensalidade mata conversão.
+// JSON-LD: sem bloco `offers` — não afirmamos preço nem "grátis" (evita SEO enganoso).
 
 const jsonLdData = [
   {
@@ -24,7 +23,8 @@ const jsonLdData = [
     "@type": "Organization",
     "name": "VHXCO",
     "legalName": "VHXCO",
-    "url": "https://vhxco.com.br",
+    "url": "https://vhxco.com",
+    "logo": "https://gabriel.vhxco.com/vhxco-mark.png",
     "taxID": "62.874.893/0001-51",
     "contactPoint": {
       "@type": "ContactPoint",
@@ -36,26 +36,84 @@ const jsonLdData = [
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     "name": "Gabriel — Bíblia e Devocional",
-    "description": "App mobile de crescimento espiritual com devocionais personalizados por IA, leitura bíblica em 3 idiomas e chat com IA contextualizada por religião.",
+    "description": "App mobile de crescimento espiritual com devocionais personalizados por IA, a Bíblia em português e chat com IA contextualizada por religião.",
     "url": "https://gabriel.vhxco.com",
     "operatingSystem": "ANDROID",
     "applicationCategory": "LifestyleApplication",
+    "inLanguage": "pt-BR",
+    "installUrl": "https://play.google.com/store/apps/details?id=com.gabriel.biblia",
+    "screenshot": [
+      "https://gabriel.vhxco.com/screens/v3/devocional.jpeg",
+      "https://gabriel.vhxco.com/screens/v3/chat.jpeg",
+      "https://gabriel.vhxco.com/screens/v3/letter.jpeg"
+    ],
     "publisher": {
       "@type": "Organization",
       "name": "VHXCO"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "14.90",
-      "priceCurrency": "BRL",
-      "availability": "https://schema.org/InStock"
     }
+  },
+  {
+    // FAQPage — replica fielmente as 6 Q&A VISÍVEIS em FAQ.astro
+    // (Google exige match schema↔conteúdo). Resposta de preço honesta (freemium
+    // + trial + paywall pra continuar), sem R$, consistente com a LP.
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Preciso pagar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Você começa de graça. Depois do período de teste, é só escolher um plano pra continuar com tudo — devocionais personalizados e o chat com o Gabriel. Cancele a qualquer momento na Play Store."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Preciso criar conta pra usar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Você usa imediatamente como visitante. Login opcional (Google ou Apple) sincroniza seu progresso entre celulares."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Funciona pra qual religião?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Católica, evangélica, espírita, cristã não-denominacional, outra que você definir, ou nenhuma específica. Gabriel adapta o tom e a doutrina à sua tradição."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Funciona offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. A Bíblia inteira (em português) fica no celular. Devocionais e chat com Gabriel precisam de internet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Tem anúncios?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Nunca."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Os meus dados são compartilhados?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Sua Carta pra Deus, sua tradição e seu progresso são privados. Veja a Política de Privacidade."
+        }
+      }
+    ]
   }
 ];
 ---
 <BaseLayout
   title="Gabriel — Bíblia e Devocional"
-  description="Devocional curto escrito pra você, a Bíblia em três idiomas e um amigo pra tirar dúvidas. Teste 7 dias grátis."
+  description="Devocionais diários escritos pra você, a Bíblia em português e um amigo pra tirar dúvidas. Comece grátis."
   headerVariant="transparent"
   bodyTheme="light"
 >
@@ -65,55 +123,72 @@ const jsonLdData = [
   <TrustSignals />
   <FeaturesIntro />
 
+  <!-- Ordem por conversao: diferenciador -> IA -> habito diario -> compartilhavel -> conteudo.
+       #1 e #2 com feature="primary" (enfase sutil de topo). Tom zig-zag alt/base/alt/base/alt. -->
   <FeatureRow
     num="01"
     textSide="right"
     tone="alt"
-    title="Devocional do dia."
-    copy="Uma reflexão escrita pra você esta manhã — adaptada à sua tradição (católica, evangélica, espírita ou nenhuma), seus objetivos e sua Carta pra Deus. Pequena, certeira, todo dia diferente."
-    screen="devocional"
-    alt="Tela de devocional do app Gabriel"
+    feature="primary"
+    title="Sua Carta pra Deus."
+    copy="Você escreve o que carrega no peito. O Gabriel lê — junto com sua tradição e seus objetivos — e monta devocionais feitos pra sua história, não pra um feed genérico."
+    screen="letter"
+    alt="Tela da Carta pra Deus no onboarding do app Gabriel"
   />
   <FeatureRow
     num="02"
     textSide="left"
     tone="base"
-    title="A Bíblia que cresce com você."
-    copy="Os 66 livros em português, inglês e espanhol. A cada capítulo lido, seu Jardim da Fé floresce — você vê o caminho que fez."
-    screen="bible"
-    alt="Tela do Jardim da Fé"
-  />
-  <FeatureRow
-    num="03"
-    textSide="right"
-    tone="alt"
+    feature="primary"
     title="Um amigo pra conversar."
     copy="Pergunte ao Gabriel sobre fé, Bíblia, dúvidas teológicas. Ele responde consultando a Bíblia — sempre no contexto da sua tradição, sem julgamento."
     screen="chat"
     alt="Tela do chat com Gabriel"
   />
   <FeatureRow
+    num="03"
+    textSide="right"
+    tone="alt"
+    title="Devocional do dia."
+    copy="Uma reflexão escrita pra você esta manhã — adaptada à sua tradição (católica, evangélica, espírita ou nenhuma) e à sua Carta pra Deus. Pequena, certeira, todo dia diferente."
+    screen="devocional"
+    alt="Tela de devocional do app Gabriel"
+  />
+  <FeatureRow
     num="04"
     textSide="left"
     tone="base"
-    title="Constância sem culpa."
-    copy="Você escolhe a frequência: todo dia, 5×, 3× ou 1× por semana. O streak respeita seu ritmo e celebra cada retorno — não cobra perfeição."
-    screen="streak"
-    alt="Tela de constância e streak"
-  />
-  <FeatureRow
-    num="05"
-    textSide="right"
-    tone="alt"
     title="Um versículo por dia."
     copy="Cada manhã, um versículo novo pra começar o dia ou compartilhar com quem você ama. Pequeno gesto, eco longo."
     screen="verse"
     alt="Tela do versículo do dia"
   />
+  <FeatureRow
+    num="05"
+    textSide="right"
+    tone="alt"
+    title="A Bíblia inteira, em português."
+    copy="Os 66 livros na palma da mão, na tradução Almeida — disponível offline pra ler onde e quando você quiser, sem distração."
+    screen="bible"
+    alt="Tela da Bíblia no app Gabriel"
+  />
+  <FeatureRow
+    num="06"
+    textSide="left"
+    tone="base"
+    feature="primary"
+    title="Seu Jardim da Fé floresce."
+    copy="A cada capítulo lido, seu Jardim da Fé floresce. A leitura vira hábito porque você vê o progresso crescer — não porque alguém mandou."
+    screen="home"
+    alt="Tela inicial do app Gabriel mostrando o Jardim da Fé, que floresce conforme você lê a Bíblia"
+  />
 
   <HowItWorks />
   <Guarantees />
-  <FAQ pricing={PRICING} />
-  <FinalCTA pricing={PRICING} />
+  <FAQ />
+  <FinalCTA />
+
+  <!-- FAB de download persistente — aparece após o hero, some no CTA final -->
+  <StickyDownloadCTA href={GOOGLE_PLAY_URL} />
 
 </BaseLayout>
