@@ -1,0 +1,242 @@
+---
+/**
+ * FAQ.astro — v4 light (NOVA seção)
+ *
+ * 6 perguntas reais. Native <details> (zero JS).
+ * Desktop: 2 colunas, mobile: 1 coluna accordion.
+ * Background: bg-base (white).
+ *
+ * Preço: decisão do Vitor (2026-05) — NÃO mostrar valores na LP (conversão).
+ * A pergunta de preço é HONESTA: começa de graça, depois do teste escolhe um
+ * plano pra CONTINUAR (o app trava num paywall após o teste — então nada de
+ * prometer "uso livre"/"grátis pra sempre"). Sem enfatizar o paywall, sem R$.
+ *
+ * Block source: Preline "FAQ Two-column" adaptado (free)
+ * https://preline.co/blocks/marketing/faqs/#two-column-faqs
+ */
+---
+
+<section
+  class="faq"
+  aria-label="Perguntas frequentes"
+>
+  <div class="faq-inner">
+
+    <!-- Header -->
+    <div class="faq-header">
+      <p class="faq-eyebrow" aria-hidden="true">d ú v i d a s</p>
+      <h2 class="faq-h2 fraunces-h1">Perguntas frequentes.</h2>
+    </div>
+
+    <!-- FAQ grid -->
+    <div class="faq-grid">
+
+      <details class="faq-item">
+        <summary class="faq-question fraunces-h3">
+          Preciso pagar?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </span>
+        </summary>
+        <p class="faq-answer newsreader-text">
+          Você começa de graça. Depois do período de teste, é só escolher um plano pra continuar com tudo — devocionais personalizados e o chat com o Gabriel. Cancele a qualquer momento na Play Store.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question fraunces-h3">
+          Preciso criar conta pra usar?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </span>
+        </summary>
+        <p class="faq-answer newsreader-text">
+          Não. Você usa imediatamente como visitante. Login opcional (Google ou Apple) sincroniza seu progresso entre celulares.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question fraunces-h3">
+          Funciona pra qual religião?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </span>
+        </summary>
+        <p class="faq-answer newsreader-text">
+          Católica, evangélica, espírita, cristã não-denominacional, outra que você definir, ou nenhuma específica. Gabriel adapta o tom e a doutrina à sua tradição.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question fraunces-h3">
+          Funciona offline?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </span>
+        </summary>
+        <p class="faq-answer newsreader-text">
+          Sim. A Bíblia inteira (em português) fica no celular. Devocionais e chat com Gabriel precisam de internet.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question fraunces-h3">
+          Tem anúncios?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </span>
+        </summary>
+        <p class="faq-answer newsreader-text">
+          Não. Nunca.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question fraunces-h3">
+          Os meus dados são compartilhados?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </span>
+        </summary>
+        <p class="faq-answer newsreader-text">
+          Não. Sua Carta pra Deus, sua tradição e seu progresso são privados. Veja a <a href="/privacy" class="faq-link">Política de Privacidade</a>.
+        </p>
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: var(--color-bg-base);
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+
+  .faq-inner {
+    /* polish-iter1: 72rem (era 64rem) — grid de 2 colunas de Q&A usa melhor o espaço em desktop largo. */
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+  }
+
+  /* Header */
+  .faq-header {
+    text-align: center;
+    margin-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .faq-eyebrow {
+    font-family: var(--font-family-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-accent-deep);
+    margin: 0 0 1rem;
+  }
+
+  .faq-h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--color-text-strong);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grid */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  @media (min-width: 768px) {
+    .faq-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 clamp(2rem, 4vw, 4rem);
+    }
+  }
+
+  /* Item */
+  .faq-item {
+    border-bottom: 1px solid var(--color-divider);
+    padding-block: 1.25rem;
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid var(--color-divider);
+  }
+
+  @media (min-width: 768px) {
+    .faq-item:nth-child(2) {
+      border-top: 1px solid var(--color-divider);
+    }
+  }
+
+  /* Question (summary) */
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--color-text-strong);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--color-accent-deep);
+    transition: transform 200ms ease;
+  }
+
+  details[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Answer */
+  .faq-answer {
+    font-size: clamp(0.9375rem, 1.3vw, 1.0625rem);
+    line-height: 1.7;
+    color: var(--color-text-body);
+    margin: 0.875rem 0 0;
+    max-width: 52ch;
+    font-style: italic;
+    font-variation-settings: 'opsz' 16;
+  }
+
+  .faq-link {
+    color: var(--color-accent-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .faq-link:hover {
+    color: var(--color-text-strong);
+  }
+</style>

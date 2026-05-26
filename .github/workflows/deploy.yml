@@ -49,6 +49,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            PUBLIC_FORMSPREE_ID=${{ vars.PUBLIC_FORMSPREE_ID }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha

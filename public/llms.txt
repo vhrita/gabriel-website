@@ -1,15 +1,18 @@
 # Gabriel — Bíblia e Devocional
 
-> App mobile de crescimento espiritual com devocionais personalizados, leitura bíblica em 3 idiomas (PT/EN/ES) e chat com IA contextualizada por religião.
+> App mobile de crescimento espiritual com devocionais diários personalizados por IA, a Bíblia inteira em português e um chat com IA contextualizada pela sua religião.
 
 ## Sobre
 
-- **Plataformas:** iOS e Android
+- **Plataformas:** Android (Google Play). iOS em breve.
+- **Idioma:** Português (pt-BR).
 - **Editora:** VHXCO
-- **Modelo:** Freemium com trial de 3-7 dias via RevenueCat
-- **Features principais:** Devocionais diários gerados por IA, leitura bíblica (PT-ARA, EN-KJV, ES-RVR) com visualização "Jardim da Fé", sistema de streak inteligente, verso do dia, chat IA com Gabriel.
-- **Onboarding:** 7 etapas com carta para Deus analisada por IA.
-- **Auth:** Anônimo, Google, Apple.
+- **Modelo:** Freemium — começa de graça com período de teste; depois, plano pago pra continuar com devocionais personalizados e chat. Cancelamento a qualquer momento na Play Store.
+- **Features principais:** Devocionais diários escritos por IA e adaptados à sua tradição, a Bíblia em português (tradução Almeida, disponível offline) com a visualização "Jardim da Fé", versículo do dia e chat com o Gabriel pra tirar dúvidas de fé.
+- **Onboarding:** Carta pra Deus — você escreve o que carrega no peito e o Gabriel personaliza os devocionais a partir dela e da sua tradição.
+- **Tradições atendidas:** Católica, evangélica, espírita, cristã não-denominacional, outra ou nenhuma específica.
+- **Auth:** Anônimo (uso imediato como visitante), Google ou Apple (sincroniza progresso entre celulares).
+- **Privacidade:** Sem anúncios. Carta pra Deus, tradição e progresso são privados, não compartilhados.
 
 ## Páginas
 
@@ -20,5 +23,5 @@
 
 ## Contato
 
-- Email: vitor@vhxco.com
-- Empresa: VHXCO (CNPJ 62.874.893/0001-51)
+- Email: gabriel@vhxco.com
+- Empresa: VHXCO (CNPJ 62.874.893/0001-51) — https://vhxco.com

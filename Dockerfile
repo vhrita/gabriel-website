@@ -9,6 +9,13 @@ RUN npm ci
 
 # Copy source and build
 COPY . .
+
+# Build-time public env: PUBLIC_ vars are inlined by Astro during `astro build`,
+# not read at runtime. Placed after `npm ci` so changing the value never busts
+# the dependency cache layer.
+ARG PUBLIC_FORMSPREE_ID
+ENV PUBLIC_FORMSPREE_ID=$PUBLIC_FORMSPREE_ID
+
 RUN npm run build
 
 # Stage 2: Serve with nginx

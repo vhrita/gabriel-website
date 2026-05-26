@@ -1,0 +1,132 @@
+---
+/**
+ * FinalCTA.astro — v4 light
+ *
+ * Final call-to-action section, centered.
+ * Background: bg-alt (slate-50) — não branco puro pra fechar respirado.
+ * Preço: sem valores na LP (decisão do Vitor) — CTA "Comece grátis" +
+ * microcopy honesta ("escolha um plano pra continuar" — não "se gostar", que
+ * implicaria uso livre permanente; o app trava após o teste).
+ *
+ * Block source: adapted from Preline "Centered CTA" pattern (free)
+ * https://preline.co/blocks/marketing/cta/#centered-cta
+ */
+
+import StoreBadge from '../ui/StoreBadge.astro';
+import IOSWaitlist from '../ui/IOSWaitlist.astro';
+---
+
+<section
+  class="final-cta"
+  aria-label="Chamada final para download"
+>
+  <div class="final-cta-inner">
+
+    <!-- Eyebrow -->
+    <p class="final-cta-eyebrow" aria-hidden="true">c o m e c e</p>
+
+    <!-- H2 -->
+    <h2 class="final-cta-h2 fraunces-display">
+      Comece sua manhã com Deus <em>hoje</em>.
+    </h2>
+
+    <!-- Sub -->
+    <p class="final-cta-sub newsreader-text">
+      Comece grátis. Em menos de 1 minuto.
+    </p>
+
+    <!-- Store badges + iOS waitlist -->
+    <div class="final-cta-badges" role="group" aria-label="Baixar o app">
+      <StoreBadge
+        variant="google-play"
+        href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+        size="md"
+      />
+      <IOSWaitlist size="md" align="center" />
+    </div>
+
+    <!-- Bottom hint -->
+    <p class="final-cta-hint">
+      Sem cadastro pra começar · Escolha um plano pra continuar · iOS em breve
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    position: relative;
+    background: var(--color-bg-alt);
+    padding-block: clamp(6rem, 12vw, 10rem);
+    text-align: center;
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .final-cta-inner {
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  /* Eyebrow */
+  .final-cta-eyebrow {
+    font-family: var(--font-family-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-accent-deep);
+    margin: 0;
+  }
+
+  /* H2 */
+  .final-cta-h2 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    color: var(--color-text-strong);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .final-cta-h2 em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 72, 'wght' 600, 'SOFT' 100, 'WONK' 1;
+    color: var(--color-accent-deep);
+  }
+
+  /* Sub */
+  .final-cta-sub {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.65;
+    color: var(--color-text-body);
+    margin: 0;
+    font-style: italic;
+    font-variation-settings: 'opsz' 18;
+  }
+
+  /* Badges — align-start p/ a badge e o trigger iOS ficarem no topo (mesma
+     linha de 50px); o painel da waitlist expande p/ baixo sem deslocar. */
+  .final-cta-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  /* Hint */
+  .final-cta-hint {
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
+    color: var(--color-text-faint);
+    margin: 0;
+  }
+</style>

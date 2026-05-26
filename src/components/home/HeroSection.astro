@@ -1,0 +1,183 @@
+---
+/**
+ * HeroSection.astro — v4 light
+ *
+ * Hero editorial light: 2-col grid em desktop (text esq + PhoneFrame dir),
+ * stack em mobile (text acima, phone abaixo).
+ * Paleta: white + navy + gold. Spacing fix: 64rem / 6fr 5fr / text max-w 28rem.
+ *
+ * Block source inspirado em Preline "Split Hero with Product Mockup":
+ * https://preline.co/blocks/marketing/hero-sections/#split-hero-with-product-mockup
+ */
+
+import StoreBadge from '../ui/StoreBadge.astro';
+import IOSWaitlist from '../ui/IOSWaitlist.astro';
+import PhoneFrame from '../mockups/PhoneFrame.astro';
+---
+
+<section
+  class="hero-section"
+  aria-label="Apresentação do Gabriel"
+>
+  <div class="hero-inner">
+
+    <!-- Text column -->
+    <div class="hero-text">
+
+      <!-- Eyebrow -->
+      <p class="hero-eyebrow" aria-hidden="true">gabriel · bíblia &amp; devocional</p>
+
+      <!-- H1 -->
+      <h1 class="hero-h1 fraunces-wordmark">
+        <span>Dez minutos com Deus.</span>
+        <br/>
+        <span>Todo dia, no seu </span><em>ritmo</em><span>.</span>
+      </h1>
+
+      <!-- Lead -->
+      <p class="hero-lead newsreader-display">
+        Você escreve sua <em>Carta pra Deus</em> e conta seus objetivos — e o
+        Gabriel monta devocionais diários feitos para você. Mais um amigo pra
+        tirar dúvidas e conversar. Comece em menos de 1 minuto, sem cadastro.
+      </p>
+
+      <!-- Store badges + iOS waitlist (App Store ainda não lançou — captura e-mail) -->
+      <div class="hero-badges" role="group" aria-label="Baixar o app">
+        <StoreBadge
+          variant="google-play"
+          href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+          size="md"
+        />
+        <IOSWaitlist size="md" align="start" />
+      </div>
+
+      <!-- Hint -->
+      <p class="hero-hint">Baixe grátis · iOS em breve</p>
+
+    </div>
+
+    <!-- Phone column — screenshot anunciada por leitor de tela (PhoneFrame é role=img c/ aria-label) -->
+    <div class="hero-phone">
+      <PhoneFrame
+        screen="devocional"
+        alt="Tela de devocional diário do app Gabriel: uma reflexão personalizada escrita para hoje"
+        size="lg"
+        priority={true}
+      />
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    background: var(--color-bg-base);
+    /* Topo enxuto: o header transparent é sticky (h-12 = 48px); o hero começa
+       logo abaixo dele com respiro saudável, sem buraco (smoke leva4 — Vitor viu
+       conteúdo empurrado p/ fora da viewport por padding-top simétrico de até 9rem).
+       Base segue generosa pra separar do TrustSignals. */
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+    padding-bottom: clamp(4rem, 10vw, 7rem);
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 6fr 5fr;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+    }
+  }
+
+  /* Text column */
+  .hero-text {
+    max-width: 28rem;
+  }
+
+  /* Eyebrow */
+  .hero-eyebrow {
+    font-family: var(--font-family-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-accent-deep);
+    margin: 0 0 1.5rem;
+  }
+
+  /* H1 — wght 700 (plano §3.5: 800 gritante em fundo light) */
+  .hero-h1 {
+    font-size: clamp(2.75rem, 8vw, 5.5rem);
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+    color: var(--color-text-strong);
+    margin: 0 0 1.75rem;
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'opsz' 144, 'wght' 700;
+  }
+
+  .hero-h1 em {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'wght' 700, 'SOFT' 100, 'WONK' 1;
+    color: var(--color-text-strong);
+  }
+
+  /* Lead */
+  .hero-lead {
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    line-height: 1.6;
+    color: var(--color-text-body);
+    margin: 0 0 2.25rem;
+    max-width: 36ch;
+    font-style: italic;
+    font-variation-settings: 'opsz' 36;
+  }
+
+  /* "Carta pra Deus" — diferenciador do app, destacado no tom editorial */
+  .hero-lead em {
+    font-style: italic;
+    color: var(--color-text-strong);
+    font-variation-settings: 'opsz' 36, 'wght' 560;
+  }
+
+  /* Badges — align-start: trigger iOS (details) e badge ficam no topo;
+     ao expandir o painel cresce p/ baixo sem deslocar a badge do Google. */
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    align-items: flex-start;
+    margin-bottom: 0.875rem;
+  }
+
+  /* Hint */
+  .hero-hint {
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
+    color: var(--color-text-faint);
+    margin: 0;
+  }
+
+  /* Phone column */
+  .hero-phone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-phone {
+      justify-content: flex-end;
+    }
+  }
+</style>

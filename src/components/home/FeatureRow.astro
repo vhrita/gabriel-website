@@ -1,0 +1,205 @@
+---
+/**
+ * FeatureRow.astro — v4 light
+ *
+ * Componente genérico de feature alternating L/R, usado 6x.
+ * Paleta: white/slate-50 + navy + gold-deep.
+ *
+ * Block source: HyperUI + Tailblocks alternating layout pattern (free, light mode)
+ * https://tailblocks.cc (Content/Features)
+ *
+ * polish-features (2026-05-26): MUDANÇA DE DIREÇÃO — phone-destaque.
+ * O phone (screenshot) é o PROTAGONISTA visual; o texto vira legenda de apoio
+ * (menor, secundário). Direção tipo app-store / Apple product page, não revista.
+ * (reverte a redução de phone do iter1, que reduziu 280→192px pra matar void.)
+ *
+ * textSide="right"  → phone esquerda, texto (legenda) direita
+ * textSide="left"   → texto (legenda) esquerda, phone direita
+ *
+ * Mobile: sempre stack vertical (phone acima, legenda abaixo) — 1 coluna.
+ *
+ * feature?: 'primary' dá leve ênfase às #1/#2 (título maior, legenda em destaque)
+ * dentro do sistema atual — sem cor/elemento novo.
+ */
+
+import PhoneFrame from '../mockups/PhoneFrame.astro';
+
+interface Props {
+  num: '01' | '02' | '03' | '04' | '05' | '06';
+  title: string;
+  copy: string;
+  screen: 'devocional' | 'bible' | 'chat' | 'verse' | 'letter' | 'home';
+  alt: string;
+  textSide: 'left' | 'right';
+  tone?: 'base' | 'alt';
+  /** 'primary' = leve ênfase de conversão (features #1/#2) */
+  feature?: 'primary' | 'standard';
+}
+
+const { num, title, copy, screen, alt, textSide, tone = 'base', feature = 'standard' } = Astro.props;
+
+// textSide="right" → text on RIGHT, phone on LEFT (default grid order — no reverse needed)
+// textSide="left"  → text on LEFT, phone on RIGHT (reversed: phone gets order:2, text gets order:1)
+const bgClass = tone === 'alt' ? 'feature-row--alt' : 'feature-row--base';
+const reverseClass = textSide === 'left' ? 'feature-row--reverse' : '';
+const featureClass = feature === 'primary' ? 'feature-row--primary' : '';
+---
+
+<section
+  class:list={['feature-row', bgClass, reverseClass, featureClass]}
+  aria-label={`Feature ${num}: ${title}`}
+>
+  <div class="feature-row-inner">
+
+    <!-- Phone column (PROTAGONISTA) — always first in DOM, order toggled via CSS -->
+    <div class="feature-row-phone">
+      <PhoneFrame
+        screen={screen}
+        alt={alt}
+        size="lg"
+        priority={false}
+      />
+    </div>
+
+    <!-- Text column -->
+    <div class="feature-row-text">
+
+      <!-- Numeral eyebrow -->
+      <p class="feature-row-num fraunces-numeral" aria-hidden="true">{num}</p>
+
+      <!-- H3 -->
+      <h3 class="feature-row-h3 fraunces-h1">{title}</h3>
+
+      <!-- Body copy -->
+      <p class="feature-row-body newsreader-text">{copy}</p>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .feature-row {
+    position: relative;
+    /* polish-features: phone-destaque. Floor mantido apertado pra NÃO recriar a
+       página-gigante mobile (o phone fica maior; o padding compensa). */
+    padding-block: clamp(2.25rem, 6vw, 5rem);
+  }
+
+  .feature-row--base { background: var(--color-bg-base); }
+  .feature-row--alt  { background: var(--color-bg-alt); }
+
+  .feature-row-inner {
+    max-width: 68rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.75rem, 4vw, 2.5rem);
+    /* mobile: phone (protagonista) acima, legenda abaixo, ambas centradas */
+    align-items: center;
+    justify-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .feature-row-inner {
+      /* polish-features: phone col DOMINANTE (1.1fr) vs legenda (0.9fr).
+         O screenshot é o protagonista; o texto é apoio lateral. */
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+      /* center: legenda curta acompanha o eixo vertical do phone alto, lado a lado
+         (Apple product page) — não "flutua" no topo nem deixa gap. */
+      align-items: center;
+      justify-items: stretch;
+    }
+
+    /* textSide="right" → phone col-1 (left), legenda col-2 (right) — default */
+    /* textSide="left"  → legenda col-1 (left), phone col-2 (right) — reverse */
+    .feature-row--reverse .feature-row-phone {
+      order: 2;
+    }
+    .feature-row--reverse .feature-row-text {
+      order: 1;
+    }
+  }
+
+  /* ── Phone column (PROTAGONISTA) ── */
+  .feature-row-phone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Display width do phone dirigido aqui (override do inline do PhoneFrame).
+     Mobile: modesto pra não inflar a altura. */
+  .feature-row-phone :global(.phone-frame) {
+    width: clamp(204px, 56vw, 232px) !important;
+  }
+
+  @media (min-width: 768px) {
+    /* Desktop: phone GRANDE e em destaque (protagonista). */
+    .feature-row-phone :global(.phone-frame) {
+      width: clamp(280px, 30vw, 360px) !important;
+    }
+    /* features #1/#2: leve ênfase — phone ligeiramente maior */
+    .feature-row--primary .feature-row-phone :global(.phone-frame) {
+      width: clamp(300px, 32vw, 384px) !important;
+    }
+
+    /* default (textSide="right"): phone left = justify start */
+    .feature-row-phone {
+      justify-content: flex-start;
+    }
+    /* reversed (textSide="left"): phone right = justify end */
+    .feature-row--reverse .feature-row-phone {
+      justify-content: flex-end;
+    }
+  }
+
+  /* ── Legenda (texto secundário, apoio) ── */
+  .feature-row-text {
+    max-width: 34ch;
+  }
+
+  @media (min-width: 768px) {
+    .feature-row-text {
+      max-width: 30ch;
+    }
+  }
+
+  /* Numeral — menor (legenda, não headline) */
+  .feature-row-num {
+    font-size: clamp(2rem, 3.4vw, 2.75rem);
+    line-height: 1;
+    color: var(--color-accent-deep);
+    opacity: 0.8;
+    margin: 0 0 0.4rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Título — escala de legenda (era headline clamp(2rem,4vw,3rem)) */
+  .feature-row-h3 {
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-text-strong);
+    margin: 0 0 0.875rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* feature #1/#2: título um tom maior (ênfase sutil de conversão) */
+  .feature-row--primary .feature-row-h3 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  /* Body — apoio, menor e mais contido */
+  .feature-row-body {
+    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+    line-height: 1.65;
+    color: var(--color-text-body);
+    margin: 0;
+    max-width: 38ch;
+    font-variation-settings: 'opsz' 16;
+  }
+</style>

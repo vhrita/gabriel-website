@@ -1,0 +1,108 @@
+---
+/**
+ * TrustSignals.astro — v4 light (NOVA seção)
+ *
+ * Linha de social proof HONESTA pós-hero. Sem números/avaliações fake.
+ * O app não tem avaliações ainda — então nada de estrelas nem "X estrelas no
+ * Google Play" (mentira reprova campanha Meta/Google). Em vez disso: trust
+ * signals reais (sem ads, dados privados, bíblia offline) + link sóbrio pra
+ * Play Store, sem nota.
+ * Background: bg-alt (slate-50) — transição visual entre hero e FeaturesIntro.
+ *
+ * Block source: Preline "Inline logos" simplificado, texto-only (free)
+ * https://preline.co/blocks/marketing/social-proof/
+ */
+---
+
+<div
+  class="trust-signals"
+  aria-label="Características do app"
+>
+  <div class="trust-inner">
+
+    <!-- Trust signals honestos (sem números inventados) -->
+    <p class="trust-meta">
+      Sem anúncios · Seus dados são seus · Bíblia offline
+    </p>
+
+    <!-- Divider -->
+    <div class="trust-sep" aria-hidden="true"></div>
+
+    <!-- Link sóbrio pra Play Store, SEM nota/avaliação -->
+    <a
+      href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="trust-store-link"
+    >
+      Disponível no Google Play
+    </a>
+
+  </div>
+</div>
+
+<style>
+  .trust-signals {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-divider);
+    border-bottom: 1px solid var(--color-divider);
+    padding-block: 1rem;
+  }
+
+  .trust-inner {
+    max-width: 64rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 6vw, 4rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+  }
+
+  /* Link sóbrio pra Play Store */
+  .trust-store-link {
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-body); /* #334155 — AA 9.90:1 em bg-alt (era text-muted 4.55:1, borderline) */
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    letter-spacing: 0.01em;
+    transition: color 150ms ease;
+  }
+
+  .trust-store-link:hover {
+    color: var(--color-text-strong);
+  }
+
+  /* Divider dot */
+  .trust-sep {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-divider);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .trust-sep {
+      display: none;
+    }
+    .trust-inner {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  /* Trust line (agora é o sinal primário, não caption secundária) */
+  .trust-meta {
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-body); /* #334155 — AA 9.90:1 em bg-alt */
+    margin: 0;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+</style>

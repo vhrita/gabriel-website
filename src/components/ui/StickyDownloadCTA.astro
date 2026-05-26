@@ -1,0 +1,143 @@
+---
+/**
+ * StickyDownloadCTA.astro — FAB de download (Google Play) persistente no scroll.
+ *
+ * Decisão do Vitor: o download do Google Play deve ficar acessível durante o
+ * scroll. Escolha de execução: FAB discreto no canto inferior direito (não
+ * mexe no header do BaseLayout, que é compartilhado com as páginas legais).
+ *
+ * Comportamento (progressive enhancement, some sem JS = nunca aparece, ok):
+ *  - Aparece quando o HERO sai da viewport (IntersectionObserver no hero).
+ *  - Esconde de novo quando o CTA final entra (evita redundância com as
+ *    badges da própria seção final).
+ *  - Respeita prefers-reduced-motion (sem slide, só fade instantâneo).
+ *
+ * Só é usado na home (index.astro) — não no BaseLayout.
+ *
+ * Props:
+ *   href: string — link da Play Store
+ */
+
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a
+  id="sticky-download-cta"
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="sticky-cta"
+  data-visible="false"
+  aria-label="Comece grátis — baixar o Gabriel no Google Play"
+>
+  <svg class="sticky-cta__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 3v12" />
+    <path d="m7 11 5 5 5-5" />
+    <path d="M5 21h14" />
+  </svg>
+  <span class="sticky-cta__label">Comece grátis</span>
+</a>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: 40;                 /* abaixo do header sticky (z-50) */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 48px;
+    padding-inline: 1.25rem;
+    background: var(--color-text-strong);   /* navy — identidade, não compete c/ gold do hero */
+    color: #FFFFFF;
+    border-radius: 999px;
+    font-family: var(--font-family-sans);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow:
+      0 8px 24px rgba(30, 58, 95, 0.28),
+      0 2px 6px rgba(30, 58, 95, 0.18);
+    -webkit-font-smoothing: antialiased;
+
+    /* estado oculto: invisível + fora de foco/clique */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 260ms ease, transform 260ms ease, visibility 0s linear 260ms;
+  }
+
+  .sticky-cta[data-visible="true"] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: opacity 260ms ease, transform 260ms ease, visibility 0s;
+  }
+
+  .sticky-cta:hover {
+    background: var(--color-celestial-700);
+  }
+
+  .sticky-cta:active {
+    transform: translateY(1px);
+  }
+
+  .sticky-cta:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .sticky-cta__icon {
+    flex-shrink: 0;
+    opacity: 0.95;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-cta {
+      transition: opacity 0.01ms, visibility 0s;
+      transform: none;
+    }
+    .sticky-cta[data-visible="true"] {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const cta = document.getElementById('sticky-download-cta');
+  const hero = document.querySelector('.hero-section');
+  const finalCta = document.querySelector('.final-cta');
+
+  if (cta && hero) {
+    let heroOut = false;     // hero saiu da viewport
+    let finalIn = false;     // CTA final está visível
+
+    function sync() {
+      const show = heroOut && !finalIn;
+      cta!.setAttribute('data-visible', show ? 'true' : 'false');
+    }
+
+    // hero: visível => esconde FAB (estamos no topo)
+    new IntersectionObserver(
+      ([e]) => { heroOut = !e.isIntersecting; sync(); },
+      { rootMargin: '0px', threshold: 0 }
+    ).observe(hero);
+
+    // CTA final: visível => esconde FAB (redundância)
+    if (finalCta) {
+      new IntersectionObserver(
+        ([e]) => { finalIn = e.isIntersecting; sync(); },
+        { rootMargin: '0px', threshold: 0 }
+      ).observe(finalCta);
+    }
+  }
+</script>

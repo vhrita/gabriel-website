@@ -9,15 +9,17 @@ interface Props {
   pathname?: string;
   type?: 'website' | 'article';
   headerVariant?: 'transparent' | 'solid';
+  bodyTheme?: 'paper' | 'dark' | 'light';
 }
 
 const {
   title,
-  description = 'Gabriel: Bíblia e Devocional — Sua jornada espiritual, todos os dias.',
+  description = 'Gabriel — Bíblia e Devocional. Dez minutos com Deus, todo dia, no seu ritmo.',
   image = '/og-image.png',
   pathname,
   type = 'website',
   headerVariant = 'solid',
+  bodyTheme = 'paper',
 } = Astro.props;
 
 const resolvedPathname = pathname ?? Astro.url.pathname;
@@ -37,8 +39,8 @@ const year = new Date().getFullYear();
     <!-- Canonical -->
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Theme color — paper (ADR-0015 §5.1) -->
-    <meta name="theme-color" content="#FAF7F0" />
+    <!-- Theme color — adapts to bodyTheme -->
+    <meta name="theme-color" content={bodyTheme === 'dark' ? '#0E1D33' : bodyTheme === 'light' ? '#FFFFFF' : '#FAF7F0'} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
@@ -55,23 +57,29 @@ const year = new Date().getFullYear();
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Preload critical fonts: Inter 400 (nav/UI) -->
-    <link
-      rel="preload"
-      href="/fonts/inter-latin-400-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <!-- Fontes: @fontsource (global.css) com font-display: swap, bundled em /_astro por hash.
+         Preload estático removido — apontava p/ caminho não-bundled e nunca casava (warning). -->
 
     <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="icon" href="/favicon.ico" />
 
     <title>{title}</title>
   </head>
 
-  <body class="font-sans min-h-dvh flex flex-col antialiased paper-grain" style="background-color: var(--color-paper); color: var(--color-ink);">
+  <body
+    class:list={[
+      'font-sans min-h-dvh flex flex-col antialiased',
+      bodyTheme === 'paper' && 'paper-grain',
+    ]}
+    style={bodyTheme === 'dark'
+      ? 'background-color: var(--color-bg-dark-base); color: var(--color-text-on-dark);'
+      : bodyTheme === 'light'
+      ? 'background-color: var(--color-bg-base); color: var(--color-text-strong);'
+      : 'background-color: var(--color-paper); color: var(--color-ink);'}
+  >
 
     <!-- Skip to content (a11y) -->
     <a
@@ -92,6 +100,7 @@ const year = new Date().getFullYear();
     <header
       id="site-header"
       data-variant={headerVariant}
+      data-body-theme={bodyTheme}
       class:list={[
         'sticky top-0 z-50 transition-all duration-300',
         headerVariant === 'solid'
@@ -99,7 +108,11 @@ const year = new Date().getFullYear();
           : 'header--transparent',
       ]}
       style={headerVariant === 'solid'
-        ? `background-color: var(--color-paper); border-bottom: 1px solid rgba(26, 24, 20, 0.06);`
+        ? (bodyTheme === 'dark'
+            ? 'background-color: var(--color-bg-dark-base); border-bottom: 1px solid var(--color-divider-on-dark);'
+            : bodyTheme === 'light'
+            ? 'background-color: var(--color-bg-base); border-bottom: 1px solid var(--color-divider-soft);'
+            : 'background-color: var(--color-paper); border-bottom: 1px solid rgba(26, 24, 20, 0.06);')
         : ''}
     >
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,7 +133,7 @@ const year = new Date().getFullYear();
               style="border-radius: 6px; display: inline-block; vertical-align: middle; flex-shrink: 0;"
             />
             <span
-              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 24, 'wght' 700; font-size: 1.25rem; color: var(--color-ink); letter-spacing: -0.02em; -webkit-font-smoothing: antialiased;"
+              style={`font-family: var(--font-family-display); font-variation-settings: 'opsz' 24, 'wght' 700; font-size: 1.25rem; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark)' : bodyTheme === 'light' ? 'var(--color-text-strong)' : 'var(--color-ink)'}; letter-spacing: -0.02em; -webkit-font-smoothing: antialiased;`}
             >Gabriel</span>
           </a>
 
@@ -131,7 +144,7 @@ const year = new Date().getFullYear();
                 <a
                   href="/privacy"
                   class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
-                  style="letter-spacing: 0.04em; color: var(--color-ink-muted);"
+                  style={`letter-spacing: 0.04em; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark-muted)' : bodyTheme === 'light' ? 'var(--color-text-muted)' : 'var(--color-ink-muted)'};`}
                 >
                   Privacidade
                 </a>
@@ -140,7 +153,7 @@ const year = new Date().getFullYear();
                 <a
                   href="/terms"
                   class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
-                  style="letter-spacing: 0.04em; color: var(--color-ink-muted);"
+                  style={`letter-spacing: 0.04em; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark-muted)' : bodyTheme === 'light' ? 'var(--color-text-muted)' : 'var(--color-ink-muted)'};`}
                 >
                   Termos
                 </a>
@@ -149,7 +162,7 @@ const year = new Date().getFullYear();
                 <a
                   href="/delete-account"
                   class="header-nav-link text-xs sm:text-sm font-medium px-2 sm:px-3 py-1.5 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-divine-500 focus-visible:ring-offset-1"
-                  style="letter-spacing: 0.04em; color: var(--color-ink-muted); white-space: nowrap;"
+                  style={`letter-spacing: 0.04em; color: ${bodyTheme === 'dark' ? 'var(--color-text-on-dark-muted)' : bodyTheme === 'light' ? 'var(--color-text-muted)' : 'var(--color-ink-muted)'}; white-space: nowrap;`}
                 >
                   Excluir Conta
                 </a>
@@ -165,29 +178,29 @@ const year = new Date().getFullYear();
       <slot />
     </main>
 
-    <!-- Footer v2 — Type as Sky. polish-v2: footer App col uses StoreBadges instead of text links. -->
-    <footer style="background-color: var(--color-ink); color: var(--color-paper);">
+    <!-- Footer v4 — Dark navy anchor. bg navy (celestial-900) sobre home light. -->
+    <footer style="background-color: var(--color-bg-dark-base); color: var(--color-text-on-dark);">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div class="footer-grid">
 
           <!-- Wordmark + tagline -->
           <div class="footer-brand">
             <p
-              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 700; font-size: 1.75rem; color: var(--color-paper); margin: 0 0 0.5rem; letter-spacing: -0.025em; -webkit-font-smoothing: antialiased;"
+              style="font-family: var(--font-family-display); font-variation-settings: 'opsz' 48, 'wght' 700; font-size: 1.75rem; color: var(--color-text-on-dark); margin: 0 0 0.5rem; letter-spacing: -0.025em; -webkit-font-smoothing: antialiased;"
             >
               Gabriel
             </p>
             <p
-              style="font-family: var(--font-family-serif); font-variation-settings: 'opsz' 14; font-style: italic; font-size: 0.875rem; color: rgba(250, 247, 240, 0.55); margin: 0; line-height: 1.5;"
+              style="font-family: var(--font-family-serif); font-variation-settings: 'opsz' 14; font-style: italic; font-size: 0.875rem; color: var(--color-text-on-dark-muted); margin: 0; line-height: 1.5;"
             >
-              Sua jornada espiritual, todos os dias.
+              Bíblia e devocional, todos os dias.
             </p>
           </div>
 
           <!-- Links coluna App — StoreBadges small -->
           <nav aria-label="Links do app" class="footer-col">
             <p
-              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.4); margin: 0 0 0.875rem;"
+              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.55); margin: 0 0 0.875rem;"
             >
               App
             </p>
@@ -197,18 +210,25 @@ const year = new Date().getFullYear();
                 href="https://play.google.com/store/apps/details?id=com.gabriel.biblia"
                 size="sm"
               />
-              <StoreBadge
-                variant="app-store"
-                disabled
-                size="sm"
-              />
+              <!-- iOS ainda não lançou — rótulo honesto (consistente com hero/CTA),
+                   estilizado p/ o footer dark em vez da badge oficial cinza. -->
+              <span
+                role="img"
+                aria-label="App para iOS — em breve"
+                style="display: inline-flex; align-items: center; gap: 0.4375rem; height: 36px; padding-inline: 0.75rem; border: 1px solid rgba(250, 247, 240, 0.18); border-radius: 8px; font-family: var(--font-family-sans); font-size: 0.8125rem; font-weight: 500; color: rgba(250, 247, 240, 0.65); letter-spacing: 0.01em;"
+              >
+                <svg width="13" height="16" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true">
+                  <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+                </svg>
+                iOS em breve
+              </span>
             </div>
           </nav>
 
           <!-- Links coluna Legal -->
           <nav aria-label="Links legais do rodapé" class="footer-col">
             <p
-              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.4); margin: 0 0 0.75rem;"
+              style="font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250, 247, 240, 0.55); margin: 0 0 0.75rem;"
             >
               Legal
             </p>
@@ -250,18 +270,27 @@ const year = new Date().getFullYear();
           style="border-top: 1px solid rgba(170, 141, 44, 0.2); margin-top: 3rem; padding-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;"
         >
           <p
-            style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.35); margin: 0; letter-spacing: 0.02em;"
+            style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.55); margin: 0; letter-spacing: 0.02em;"
           >
-            &copy; {year} VHXCO · CNPJ 62.874.893/0001-51
+            &copy; {year} Gabriel · CNPJ 62.874.893/0001-51
           </p>
+          <!-- Assinatura discreta da software house. Linkada pro site da VHXCO
+               (no ar). X ciano sobre o navy (PNG já transparente). Hover sutil. -->
           <a
             href="https://vhxco.com"
             target="_blank"
-            rel="noopener noreferrer"
-            style="font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.35); text-decoration: none; letter-spacing: 0.02em; transition: color 200ms;"
-            class="footer-link"
+            rel="noopener"
+            class="footer-vhxco"
+            style="display: inline-flex; align-items: center; gap: 0.4375rem; font-family: var(--font-family-sans); font-size: 0.6875rem; color: rgba(250, 247, 240, 0.85); letter-spacing: 0.02em; text-decoration: none; transition: opacity 200ms;"
           >
-            vhxco.com
+            <img
+              src="/vhxco-mark.png"
+              alt="VHXCO"
+              width="20"
+              height="20"
+              style="height: 20px; width: auto; display: block; flex-shrink: 0;"
+            />
+            Uma criação VHXCO
           </a>
         </div>
       </div>
@@ -281,12 +310,8 @@ const year = new Date().getFullYear();
         .footer-link:hover {
           color: rgba(250, 247, 240, 0.95) !important;
         }
-        /* StoreBadge in footer: invert colors since footer bg is dark ink */
-        .footer-col :global(.store-badge__svg) {
-          /* badges are already black bg with white text — fine on dark footer */
-        }
-        .footer-col :global(.store-badge__soon) {
-          color: rgba(250, 247, 240, 0.35);
+        .footer-vhxco:hover {
+          opacity: 0.7;
         }
       </style>
     </footer>
@@ -301,20 +326,34 @@ const year = new Date().getFullYear();
     <script>
       const header = document.getElementById('site-header');
       if (header && header.dataset.variant === 'transparent') {
+        const isDark = header.dataset.bodyTheme === 'dark';
+        const isLight = header.dataset.bodyTheme === 'light';
+        const bgScrolled = isDark
+          ? 'rgba(14, 29, 51, 0.85)'
+          : isLight
+          ? 'rgba(255, 255, 255, 0.85)'
+          : 'rgba(250, 247, 240, 0.85)';
+        const borderScrolled = isDark
+          ? '1px solid rgba(250, 247, 240, 0.10)'
+          : isLight
+          ? '1px solid rgba(30, 58, 95, 0.06)'
+          : '1px solid rgba(26, 24, 20, 0.06)';
+
         function applyScrollState() {
           const scrolled = window.scrollY > 20;
+          const style = header!.style as CSSStyleDeclaration & { webkitBackdropFilter: string };
           if (scrolled) {
-            header!.style.backgroundColor = 'rgba(250, 247, 240, 0.85)';
-            header!.style.backdropFilter = 'blur(12px)';
-            header!.style.webkitBackdropFilter = 'blur(12px)';
-            header!.style.borderBottom = '1px solid rgba(26, 24, 20, 0.06)';
-            header!.style.boxShadow = 'none';
+            style.backgroundColor = bgScrolled;
+            style.backdropFilter = 'blur(12px)';
+            style.webkitBackdropFilter = 'blur(12px)';
+            style.borderBottom = borderScrolled;
+            style.boxShadow = 'none';
           } else {
-            header!.style.backgroundColor = 'transparent';
-            header!.style.backdropFilter = '';
-            header!.style.webkitBackdropFilter = '';
-            header!.style.borderBottom = '';
-            header!.style.boxShadow = '';
+            style.backgroundColor = 'transparent';
+            style.backdropFilter = '';
+            style.webkitBackdropFilter = '';
+            style.borderBottom = '';
+            style.boxShadow = '';
           }
         }
 
