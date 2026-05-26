@@ -35,7 +35,7 @@ const ariaLabel = disabled ? `${alt} — Em breve` : alt;
 ---
 
 <a
-  class:list={['store-badge', `store-badge--${size}`, disabled && 'store-badge--disabled', className]}
+  class:list={['store-badge', `store-badge--${variant}`, `store-badge--${size}`, disabled && 'store-badge--disabled', className]}
   href={isLink ? href : undefined}
   target={isLink ? '_blank' : undefined}
   rel={isLink ? 'noopener noreferrer' : undefined}
@@ -83,5 +83,21 @@ const ariaLabel = disabled ? `${alt} — Em breve` : alt;
 
   .store-badge--sm .store-badge__img {
     height: 36px;
+  }
+
+  /* A badge oficial do Google Play tem "safe area" transparente interna grande:
+     a 50px de box, o logo+texto visível ocupa ~70% da altura, parecendo MENOR que
+     o botão iOS (navy, preenche 100% da caixa). Compensamos aumentando a caixa do
+     PNG do Google (altura E largura, aspect 2.58:1) p/ o tamanho VISUAL casar com
+     o trigger iOS de 50px (smoke leva4 — Vitor viu GP menor). Só no md (hero/CTA);
+     o footer usa sm, sem par lado a lado. */
+  .store-badge--google-play.store-badge--md .store-badge__img {
+    height: 68px;
+    /* O PNG tem 29/250 = 11.6% de safe-area transparente em cima e embaixo
+       (= 7.9px a 68px). margin-block negativo encolhe a caixa de fluxo p/ ~52px
+       (≈ altura do trigger iOS de 50px) enquanto a imagem renderiza 68px,
+       sangrando igualmente p/ cima e p/ baixo. Com align-items:flex-start no
+       container, o topo do logo VISÍVEL casa com o topo do botão iOS. */
+    margin-block: -7.9px;
   }
 </style>
