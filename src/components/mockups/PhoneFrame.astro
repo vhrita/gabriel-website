@@ -3,16 +3,18 @@
  * PhoneFrame.astro — v3
  *
  * Phone frame CSS puro (bezel + notch + home indicator + drop-shadow).
- * Carrega um único <img> em /screens/v3/{slug}.png.
+ * Carrega um único <img> em /screens/v3/{slug}.jpeg.
  * SEM nenhum markup fake dentro do screen (anti-pattern PRs 2–5).
  *
- * Vitor substitui os PNGs por prints reais (1170×2532 ou 1080×2400) depois.
- * Substituição 1:1 — zero mudança de código.
+ * polish-leva3b (2026-05-26): prints REAIS do app integrados (dark mode —
+ * intencional, padrão Linear/Apple: phone dark sobre site light). JPEG, não PNG:
+ * conteúdo fotográfico (gradientes/foto de fundo) comprime muito melhor em JPEG.
+ * Slots: devocional · bible · chat · verse · letter · home (hero).
  */
 
 interface Props {
-  /** Slug do screen — define o path do PNG carregado */
-  screen: 'devocional' | 'bible' | 'chat' | 'streak' | 'verse' | 'letter';
+  /** Slug do screen — define o path do JPEG carregado */
+  screen: 'devocional' | 'bible' | 'chat' | 'verse' | 'letter' | 'home';
   /** Alt text descritivo PT-BR (a11y) */
   alt: string;
   /** Tamanho do frame (controla a largura, aspect lock) */
@@ -28,7 +30,7 @@ const { screen, alt, size = 'md', priority = false, class: className } = Astro.p
 const width = size === 'lg' ? 320 : size === 'sm' ? 192 : 280;
 const aspect = 19.5 / 9; // iPhone 14-like
 const height = Math.round(width * aspect);
-const screenSrc = `/screens/v3/${screen}.png`;
+const screenSrc = `/screens/v3/${screen}.jpeg`;
 const styleAttr = [
   `width: ${width}px`,
   `--phone-h: ${height}px`,
