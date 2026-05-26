@@ -89,15 +89,20 @@ const ariaLabel = disabled ? `${alt} — Em breve` : alt;
      a 50px de box, o logo+texto visível ocupa ~70% da altura, parecendo MENOR que
      o botão iOS (navy, preenche 100% da caixa). Compensamos aumentando a caixa do
      PNG do Google (altura E largura, aspect 2.58:1) p/ o tamanho VISUAL casar com
-     o trigger iOS de 50px (smoke leva4 — Vitor viu GP menor). Só no md (hero/CTA);
-     o footer usa sm, sem par lado a lado. */
+     o botão iOS vizinho. PNG tem 29/250 = 11.6% de safe-area transparente em cima
+     e embaixo; margin-block negativo encolhe a caixa de fluxo de volta enquanto a
+     imagem renderiza maior, sangrando igualmente p/ cima e p/ baixo. */
   .store-badge--google-play.store-badge--md .store-badge__img {
+    /* trigger iOS de 50px (smoke leva4 — Vitor viu GP menor): box 68px, safe-area
+       7.9px/lado → fluxo ~52px ≈ 50px do botão iOS. */
     height: 68px;
-    /* O PNG tem 29/250 = 11.6% de safe-area transparente em cima e embaixo
-       (= 7.9px a 68px). margin-block negativo encolhe a caixa de fluxo p/ ~52px
-       (≈ altura do trigger iOS de 50px) enquanto a imagem renderiza 68px,
-       sangrando igualmente p/ cima e p/ baixo. Com align-items:flex-start no
-       container, o topo do logo VISÍVEL casa com o topo do botão iOS. */
     margin-block: -7.9px;
+  }
+  .store-badge--google-play.store-badge--sm .store-badge__img {
+    /* footer: pílula "iOS em breve" vizinha tem 36px e preenche 100% da caixa
+       (smoke leva5 — Vitor viu GP menor). box 47px, safe-area 5.45px/lado →
+       fluxo ~36px ≈ 36px da pílula iOS. Container usa align-items:flex-start. */
+    height: 47px;
+    margin-block: -5.45px;
   }
 </style>
