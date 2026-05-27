@@ -3,19 +3,32 @@
  * IOSWaitlist.astro — captura de e-mail pro lançamento iOS (waitlist).
  *
  * Substitui a badge morta da App Store ("em breve"). Decisão do Vitor:
- * trocar badge inerte por lead-gen. Zero-JS: <details> nativo expande
- * um form Formspree (POST puro, sem AJAX — Formspree responde com sua
- * página de obrigado).
+ * trocar badge inerte por lead-gen.
+ *
+ * O trigger "Avise-me no iOS" abre um MODAL (overlay fixed + card centrado)
+ * — não um painel inline. Submit é via AJAX fetch POST com header
+ * `Accept: application/json`, então o Formspree responde JSON (NÃO redireciona,
+ * funciona na conta free) e trocamos o conteúdo do modal por sucesso inline.
+ *
+ * Por que modal + AJAX (fix de 2 bugs em produção):
+ *   1. Layout break: o antigo <details> expandia um painel NO FLUXO, empurrando
+ *      hero/footer. Modal overlay (position: fixed, portalizado pro <body>)
+ *      não desloca nada.
+ *   2. Formspree "Method unsupported" + redirect: submit nativo de <form POST>
+ *      não chegava como o Formspree espera e redirecionava pra página dele.
+ *      fetch POST com Accept: application/json resolve e dá sucesso inline.
  *
  * Degradação graciosa: sem PUBLIC_FORMSPREE_ID, renderiza um botão
  * "iOS em breve" desabilitado (sem form quebrado apontando p/ /f/undefined).
  *
  * Visual: light v4. O trigger casa a altura/peso visual da StoreBadge md
- * (50px) pra ficar par com a badge do Google Play ao lado.
+ * (50px) pra ficar par com a badge do Google Play ao lado. Modal no estilo
+ * do site: branco/navy/gold, sombra suave.
  *
  * Props:
  *   size?: 'md' | 'sm' — md (hero/CTA, 50px) · sm (footer, 36px)
- *   align?: 'start' | 'center' — alinhamento do painel expandido
+ *   align?: 'start' | 'center' — alinhamento do TRIGGER (o modal é sempre
+ *           centrado no viewport; align afeta só a posição do botão na linha)
  *   class?: string
  */
 
@@ -31,42 +44,76 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 const enabled = !!formspreeId;
 const action = enabled ? `https://formspree.io/f/${formspreeId}` : undefined;
 
-// id único pra ligar label/input/aria sem colidir entre instâncias (hero + CTA)
+// id único pra ligar trigger/modal/input/aria sem colidir entre instâncias (hero + CTA)
 const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 {enabled ? (
-  <details class:list={['ios-wl', `ios-wl--${size}`, `ios-wl--${align}`, className]}>
-    <summary class="ios-wl__trigger" aria-label="Ser avisado quando o app lançar no iOS">
+  <div class:list={['ios-wl', `ios-wl--${size}`, `ios-wl--${align}`, className]} data-ios-wl={uid}>
+    <button
+      type="button"
+      class="ios-wl__trigger"
+      data-ios-wl-open
+      aria-haspopup="dialog"
+      aria-controls={`${uid}-dialog`}
+      aria-label="Ser avisado quando o app lançar no iOS"
+    >
       <svg class="ios-wl__apple" width="15" height="18" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true">
         <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
       </svg>
       <span class="ios-wl__trigger-label">Avise-me no iOS</span>
-    </summary>
+    </button>
 
-    <div class="ios-wl__panel">
-      <p class="ios-wl__hint">Deixe seu e-mail e avisamos assim que o Gabriel chegar no iPhone.</p>
-      <form
-        action={action}
-        method="POST"
-        class="ios-wl__form"
+    <div
+      id={`${uid}-dialog`}
+      class="ios-wl__overlay"
+      data-ios-wl-overlay
+      hidden
+    >
+      <div
+        class="ios-wl__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`${uid}-title`}
+        data-ios-wl-modal
       >
-        <input type="hidden" name="_subject" value="Gabriel — waitlist iOS" />
-        <input type="hidden" name="origem" value="landing-page" />
-        <label class="sr-only" for={uid}>Seu e-mail</label>
-        <input
-          id={uid}
-          type="email"
-          name="email"
-          required
-          autocomplete="email"
-          placeholder="seu@email.com"
-          class="ios-wl__input"
-        />
-        <button type="submit" class="ios-wl__submit">Avisar</button>
-      </form>
+        <button
+          type="button"
+          class="ios-wl__close"
+          data-ios-wl-close
+          aria-label="Fechar"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div data-ios-wl-content>
+          <h2 id={`${uid}-title`} class="ios-wl__title">Avise-me quando chegar no iOS</h2>
+          <p class="ios-wl__hint">Deixe seu e-mail e avisamos assim que o Gabriel chegar no iPhone.</p>
+          <form action={action} method="POST" class="ios-wl__form" data-ios-wl-form>
+            <input type="hidden" name="_subject" value="Gabriel — waitlist iOS" />
+            <input type="hidden" name="origem" value="landing-page" />
+            <label class="sr-only" for={uid}>Seu e-mail</label>
+            <input
+              id={uid}
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="seu@email.com"
+              class="ios-wl__input"
+              data-ios-wl-input
+            />
+            <button type="submit" class="ios-wl__submit" data-ios-wl-submit>Avisar</button>
+            <p class="ios-wl__error" data-ios-wl-error role="alert" hidden>
+              Não consegui enviar agora — tenta de novo?
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
-  </details>
+  </div>
 ) : (
   <span
     class:list={['ios-wl', 'ios-wl--disabled', `ios-wl--${size}`, className]}
@@ -100,13 +147,13 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
     padding-inline: 1.125rem;
     background: var(--color-text-strong);   /* navy — par visual c/ badge dark */
     color: #FFFFFF;
+    border: none;
     border-radius: 8px;
     font-family: var(--font-family-sans);
     font-weight: 600;
     font-size: 0.9375rem;
     letter-spacing: 0.01em;
     cursor: pointer;
-    list-style: none;
     user-select: none;
     white-space: nowrap;
     transition: background 200ms ease, transform 200ms ease, opacity 200ms ease;
@@ -119,10 +166,6 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
     font-size: 0.8125rem;
   }
 
-  .ios-wl__trigger::-webkit-details-marker {
-    display: none;
-  }
-
   .ios-wl:not(.ios-wl--disabled) .ios-wl__trigger:hover {
     background: var(--color-celestial-700);
     transform: translateY(-1px);
@@ -132,7 +175,7 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
     transform: translateY(0);
   }
 
-  details.ios-wl > summary:focus-visible {
+  .ios-wl__trigger:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
@@ -149,33 +192,99 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
     cursor: not-allowed;
   }
 
-  /* Painel expandido */
-  .ios-wl__panel {
-    margin-top: 0.875rem;
-    padding: 1rem 1.125rem;
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-divider);
-    border-radius: 12px;
-    max-width: 22rem;
-    animation: ios-wl-in 220ms ease-out;
-  }
-
-  .ios-wl--center .ios-wl__panel {
-    margin-inline: auto;
+  /* ===== Modal ===== */
+  /* Overlay: position fixed cobre o viewport, NÃO empurra o layout.
+     Portalizado pro <body> via JS, imune a ancestral com transform. */
+  .ios-wl__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgba(15, 23, 42, 0.55);   /* navy escuro translúcido */
+    animation: ios-wl-overlay-in 180ms ease-out;
+    /* texto sempre alinhado à esquerda dentro do modal, independe do align do trigger */
     text-align: left;
   }
 
-  @keyframes ios-wl-in {
-    from { opacity: 0; transform: translateY(-4px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .ios-wl__overlay[hidden] {
+    display: none;
+  }
+
+  .ios-wl__modal {
+    position: relative;
+    width: 100%;
+    max-width: 24rem;
+    padding: 1.75rem 1.5rem 1.5rem;
+    background: #FFFFFF;
+    border: 1px solid var(--color-divider);
+    border-radius: 16px;
+    box-shadow: 0 24px 60px -12px rgba(15, 23, 42, 0.32), 0 8px 24px -8px rgba(15, 23, 42, 0.18);
+    animation: ios-wl-modal-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes ios-wl-overlay-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes ios-wl-modal-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ios-wl__overlay,
+    .ios-wl__modal {
+      animation: none;
+    }
+  }
+
+  .ios-wl__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease;
+  }
+
+  .ios-wl__close:hover {
+    background: var(--color-bg-soft);
+    color: var(--color-text-strong);
+  }
+
+  .ios-wl__close:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .ios-wl__title {
+    font-family: var(--font-family-display, var(--font-family-sans));
+    font-size: 1.25rem;
+    line-height: 1.25;
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin: 0 2rem 0.5rem 0;   /* espaço à direita pro botão fechar */
   }
 
   .ios-wl__hint {
     font-family: var(--font-family-sans);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     color: var(--color-text-body);
-    margin: 0 0 0.75rem;
+    margin: 0 0 1rem;
   }
 
   .ios-wl__form {
@@ -187,7 +296,7 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
   .ios-wl__input {
     flex: 1 1 11rem;
     min-width: 0;
-    height: 42px;
+    height: 44px;
     padding-inline: 0.875rem;
     font-family: var(--font-family-sans);
     font-size: 0.9375rem;
@@ -209,7 +318,7 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
   }
 
   .ios-wl__submit {
-    height: 42px;
+    height: 44px;
     padding-inline: 1.25rem;
     background: var(--color-accent-deep);   /* gold-deep — AA em branco */
     color: #FFFFFF;
@@ -220,10 +329,10 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
     font-size: 0.9375rem;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 200ms ease, transform 200ms ease;
+    transition: background 200ms ease, transform 200ms ease, opacity 200ms ease;
   }
 
-  .ios-wl__submit:hover {
+  .ios-wl__submit:hover:not(:disabled) {
     background: var(--color-divine-800);
     transform: translateY(-1px);
   }
@@ -232,4 +341,178 @@ const uid = `ios-wl-${Math.random().toString(36).slice(2, 8)}`;
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
+
+  .ios-wl__submit:disabled {
+    opacity: 0.65;
+    cursor: progress;
+    transform: none;
+  }
+
+  .ios-wl__error {
+    flex: 1 1 100%;
+    margin: 0.25rem 0 0;
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: #B42318;   /* red-700 — AA em branco (5.9:1) */
+  }
+
+  .ios-wl__error[hidden] {
+    display: none;
+  }
+
+  /* Sucesso inline — markup injetado via JS (innerHTML), portanto SEM o atributo
+     de scope do Astro. Usa :global() pra que estas regras casem os nós injetados
+     (do contrário a SVG sem scope estoura de tamanho). */
+  :global(.ios-wl__success) {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+
+  :global(.ios-wl__success-icon) {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    margin-top: 0.0625rem;
+    color: var(--color-accent-deep);
+  }
+
+  :global(.ios-wl__success-text) {
+    font-family: var(--font-family-sans);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-text-body);
+    margin: 0;
+  }
+
+  :global(.ios-wl__success-text strong) {
+    color: var(--color-text-strong);
+  }
 </style>
+
+<script>
+  // Wire cada instância do waitlist (hero + FinalCTA): trigger -> modal -> form AJAX.
+  // Bare <script> (Astro dedup + roda uma vez); itera por [data-ios-wl].
+  function initIOSWaitlist(root: HTMLElement) {
+    const trigger = root.querySelector<HTMLButtonElement>('[data-ios-wl-open]');
+    const overlay = root.querySelector<HTMLElement>('[data-ios-wl-overlay]');
+    const modal = overlay?.querySelector<HTMLElement>('[data-ios-wl-modal]');
+    if (!trigger || !overlay || !modal) return;
+
+    // Portal: move o overlay pro <body> na init. Imuniza position:fixed contra
+    // qualquer ancestral com transform/filter/perspective (atual ou futuro).
+    document.body.appendChild(overlay);
+
+    const SUCCESS_HTML = `
+      <div class="ios-wl__success">
+        <svg class="ios-wl__success-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <path d="m9 11 3 3L22 4" />
+        </svg>
+        <p class="ios-wl__success-text"><strong>Pronto!</strong> Te avisamos assim que o Gabriel chegar no iPhone.</p>
+      </div>`;
+
+    let lastFocused: HTMLElement | null = null;
+
+    const getFocusable = () =>
+      Array.from(
+        modal.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => el.offsetParent !== null);
+
+    function open() {
+      lastFocused = document.activeElement as HTMLElement;
+      overlay!.hidden = false;
+      document.body.style.overflow = 'hidden'; // scroll lock (crítico no 375/iOS touch)
+      const input = modal!.querySelector<HTMLElement>('[data-ios-wl-input]');
+      const focusTarget = input || modal!.querySelector<HTMLElement>('[data-ios-wl-close]');
+      // próximo frame: garante elemento visível antes do focus
+      requestAnimationFrame(() => focusTarget?.focus());
+    }
+
+    function close() {
+      overlay!.hidden = true;
+      document.body.style.overflow = '';
+      (lastFocused || trigger)?.focus(); // foco volta pro trigger
+    }
+
+    function onKeydown(e: KeyboardEvent) {
+      if (overlay!.hidden) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+        return;
+      }
+      // focus trap básico
+      if (e.key === 'Tab') {
+        const focusable = getFocusable();
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    trigger.addEventListener('click', open);
+    overlay.querySelectorAll('[data-ios-wl-close]').forEach((btn) =>
+      btn.addEventListener('click', close)
+    );
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close(); // clique fora do card fecha
+    });
+    document.addEventListener('keydown', onKeydown);
+
+    // Submit AJAX (fetch POST + Accept json + preventDefault).
+    const form = overlay.querySelector<HTMLFormElement>('[data-ios-wl-form]');
+    const content = overlay.querySelector<HTMLElement>('[data-ios-wl-content]');
+    if (!form || !content) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // só roda após o constraint check nativo (email required) passar
+      const submitBtn = form.querySelector<HTMLButtonElement>('[data-ios-wl-submit]');
+      const errorEl = form.querySelector<HTMLElement>('[data-ios-wl-error]');
+      if (errorEl) errorEl.hidden = true;
+
+      const originalLabel = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando…';
+      }
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (res.ok) {
+          // sucesso inline — troca o conteúdo do modal, mantém aberto até o user fechar
+          content.innerHTML = SUCCESS_HTML;
+          const closeBtn = overlay.querySelector<HTMLElement>('[data-ios-wl-close]');
+          requestAnimationFrame(() => closeBtn?.focus());
+        } else {
+          throw new Error('formspree-not-ok');
+        }
+      } catch {
+        if (errorEl) errorEl.hidden = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel || 'Avisar';
+        }
+      }
+    });
+  }
+
+  document
+    .querySelectorAll<HTMLElement>('[data-ios-wl]')
+    .forEach((root) => initIOSWaitlist(root));
+</script>
